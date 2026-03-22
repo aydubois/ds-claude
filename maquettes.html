@@ -590,6 +590,99 @@
       cursor: not-allowed;
     }
 
+    /* ─── Pagination ─── */
+    .pagination-demo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+    .pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .pg-btn {
+      width: 28px; height: 28px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.8125rem;
+      font-family: var(--font);
+      cursor: pointer;
+      transition: all 150ms ease;
+      padding: 0;
+    }
+    .pg-btn:hover:not(:disabled):not(.pg-active) { background: var(--surface); }
+    .pg-btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+    .pg-btn.pg-active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .pg-btn:disabled { color: var(--text-disabled); cursor: not-allowed; }
+    .pg-ellipsis { width: 28px; text-align: center; color: var(--text-muted); }
+
+    /* ─── Accordion ─── */
+    .accordion-demo {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .accordion-panel {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      overflow: hidden;
+    }
+    .accordion-panel.dragging { opacity: 0.5; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+    .accordion-panel.drop-above { border-top: 2px solid var(--primary); }
+    .accordion-header {
+      display: flex;
+      align-items: center;
+    }
+    .accordion-drag {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 36px;
+      cursor: grab;
+      color: var(--text-disabled);
+      font-size: 1rem;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .accordion-drag:hover { color: var(--text-muted); background: var(--surface); }
+    .accordion-drag:active { cursor: grabbing; }
+    .accordion-toggle {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px 8px 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      text-align: left;
+    }
+    .accordion-toggle:hover { background: var(--surface); }
+    .accordion-chevron { font-size: 0.75rem; color: var(--text-muted); }
+    .accordion-body {
+      padding: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 0.875rem;
+      color: var(--text);
+    }
+
     /* ─── Color palette ─── */
     .palette { display: flex; gap: 8px; flex-wrap: wrap; }
     .swatch {
@@ -1143,6 +1236,184 @@
     </div>
   </div>
 
+  <!-- Pagination -->
+  <div class="section">
+    <div class="section-title">Pagination</div>
+
+    <div class="label-text" style="margin-bottom:8px">Standard (page 3 sur 5)</div>
+    <div class="pagination-demo">
+      <span>21–30 sur 48</span>
+      <div class="pagination-controls">
+        <button class="pg-btn">&#171;</button>
+        <button class="pg-btn">&#8249;</button>
+        <button class="pg-btn">1</button>
+        <button class="pg-btn">2</button>
+        <button class="pg-btn pg-active">3</button>
+        <button class="pg-btn">4</button>
+        <button class="pg-btn">5</button>
+        <button class="pg-btn">&#8250;</button>
+        <button class="pg-btn">&#187;</button>
+      </div>
+    </div>
+
+    <div class="label-text" style="margin-top:16px; margin-bottom:8px">Avec ellipsis (page 5 sur 12)</div>
+    <div class="pagination-demo">
+      <span>41–50 sur 120</span>
+      <div class="pagination-controls">
+        <button class="pg-btn">&#171;</button>
+        <button class="pg-btn">&#8249;</button>
+        <button class="pg-btn">1</button>
+        <span class="pg-ellipsis">…</span>
+        <button class="pg-btn">4</button>
+        <button class="pg-btn pg-active">5</button>
+        <button class="pg-btn">6</button>
+        <span class="pg-ellipsis">…</span>
+        <button class="pg-btn">12</button>
+        <button class="pg-btn">&#8250;</button>
+        <button class="pg-btn">&#187;</button>
+      </div>
+    </div>
+
+    <div class="label-text" style="margin-top:16px; margin-bottom:8px">Première page (boutons précédents disabled)</div>
+    <div class="pagination-demo">
+      <span>1–10 sur 120</span>
+      <div class="pagination-controls">
+        <button class="pg-btn" disabled>&#171;</button>
+        <button class="pg-btn" disabled>&#8249;</button>
+        <button class="pg-btn pg-active">1</button>
+        <button class="pg-btn">2</button>
+        <button class="pg-btn">3</button>
+        <span class="pg-ellipsis">…</span>
+        <button class="pg-btn">12</button>
+        <button class="pg-btn">&#8250;</button>
+        <button class="pg-btn">&#187;</button>
+      </div>
+    </div>
+
+    <div class="label-text" style="margin-top:16px; margin-bottom:8px">Dernière page (boutons suivants disabled)</div>
+    <div class="pagination-demo">
+      <span>111–120 sur 120</span>
+      <div class="pagination-controls">
+        <button class="pg-btn">&#171;</button>
+        <button class="pg-btn">&#8249;</button>
+        <button class="pg-btn">1</button>
+        <span class="pg-ellipsis">…</span>
+        <button class="pg-btn">11</button>
+        <button class="pg-btn pg-active">12</button>
+        <button class="pg-btn" disabled>&#8250;</button>
+        <button class="pg-btn" disabled>&#187;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accordion / Drag & Drop -->
+  <div class="section">
+    <div class="section-title">Accordion — Drag &amp; Drop</div>
+
+    <div class="label-text" style="margin-bottom:8px">Sections dépliées &amp; pliées — réordonnables par drag du handle ≡</div>
+    <div class="accordion-demo">
+      <!-- Panel 1: expanded -->
+      <div class="accordion-panel">
+        <div class="accordion-header">
+          <span class="accordion-drag">≡</span>
+          <button class="accordion-toggle">
+            <span>Utilisateurs</span>
+            <span class="accordion-chevron">&#9662;</span>
+          </button>
+        </div>
+        <div class="accordion-body">
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:600;">AM</span>
+              <span>Alice Martin — <span style="color:var(--text-muted)">admin</span></span>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="width:28px;height:28px;border-radius:50%;background:var(--text-muted);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:600;">BD</span>
+              <span>Bob Dupont — <span style="color:var(--text-muted)">éditeur</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2: collapsed -->
+      <div class="accordion-panel">
+        <div class="accordion-header">
+          <span class="accordion-drag">≡</span>
+          <button class="accordion-toggle">
+            <span>Paramètres</span>
+            <span class="accordion-chevron">&#9656;</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Panel 3: expanded -->
+      <div class="accordion-panel">
+        <div class="accordion-header">
+          <span class="accordion-drag">≡</span>
+          <button class="accordion-toggle">
+            <span>Notifications</span>
+            <span class="accordion-chevron">&#9662;</span>
+          </button>
+        </div>
+        <div class="accordion-body">
+          <div style="display:flex; flex-direction:column; gap:4px; font-size:0.8125rem;">
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <span class="check-box checked" style="width:14px;height:14px"></span> Notifications par email
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <span class="check-box" style="width:14px;height:14px"></span> Notifications push
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <span class="check-box checked" style="width:14px;height:14px"></span> Résumé hebdomadaire
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 4: collapsed -->
+      <div class="accordion-panel">
+        <div class="accordion-header">
+          <span class="accordion-drag">≡</span>
+          <button class="accordion-toggle">
+            <span>Sécurité</span>
+            <span class="accordion-chevron">&#9656;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="label-text" style="margin-top:16px; margin-bottom:8px">Pendant un drag (panel en cours de déplacement)</div>
+    <div class="accordion-demo">
+      <div class="accordion-panel">
+        <div class="accordion-header">
+          <span class="accordion-drag">≡</span>
+          <button class="accordion-toggle">
+            <span>Utilisateurs</span>
+            <span class="accordion-chevron">&#9656;</span>
+          </button>
+        </div>
+      </div>
+      <div class="accordion-panel drop-above">
+        <div class="accordion-header">
+          <span class="accordion-drag">≡</span>
+          <button class="accordion-toggle">
+            <span>Paramètres</span>
+            <span class="accordion-chevron">&#9656;</span>
+          </button>
+        </div>
+      </div>
+      <div class="accordion-panel dragging">
+        <div class="accordion-header">
+          <span class="accordion-drag" style="cursor:grabbing">≡</span>
+          <button class="accordion-toggle">
+            <span>Notifications</span>
+            <span class="accordion-chevron">&#9656;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Specs -->
   <div class="section">
     <div class="section-title">Specs compact admin</div>
@@ -1164,6 +1435,8 @@
         <tr><td style="padding:4px 8px">Table row</td><td style="padding:4px 8px">auto</td><td style="padding:4px 8px">6px 10px</td><td style="padding:4px 8px">13px</td><td style="padding:4px 8px">—</td></tr>
         <tr style="background:var(--surface)"><td style="padding:4px 8px">Toast</td><td style="padding:4px 8px">auto</td><td style="padding:4px 8px">8px 12px</td><td style="padding:4px 8px">13px</td><td style="padding:4px 8px">4px</td></tr>
         <tr><td style="padding:4px 8px">Dialog</td><td style="padding:4px 8px">auto</td><td style="padding:4px 8px">10-12px</td><td style="padding:4px 8px">14px</td><td style="padding:4px 8px">8px</td></tr>
+        <tr style="background:var(--surface)"><td style="padding:4px 8px">Pagination btn</td><td style="padding:4px 8px">28×28</td><td style="padding:4px 8px">0</td><td style="padding:4px 8px">13px</td><td style="padding:4px 8px">4px</td></tr>
+        <tr><td style="padding:4px 8px">Accordion header</td><td style="padding:4px 8px">36px</td><td style="padding:4px 8px">8px 12px</td><td style="padding:4px 8px">14px</td><td style="padding:4px 8px">4px</td></tr>
       </tbody>
     </table>
   </div>
