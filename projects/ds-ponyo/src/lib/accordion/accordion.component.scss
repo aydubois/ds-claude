@@ -1,0 +1,14 @@
+.ponyo-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ponyo-accordion-gap, 0.5rem);
+}
+
+// Drop indicators
+.ponyo-accordion-panel--drop-above {
+  border-top: 2px solid var(--ponyo-color-primary, #147a79) !important;
+}
+
+.ponyo-accordion-panel--drop-below {
+  border-bottom: 2px solid var(--ponyo-color-primary, #147a79) !important;
+}

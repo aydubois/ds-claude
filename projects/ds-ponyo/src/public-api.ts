@@ -12,3 +12,4 @@ export * from './lib/table';
 export * from './lib/dialog';
 export * from './lib/toast';
 export * from './lib/pagination';
+export * from './lib/accordion';
