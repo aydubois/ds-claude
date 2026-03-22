@@ -1,0 +1,127 @@
+/// ds-ponyo Theming Mixin
+///
+/// Génère automatiquement tous les tokens de couleur à partir de couleurs de base.
+/// Utilisation :
+///
+/// ```scss
+/// @use 'ds-ponyo/theming' as ponyo;
+///
+/// @include ponyo.theme((
+///   primary: #e65100,
+///   danger: #9c27b0,
+///   secondary: #455a64,
+/// ));
+/// ```
+///
+/// Seule `primary` est requise. Les autres ont des valeurs par défaut.
+
+@use 'sass:color';
+@use 'sass:map';
+@use 'sass:math';
+
+$_defaults: (
+  primary: #147a79,
+  secondary: #6b7280,
+  danger: #c2412b,
+  background: #ffffff,
+  surface: #f4f5f7,
+  border: #d1d5db,
+  text: #111827,
+  text-muted: #6b7280,
+  text-disabled: #9ca3af,
+);
+
+@mixin theme($colors: ()) {
+  $merged: map.merge($_defaults, $colors);
+
+  $primary: map.get($merged, primary);
+  $secondary: map.get($merged, secondary);
+  $danger: map.get($merged, danger);
+  $background: map.get($merged, background);
+  $surface: map.get($merged, surface);
+  $border: map.get($merged, border);
+  $text: map.get($merged, text);
+  $text-muted: map.get($merged, text-muted);
+  $text-disabled: map.get($merged, text-disabled);
+
+  // Auto-generate hover/active from base colors
+  $primary-hover: color.mix(black, $primary, 18%);
+  $primary-active: color.mix(black, $primary, 32%);
+  $secondary-hover: color.mix(black, $secondary, 18%);
+  $secondary-active: color.mix(black, $secondary, 32%);
+  $danger-hover: color.mix(black, $danger, 18%);
+  $danger-active: color.mix(black, $danger, 32%);
+
+  :root {
+    // Primary
+    --ponyo-color-primary: #{$primary};
+    --ponyo-color-primary-hover: #{$primary-hover};
+    --ponyo-color-primary-active: #{$primary-active};
+    --ponyo-color-primary-contrast: #{_contrast-color($primary)};
+
+    // Secondary
+    --ponyo-color-secondary: #{$secondary};
+    --ponyo-color-secondary-hover: #{$secondary-hover};
+    --ponyo-color-secondary-active: #{$secondary-active};
+    --ponyo-color-secondary-contrast: #{_contrast-color($secondary)};
+
+    // Danger
+    --ponyo-color-danger: #{$danger};
+    --ponyo-color-danger-hover: #{$danger-hover};
+    --ponyo-color-danger-active: #{$danger-active};
+    --ponyo-color-danger-contrast: #{_contrast-color($danger)};
+
+    // Surfaces & text
+    --ponyo-color-background: #{$background};
+    --ponyo-color-surface: #{$surface};
+    --ponyo-color-border: #{$border};
+    --ponyo-color-text: #{$text};
+    --ponyo-color-text-muted: #{$text-muted};
+    --ponyo-color-text-disabled: #{$text-disabled};
+
+    // Focus ring (auto-generated from primary)
+    --ponyo-color-focus: #{$primary};
+    --ponyo-color-focus-ring: 0 0 0 3px #{color.change($primary, $alpha: 0.4)};
+  }
+}
+
+/// Dark theme variant — call inside a [data-theme="dark"] selector or media query
+@mixin dark-theme($colors: ()) {
+  $merged: map.merge($_defaults, $colors);
+
+  $primary: map.get($merged, primary);
+  $danger: map.get($merged, danger);
+
+  $primary-light: color.mix(white, $primary, 35%);
+  $danger-light: color.mix(white, $danger, 35%);
+
+  --ponyo-color-primary: #{$primary-light};
+  --ponyo-color-primary-hover: #{color.mix(white, $primary, 50%)};
+  --ponyo-color-primary-active: #{color.mix(white, $primary, 65%)};
+  --ponyo-color-primary-contrast: #111827;
+
+  --ponyo-color-danger: #{$danger-light};
+  --ponyo-color-danger-hover: #{color.mix(white, $danger, 50%)};
+  --ponyo-color-danger-active: #{color.mix(white, $danger, 65%)};
+  --ponyo-color-danger-contrast: #111827;
+
+  --ponyo-color-background: #111827;
+  --ponyo-color-surface: #1f2937;
+  --ponyo-color-border: #374151;
+  --ponyo-color-text: #f9fafb;
+  --ponyo-color-text-muted: #9ca3af;
+  --ponyo-color-text-disabled: #4b5563;
+
+  --ponyo-color-focus: #{$primary-light};
+  --ponyo-color-focus-ring: 0 0 0 3px #{color.change($primary-light, $alpha: 0.4)};
+}
+
+/// Détermine automatiquement si le texte doit être blanc ou noir selon le fond
+@function _contrast-color($bg) {
+  $r: color.channel($bg, "red", $space: rgb);
+  $g: color.channel($bg, "green", $space: rgb);
+  $b: color.channel($bg, "blue", $space: rgb);
+  // Luminance relative simplifiée
+  $luminance: math.div($r * 0.299 + $g * 0.587 + $b * 0.114, 255);
+  @return if($luminance > 0.5, #111827, #ffffff);
+}

@@ -1,10 +1,9 @@
-import { Component, ViewEncapsulation, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { PonyoToastService } from './toast.service';
 
 @Component({
   selector: 'ponyo-toast-container',
   standalone: true,
-  encapsulation: ViewEncapsulation.None,
   host: {
     'class': 'ponyo-toast-container',
   },

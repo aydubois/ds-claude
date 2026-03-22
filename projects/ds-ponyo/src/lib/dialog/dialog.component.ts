@@ -1,6 +1,5 @@
 import {
   Component,
-  ViewEncapsulation,
   input,
   output,
   signal,
@@ -15,7 +14,6 @@ let nextId = 0;
 @Component({
   selector: 'ponyo-dialog',
   standalone: true,
-  encapsulation: ViewEncapsulation.None,
   host: {
     'class': 'ponyo-dialog-wrapper',
   },

@@ -1,6 +1,5 @@
 import {
   Component,
-  ViewEncapsulation,
   input,
   output,
   signal,
@@ -14,7 +13,6 @@ let nextId = 0;
 @Component({
   selector: 'ponyo-radio',
   standalone: true,
-  encapsulation: ViewEncapsulation.None,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

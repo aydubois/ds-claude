@@ -1,4 +1,4 @@
-.ponyo-input-field {
+:host {
   display: block;
   width: 100%;
 }
@@ -70,7 +70,7 @@
 }
 
 // Error state
-.ponyo-input-field--error {
+:host(.ponyo-input-field--error) {
   .ponyo-input {
     border-color: var(--ponyo-color-danger, #c2412b);
 
@@ -86,7 +86,7 @@
 }
 
 // Disabled state
-.ponyo-input-field--disabled {
+:host(.ponyo-input-field--disabled) {
   .ponyo-input-label {
     color: var(--ponyo-color-text-disabled, #9ca3af);
     background: var(--ponyo-color-surface, #f4f5f7);

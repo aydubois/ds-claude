@@ -1,6 +1,5 @@
 import {
   Component,
-  ViewEncapsulation,
   input,
   output,
   signal,
@@ -16,7 +15,6 @@ export interface PonyoPageEvent {
 @Component({
   selector: 'ponyo-pagination',
   standalone: true,
-  encapsulation: ViewEncapsulation.None,
   host: {
     'class': 'ponyo-pagination',
     'role': 'navigation',

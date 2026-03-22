@@ -29,8 +29,9 @@
 
 - Utiliser les **CSS custom properties** définies dans `tokens/` pour toutes les valeurs (couleurs, spacing, radius, etc.).
 - Préfixer les custom properties avec `--ponyo-`.
-- Les styles des composants utilisent `ViewEncapsulation.None` pour permettre la personnalisation, avec des classes préfixées `.ponyo-*`.
+- Les styles des composants utilisent l'encapsulation par défaut (`Emulated`). Ne pas utiliser `ViewEncapsulation.None`.
 - Pas de dépendance externe pour le CSS (pas de Tailwind, Bootstrap, etc.).
+- La personnalisation des couleurs se fait via le **mixin SCSS `ponyo.theme()`** dans `tokens/_theming.scss`, qui génère toutes les variantes automatiquement à partir de couleurs de base.
 
 ## Tests
 

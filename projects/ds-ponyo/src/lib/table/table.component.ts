@@ -1,6 +1,5 @@
 import {
   Component,
-  ViewEncapsulation,
   input,
   output,
   signal,
@@ -37,7 +36,6 @@ export class PonyoCellDefDirective {
   selector: 'ponyo-table',
   standalone: true,
   imports: [NgTemplateOutlet],
-  encapsulation: ViewEncapsulation.None,
   host: {
     'class': 'ponyo-table-wrapper',
   },

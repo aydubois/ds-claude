@@ -1,14 +1,14 @@
-.ponyo-accordion-panel {
+:host {
   display: block;
   border: 1px solid var(--ponyo-color-border, #d1d5db);
   border-radius: var(--ponyo-radius-md, 4px);
   background: var(--ponyo-color-background, #fff);
   transition: box-shadow 150ms ease, opacity 150ms ease;
+}
 
-  &--dragging {
-    opacity: 0.5;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  }
+:host(.ponyo-accordion-panel--dragging) {
+  opacity: 0.5;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .ponyo-accordion-header {
@@ -101,7 +101,7 @@
 }
 
 // Collapsed: round all corners
-.ponyo-accordion-panel--collapsed {
+:host(.ponyo-accordion-panel--collapsed) {
   .ponyo-accordion-toggle {
     border-radius: 0 var(--ponyo-radius-md, 4px) var(--ponyo-radius-md, 4px) 0;
   }

@@ -1,4 +1,4 @@
-.ponyo-toast-container {
+:host {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
@@ -91,7 +91,7 @@
 
 // Responsive: full width on small screens
 @media (max-width: 480px) {
-  .ponyo-toast-container {
+  :host {
     left: 1rem;
     align-items: stretch;
   }

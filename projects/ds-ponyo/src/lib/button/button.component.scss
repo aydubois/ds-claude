@@ -1,4 +1,4 @@
-.ponyo-button {
+:host {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -14,167 +14,6 @@
   box-sizing: border-box;
   line-height: 1;
 
-  &:focus-visible {
-    outline: none;
-  }
-
-  // ─── Sizes ───
-  &--sm {
-    padding: 0.25rem 0.75rem;
-    font-size: var(--ponyo-font-size-sm, 0.8125rem);
-    height: 1.75rem; // 28px
-  }
-
-  &--md {
-    padding: 0.375rem 1rem;
-    font-size: var(--ponyo-font-size-md, 0.875rem);
-    height: 2rem; // 32px
-  }
-
-  // ─── Filled ───
-  &--filled {
-    color: #fff;
-
-    &.ponyo-button--primary {
-      background: var(--ponyo-color-primary, #147a79);
-
-      &:hover:not(.ponyo-button--disabled) {
-        background: var(--ponyo-color-primary-hover, #0f5f5e);
-        filter: brightness(0.88);
-      }
-
-      &:active:not(.ponyo-button--disabled) {
-        background: var(--ponyo-color-primary-active, #0a4544);
-        filter: none;
-      }
-
-      &:focus-visible {
-        box-shadow: var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
-      }
-    }
-
-    &.ponyo-button--danger {
-      background: var(--ponyo-color-danger, #c2412b);
-
-      &:hover:not(.ponyo-button--disabled) {
-        background: var(--ponyo-color-danger-hover, #a3361f);
-        filter: brightness(0.88);
-      }
-
-      &:active:not(.ponyo-button--disabled) {
-        background: var(--ponyo-color-danger-active, #862c18);
-        filter: none;
-      }
-
-      &:focus-visible {
-        box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35);
-      }
-    }
-  }
-
-  // ─── Outlined ───
-  &--outlined {
-    background: transparent;
-    border: 1.5px solid;
-
-    &.ponyo-button--primary {
-      color: var(--ponyo-color-primary, #147a79);
-      border-color: var(--ponyo-color-primary, #147a79);
-
-      &:hover:not(.ponyo-button--disabled) {
-        background: rgba(20, 122, 121, 0.12);
-        border-color: var(--ponyo-color-primary-hover, #0f5f5e);
-      }
-
-      &:active:not(.ponyo-button--disabled) {
-        background: rgba(20, 122, 121, 0.2);
-        border-color: var(--ponyo-color-primary-active, #0a4544);
-      }
-
-      &:focus-visible {
-        box-shadow: var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
-      }
-    }
-
-    &.ponyo-button--danger {
-      color: var(--ponyo-color-danger, #c2412b);
-      border-color: var(--ponyo-color-danger, #c2412b);
-
-      &:hover:not(.ponyo-button--disabled) {
-        background: rgba(194, 65, 43, 0.1);
-        border-color: var(--ponyo-color-danger-hover, #a3361f);
-      }
-
-      &:active:not(.ponyo-button--disabled) {
-        background: rgba(194, 65, 43, 0.18);
-      }
-
-      &:focus-visible {
-        box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35);
-      }
-    }
-  }
-
-  // ─── Text ───
-  &--text {
-    background: transparent;
-    border: none;
-
-    &.ponyo-button--primary {
-      color: var(--ponyo-color-primary, #147a79);
-
-      &:hover:not(.ponyo-button--disabled) {
-        background: rgba(20, 122, 121, 0.1);
-      }
-
-      &:active:not(.ponyo-button--disabled) {
-        background: rgba(20, 122, 121, 0.18);
-      }
-
-      &:focus-visible {
-        box-shadow: var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
-      }
-    }
-
-    &.ponyo-button--danger {
-      color: var(--ponyo-color-danger, #c2412b);
-
-      &:hover:not(.ponyo-button--disabled) {
-        background: rgba(194, 65, 43, 0.08);
-      }
-
-      &:active:not(.ponyo-button--disabled) {
-        background: rgba(194, 65, 43, 0.15);
-      }
-
-      &:focus-visible {
-        box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35);
-      }
-    }
-  }
-
-  // ─── Disabled ───
-  &--disabled {
-    cursor: not-allowed;
-    pointer-events: none;
-
-    &.ponyo-button--filled {
-      background: var(--ponyo-color-border, #d1d5db);
-      color: var(--ponyo-color-text-disabled, #9ca3af);
-      filter: none;
-    }
-
-    &.ponyo-button--outlined {
-      border-color: var(--ponyo-color-border, #d1d5db);
-      color: var(--ponyo-color-text-disabled, #9ca3af);
-    }
-
-    &.ponyo-button--text {
-      color: var(--ponyo-color-text-disabled, #9ca3af);
-    }
-  }
-
-  // ─── Icon inside button ───
   svg,
   .ponyo-button-icon {
     width: 0.875em;
@@ -182,4 +21,164 @@
     flex-shrink: 0;
     fill: currentColor;
   }
+}
+
+:host(:focus-visible) {
+  outline: none;
+}
+
+// ─── Sizes ───
+:host(.ponyo-button--sm) {
+  padding: 0.25rem 0.75rem;
+  font-size: var(--ponyo-font-size-sm, 0.8125rem);
+  height: 1.75rem; // 28px
+}
+
+:host(.ponyo-button--md) {
+  padding: 0.375rem 1rem;
+  font-size: var(--ponyo-font-size-md, 0.875rem);
+  height: 2rem; // 32px
+}
+
+// ─── Filled ───
+:host(.ponyo-button--filled) {
+  color: #fff;
+}
+
+:host(.ponyo-button--filled.ponyo-button--primary) {
+  background: var(--ponyo-color-primary, #147a79);
+}
+
+:host(.ponyo-button--filled.ponyo-button--primary:hover:not(.ponyo-button--disabled)) {
+  background: var(--ponyo-color-primary-hover, #0f5f5e);
+  filter: brightness(0.88);
+}
+
+:host(.ponyo-button--filled.ponyo-button--primary:active:not(.ponyo-button--disabled)) {
+  background: var(--ponyo-color-primary-active, #0a4544);
+  filter: none;
+}
+
+:host(.ponyo-button--filled.ponyo-button--primary:focus-visible) {
+  box-shadow: var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+}
+
+:host(.ponyo-button--filled.ponyo-button--danger) {
+  background: var(--ponyo-color-danger, #c2412b);
+}
+
+:host(.ponyo-button--filled.ponyo-button--danger:hover:not(.ponyo-button--disabled)) {
+  background: var(--ponyo-color-danger-hover, #a3361f);
+  filter: brightness(0.88);
+}
+
+:host(.ponyo-button--filled.ponyo-button--danger:active:not(.ponyo-button--disabled)) {
+  background: var(--ponyo-color-danger-active, #862c18);
+  filter: none;
+}
+
+:host(.ponyo-button--filled.ponyo-button--danger:focus-visible) {
+  box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35);
+}
+
+// ─── Outlined ───
+:host(.ponyo-button--outlined) {
+  background: transparent;
+  border: 1.5px solid;
+}
+
+:host(.ponyo-button--outlined.ponyo-button--primary) {
+  color: var(--ponyo-color-primary, #147a79);
+  border-color: var(--ponyo-color-primary, #147a79);
+}
+
+:host(.ponyo-button--outlined.ponyo-button--primary:hover:not(.ponyo-button--disabled)) {
+  background: rgba(20, 122, 121, 0.12);
+  border-color: var(--ponyo-color-primary-hover, #0f5f5e);
+}
+
+:host(.ponyo-button--outlined.ponyo-button--primary:active:not(.ponyo-button--disabled)) {
+  background: rgba(20, 122, 121, 0.2);
+  border-color: var(--ponyo-color-primary-active, #0a4544);
+}
+
+:host(.ponyo-button--outlined.ponyo-button--primary:focus-visible) {
+  box-shadow: var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+}
+
+:host(.ponyo-button--outlined.ponyo-button--danger) {
+  color: var(--ponyo-color-danger, #c2412b);
+  border-color: var(--ponyo-color-danger, #c2412b);
+}
+
+:host(.ponyo-button--outlined.ponyo-button--danger:hover:not(.ponyo-button--disabled)) {
+  background: rgba(194, 65, 43, 0.1);
+  border-color: var(--ponyo-color-danger-hover, #a3361f);
+}
+
+:host(.ponyo-button--outlined.ponyo-button--danger:active:not(.ponyo-button--disabled)) {
+  background: rgba(194, 65, 43, 0.18);
+}
+
+:host(.ponyo-button--outlined.ponyo-button--danger:focus-visible) {
+  box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35);
+}
+
+// ─── Text ───
+:host(.ponyo-button--text) {
+  background: transparent;
+  border: none;
+}
+
+:host(.ponyo-button--text.ponyo-button--primary) {
+  color: var(--ponyo-color-primary, #147a79);
+}
+
+:host(.ponyo-button--text.ponyo-button--primary:hover:not(.ponyo-button--disabled)) {
+  background: rgba(20, 122, 121, 0.1);
+}
+
+:host(.ponyo-button--text.ponyo-button--primary:active:not(.ponyo-button--disabled)) {
+  background: rgba(20, 122, 121, 0.18);
+}
+
+:host(.ponyo-button--text.ponyo-button--primary:focus-visible) {
+  box-shadow: var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+}
+
+:host(.ponyo-button--text.ponyo-button--danger) {
+  color: var(--ponyo-color-danger, #c2412b);
+}
+
+:host(.ponyo-button--text.ponyo-button--danger:hover:not(.ponyo-button--disabled)) {
+  background: rgba(194, 65, 43, 0.08);
+}
+
+:host(.ponyo-button--text.ponyo-button--danger:active:not(.ponyo-button--disabled)) {
+  background: rgba(194, 65, 43, 0.15);
+}
+
+:host(.ponyo-button--text.ponyo-button--danger:focus-visible) {
+  box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35);
+}
+
+// ─── Disabled ───
+:host(.ponyo-button--disabled) {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+:host(.ponyo-button--disabled.ponyo-button--filled) {
+  background: var(--ponyo-color-border, #d1d5db);
+  color: var(--ponyo-color-text-disabled, #9ca3af);
+  filter: none;
+}
+
+:host(.ponyo-button--disabled.ponyo-button--outlined) {
+  border-color: var(--ponyo-color-border, #d1d5db);
+  color: var(--ponyo-color-text-disabled, #9ca3af);
+}
+
+:host(.ponyo-button--disabled.ponyo-button--text) {
+  color: var(--ponyo-color-text-disabled, #9ca3af);
 }

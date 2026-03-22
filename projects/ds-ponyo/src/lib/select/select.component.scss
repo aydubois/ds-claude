@@ -1,4 +1,4 @@
-.ponyo-select {
+:host {
   position: relative;
   display: block;
   width: 100%;
@@ -24,20 +24,20 @@
     border-color: var(--ponyo-color-primary, #147a79);
     box-shadow: var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
   }
+}
 
-  .ponyo-select--error & {
-    border-color: var(--ponyo-color-danger, #c2412b);
+:host(.ponyo-select--error) .ponyo-select-box {
+  border-color: var(--ponyo-color-danger, #c2412b);
 
-    &:focus {
-      box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.25);
-    }
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.25);
   }
+}
 
-  .ponyo-select--disabled & {
-    background: var(--ponyo-color-surface, #f4f5f7);
-    color: var(--ponyo-color-text-disabled, #9ca3af);
-    cursor: not-allowed;
-  }
+:host(.ponyo-select--disabled) .ponyo-select-box {
+  background: var(--ponyo-color-surface, #f4f5f7);
+  color: var(--ponyo-color-text-disabled, #9ca3af);
+  cursor: not-allowed;
 }
 
 .ponyo-select-label {
@@ -51,20 +51,20 @@
   padding: 0 0.125rem;
   pointer-events: none;
   transform: translateY(-50%);
+}
 
-  .ponyo-select--open &,
-  .ponyo-select-box:focus ~ & {
-    color: var(--ponyo-color-primary, #147a79);
-  }
+:host(.ponyo-select--open) .ponyo-select-label,
+.ponyo-select-box:focus ~ .ponyo-select-label {
+  color: var(--ponyo-color-primary, #147a79);
+}
 
-  .ponyo-select--error & {
-    color: var(--ponyo-color-danger, #c2412b);
-  }
+:host(.ponyo-select--error) .ponyo-select-label {
+  color: var(--ponyo-color-danger, #c2412b);
+}
 
-  .ponyo-select--disabled & {
-    color: var(--ponyo-color-text-disabled, #9ca3af);
-    background: var(--ponyo-color-surface, #f4f5f7);
-  }
+:host(.ponyo-select--disabled) .ponyo-select-label {
+  color: var(--ponyo-color-text-disabled, #9ca3af);
+  background: var(--ponyo-color-surface, #f4f5f7);
 }
 
 .ponyo-select-required {

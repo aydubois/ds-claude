@@ -1,6 +1,5 @@
 import {
   Component,
-  ViewEncapsulation,
   input,
   output,
   signal,
@@ -12,7 +11,6 @@ import {
 @Component({
   selector: 'ponyo-accordion',
   standalone: true,
-  encapsulation: ViewEncapsulation.None,
   host: {
     'class': 'ponyo-accordion',
   },

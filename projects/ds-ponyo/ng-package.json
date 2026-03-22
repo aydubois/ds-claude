@@ -1,6 +1,10 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/ds-ponyo",
+  "assets": [
+    "src/lib/tokens/_theming.scss",
+    "theming.scss"
+  ],
   "lib": {
     "entryFile": "src/public-api.ts"
   }

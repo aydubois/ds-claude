@@ -1,0 +1,144 @@
+.demo-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.demo-header {
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--ponyo-color-text);
+  }
+}
+
+.demo-subtitle {
+  color: var(--ponyo-color-text-muted);
+  font-size: 0.9rem;
+}
+
+.demo-section {
+  background: var(--ponyo-color-background);
+  border: 1px solid var(--ponyo-color-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.demo-section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ponyo-color-text-muted);
+  margin-bottom: 1rem;
+}
+
+.demo-label {
+  font-size: 0.75rem;
+  color: var(--ponyo-color-text-muted);
+  margin-bottom: 0.375rem;
+  margin-top: 0.75rem;
+  font-weight: 400;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+}
+
+.demo-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+
+  &--top {
+    align-items: flex-start;
+  }
+}
+
+.demo-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.demo-field {
+  width: 260px;
+}
+
+// ─── Theming color pickers ───
+.demo-theming {
+  background: var(--ponyo-color-background);
+  border: 2px solid var(--ponyo-color-primary);
+}
+
+.demo-color-pickers {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.demo-color-picker {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.8125rem;
+
+  span {
+    font-weight: 500;
+    min-width: 4.5rem;
+  }
+
+  input[type="color"] {
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--ponyo-color-border);
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 2px;
+    background: none;
+
+    &::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+
+    &::-webkit-color-swatch {
+      border: none;
+      border-radius: 2px;
+    }
+  }
+
+  code {
+    font-size: 0.75rem;
+    color: var(--ponyo-color-text-muted);
+    font-family: ui-monospace, monospace;
+  }
+}
+
+// ─── Status badges (demo only) ───
+.demo-badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  font-weight: 500;
+
+  &--active {
+    background: rgba(22, 163, 106, 0.12);
+    color: #15803d;
+  }
+
+  &--inactive {
+    background: rgba(107, 114, 128, 0.12);
+    color: #4b5563;
+  }
+
+  &--pending {
+    background: rgba(217, 119, 6, 0.12);
+    color: #b45309;
+  }
+}

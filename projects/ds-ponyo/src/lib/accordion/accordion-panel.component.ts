@@ -1,6 +1,5 @@
 import {
   Component,
-  ViewEncapsulation,
   input,
   signal,
   computed,
@@ -11,7 +10,6 @@ let nextId = 0;
 @Component({
   selector: 'ponyo-accordion-panel',
   standalone: true,
-  encapsulation: ViewEncapsulation.None,
   host: {
     'class': 'ponyo-accordion-panel',
     '[class.ponyo-accordion-panel--collapsed]': '!expanded()',
