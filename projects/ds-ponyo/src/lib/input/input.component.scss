@@ -1,0 +1,110 @@
+.ponyo-input-field {
+  display: block;
+  width: 100%;
+}
+
+.ponyo-input-wrapper {
+  position: relative;
+}
+
+.ponyo-input {
+  width: 100%;
+  height: 2.5rem; // 40px
+  padding: 0.875rem 0.5rem 0.25rem;
+  font-size: var(--ponyo-font-size-md, 0.875rem);
+  font-family: var(--ponyo-font-family, system-ui, sans-serif);
+  border: 1px solid var(--ponyo-color-border, #d1d5db);
+  border-radius: var(--ponyo-radius-md, 4px);
+  background: var(--ponyo-color-background, #fff);
+  color: var(--ponyo-color-text, #111827);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--ponyo-color-primary, #147a79);
+    box-shadow: var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+  }
+
+  &:disabled {
+    background: var(--ponyo-color-surface, #f4f5f7);
+    color: var(--ponyo-color-text-disabled, #9ca3af);
+    cursor: not-allowed;
+  }
+}
+
+.ponyo-input-label {
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--ponyo-font-size-md, 0.875rem);
+  font-weight: 400;
+  color: var(--ponyo-color-text-muted, #6b7280);
+  pointer-events: none;
+  transition: all 150ms ease;
+  background: var(--ponyo-color-background, #fff);
+  padding: 0 0.125rem;
+}
+
+.ponyo-input-required {
+  color: var(--ponyo-color-danger, #c2412b);
+  margin-left: 0.125rem;
+}
+
+// Float label up when focused or filled
+.ponyo-input:focus + .ponyo-input-label,
+.ponyo-input:not(:placeholder-shown) + .ponyo-input-label {
+  top: 0;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--ponyo-color-primary, #147a79);
+}
+
+.ponyo-input:not(:focus):not(:placeholder-shown) + .ponyo-input-label {
+  color: var(--ponyo-color-text-muted, #6b7280);
+}
+
+// Error state
+.ponyo-input-field--error {
+  .ponyo-input {
+    border-color: var(--ponyo-color-danger, #c2412b);
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.25);
+    }
+  }
+
+  .ponyo-input:focus + .ponyo-input-label,
+  .ponyo-input:not(:placeholder-shown) + .ponyo-input-label {
+    color: var(--ponyo-color-danger, #c2412b);
+  }
+}
+
+// Disabled state
+.ponyo-input-field--disabled {
+  .ponyo-input-label {
+    color: var(--ponyo-color-text-disabled, #9ca3af);
+    background: var(--ponyo-color-surface, #f4f5f7);
+  }
+}
+
+.ponyo-input-helper {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--ponyo-color-text-muted, #6b7280);
+  margin-top: 0.125rem;
+  padding-left: 0.5rem;
+}
+
+.ponyo-input-error {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--ponyo-color-danger, #c2412b);
+  margin-top: 0.125rem;
+  padding-left: 0.5rem;
+}

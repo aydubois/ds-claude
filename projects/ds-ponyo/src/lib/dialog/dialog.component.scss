@@ -1,0 +1,70 @@
+.ponyo-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.ponyo-dialog {
+  background: var(--ponyo-color-background, #fff);
+  border-radius: var(--ponyo-radius-lg, 8px);
+  width: 100%;
+  max-width: 30rem; // 480px
+  max-height: calc(100vh - 2rem);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ponyo-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem 0.75rem;
+  border-bottom: 1px solid var(--ponyo-color-border, #d1d5db);
+  font-weight: 600;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.ponyo-dialog-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ponyo-color-text-muted, #6b7280);
+  font-size: 1.1rem;
+  padding: 0.125rem 0.25rem;
+  border-radius: var(--ponyo-radius-md, 4px);
+  line-height: 1;
+
+  &:hover {
+    background: var(--ponyo-color-surface, #f4f5f7);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+  }
+}
+
+.ponyo-dialog-body {
+  padding: 0.75rem;
+  font-size: var(--ponyo-font-size-md, 0.875rem);
+  color: var(--ponyo-color-text, #111827);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.ponyo-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-top: 1px solid var(--ponyo-color-border, #d1d5db);
+  flex-shrink: 0;
+}

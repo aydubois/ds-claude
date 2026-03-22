@@ -1,0 +1,185 @@
+.ponyo-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ponyo-space-2, 0.375rem);
+  border: none;
+  border-radius: var(--ponyo-radius-md, 4px);
+  font-family: var(--ponyo-font-family, system-ui, sans-serif);
+  font-weight: var(--ponyo-font-weight-medium, 500);
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, box-shadow 150ms ease, filter 150ms ease;
+  white-space: nowrap;
+  text-decoration: none;
+  box-sizing: border-box;
+  line-height: 1;
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  // ─── Sizes ───
+  &--sm {
+    padding: 0.25rem 0.75rem;
+    font-size: var(--ponyo-font-size-sm, 0.8125rem);
+    height: 1.75rem; // 28px
+  }
+
+  &--md {
+    padding: 0.375rem 1rem;
+    font-size: var(--ponyo-font-size-md, 0.875rem);
+    height: 2rem; // 32px
+  }
+
+  // ─── Filled ───
+  &--filled {
+    color: #fff;
+
+    &.ponyo-button--primary {
+      background: var(--ponyo-color-primary, #147a79);
+
+      &:hover:not(.ponyo-button--disabled) {
+        background: var(--ponyo-color-primary-hover, #0f5f5e);
+        filter: brightness(0.88);
+      }
+
+      &:active:not(.ponyo-button--disabled) {
+        background: var(--ponyo-color-primary-active, #0a4544);
+        filter: none;
+      }
+
+      &:focus-visible {
+        box-shadow: var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+      }
+    }
+
+    &.ponyo-button--danger {
+      background: var(--ponyo-color-danger, #c2412b);
+
+      &:hover:not(.ponyo-button--disabled) {
+        background: var(--ponyo-color-danger-hover, #a3361f);
+        filter: brightness(0.88);
+      }
+
+      &:active:not(.ponyo-button--disabled) {
+        background: var(--ponyo-color-danger-active, #862c18);
+        filter: none;
+      }
+
+      &:focus-visible {
+        box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35);
+      }
+    }
+  }
+
+  // ─── Outlined ───
+  &--outlined {
+    background: transparent;
+    border: 1.5px solid;
+
+    &.ponyo-button--primary {
+      color: var(--ponyo-color-primary, #147a79);
+      border-color: var(--ponyo-color-primary, #147a79);
+
+      &:hover:not(.ponyo-button--disabled) {
+        background: rgba(20, 122, 121, 0.12);
+        border-color: var(--ponyo-color-primary-hover, #0f5f5e);
+      }
+
+      &:active:not(.ponyo-button--disabled) {
+        background: rgba(20, 122, 121, 0.2);
+        border-color: var(--ponyo-color-primary-active, #0a4544);
+      }
+
+      &:focus-visible {
+        box-shadow: var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+      }
+    }
+
+    &.ponyo-button--danger {
+      color: var(--ponyo-color-danger, #c2412b);
+      border-color: var(--ponyo-color-danger, #c2412b);
+
+      &:hover:not(.ponyo-button--disabled) {
+        background: rgba(194, 65, 43, 0.1);
+        border-color: var(--ponyo-color-danger-hover, #a3361f);
+      }
+
+      &:active:not(.ponyo-button--disabled) {
+        background: rgba(194, 65, 43, 0.18);
+      }
+
+      &:focus-visible {
+        box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35);
+      }
+    }
+  }
+
+  // ─── Text ───
+  &--text {
+    background: transparent;
+    border: none;
+
+    &.ponyo-button--primary {
+      color: var(--ponyo-color-primary, #147a79);
+
+      &:hover:not(.ponyo-button--disabled) {
+        background: rgba(20, 122, 121, 0.1);
+      }
+
+      &:active:not(.ponyo-button--disabled) {
+        background: rgba(20, 122, 121, 0.18);
+      }
+
+      &:focus-visible {
+        box-shadow: var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+      }
+    }
+
+    &.ponyo-button--danger {
+      color: var(--ponyo-color-danger, #c2412b);
+
+      &:hover:not(.ponyo-button--disabled) {
+        background: rgba(194, 65, 43, 0.08);
+      }
+
+      &:active:not(.ponyo-button--disabled) {
+        background: rgba(194, 65, 43, 0.15);
+      }
+
+      &:focus-visible {
+        box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35);
+      }
+    }
+  }
+
+  // ─── Disabled ───
+  &--disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+
+    &.ponyo-button--filled {
+      background: var(--ponyo-color-border, #d1d5db);
+      color: var(--ponyo-color-text-disabled, #9ca3af);
+      filter: none;
+    }
+
+    &.ponyo-button--outlined {
+      border-color: var(--ponyo-color-border, #d1d5db);
+      color: var(--ponyo-color-text-disabled, #9ca3af);
+    }
+
+    &.ponyo-button--text {
+      color: var(--ponyo-color-text-disabled, #9ca3af);
+    }
+  }
+
+  // ─── Icon inside button ───
+  svg,
+  .ponyo-button-icon {
+    width: 0.875em;
+    height: 0.875em;
+    flex-shrink: 0;
+    fill: currentColor;
+  }
+}

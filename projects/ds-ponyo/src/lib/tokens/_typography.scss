@@ -1,0 +1,33 @@
+// ds-ponyo Design Tokens — Typography
+
+:root {
+  // Font families
+  --ponyo-font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --ponyo-font-family-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+
+  // Font sizes (rem-based for accessibility / user zoom)
+  --ponyo-font-size-xs: 0.75rem;
+  --ponyo-font-size-sm: 0.875rem;
+  --ponyo-font-size-md: 1rem;
+  --ponyo-font-size-lg: 1.125rem;
+  --ponyo-font-size-xl: 1.25rem;
+  --ponyo-font-size-2xl: 1.5rem;
+  --ponyo-font-size-3xl: 1.875rem;
+  --ponyo-font-size-4xl: 2.25rem;
+
+  // Font weights
+  --ponyo-font-weight-regular: 400;
+  --ponyo-font-weight-medium: 500;
+  --ponyo-font-weight-semibold: 600;
+  --ponyo-font-weight-bold: 700;
+
+  // Line heights
+  --ponyo-line-height-tight: 1.25;
+  --ponyo-line-height-normal: 1.5;
+  --ponyo-line-height-relaxed: 1.75;
+
+  // Letter spacing
+  --ponyo-letter-spacing-tight: -0.025em;
+  --ponyo-letter-spacing-normal: 0;
+  --ponyo-letter-spacing-wide: 0.025em;
+}

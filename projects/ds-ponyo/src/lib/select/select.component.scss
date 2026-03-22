@@ -1,0 +1,143 @@
+.ponyo-select {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.ponyo-select-box {
+  height: 2.5rem;
+  padding: 0.875rem 1.75rem 0.25rem 0.5rem;
+  border: 1px solid var(--ponyo-color-border, #d1d5db);
+  border-radius: var(--ponyo-radius-md, 4px);
+  background: var(--ponyo-color-background, #fff);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: var(--ponyo-font-size-md, 0.875rem);
+  font-family: var(--ponyo-font-family, system-ui, sans-serif);
+  color: var(--ponyo-color-text, #111827);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: var(--ponyo-color-primary, #147a79);
+    box-shadow: var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+  }
+
+  .ponyo-select--error & {
+    border-color: var(--ponyo-color-danger, #c2412b);
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.25);
+    }
+  }
+
+  .ponyo-select--disabled & {
+    background: var(--ponyo-color-surface, #f4f5f7);
+    color: var(--ponyo-color-text-disabled, #9ca3af);
+    cursor: not-allowed;
+  }
+}
+
+.ponyo-select-label {
+  position: absolute;
+  left: 0.5rem;
+  top: 0;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--ponyo-color-text-muted, #6b7280);
+  background: var(--ponyo-color-background, #fff);
+  padding: 0 0.125rem;
+  pointer-events: none;
+  transform: translateY(-50%);
+
+  .ponyo-select--open &,
+  .ponyo-select-box:focus ~ & {
+    color: var(--ponyo-color-primary, #147a79);
+  }
+
+  .ponyo-select--error & {
+    color: var(--ponyo-color-danger, #c2412b);
+  }
+
+  .ponyo-select--disabled & {
+    color: var(--ponyo-color-text-disabled, #9ca3af);
+    background: var(--ponyo-color-surface, #f4f5f7);
+  }
+}
+
+.ponyo-select-required {
+  color: var(--ponyo-color-danger, #c2412b);
+  margin-left: 0.125rem;
+}
+
+.ponyo-select-arrow {
+  position: absolute;
+  right: 0.625rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid var(--ponyo-color-text-muted, #6b7280);
+  pointer-events: none;
+}
+
+.ponyo-select-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--ponyo-color-background, #fff);
+  border: 1px solid var(--ponyo-color-border, #d1d5db);
+  border-radius: var(--ponyo-radius-md, 4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  max-height: 11.25rem;
+  overflow-y: auto;
+}
+
+.ponyo-select-option {
+  padding: 0.375rem 0.5rem;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+
+  &:hover,
+  &--highlighted {
+    background: var(--ponyo-color-surface, #f4f5f7);
+  }
+
+  &--selected {
+    background: rgba(20, 122, 121, 0.08);
+    color: var(--ponyo-color-primary, #147a79);
+    font-weight: 500;
+  }
+}
+
+.ponyo-select-option-check {
+  width: 0.875rem;
+  display: inline-flex;
+  color: var(--ponyo-color-primary, #147a79);
+  font-size: 0.75rem;
+}
+
+.ponyo-select-helper {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--ponyo-color-text-muted, #6b7280);
+  margin-top: 0.125rem;
+  padding-left: 0.5rem;
+}
+
+.ponyo-select-error {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--ponyo-color-danger, #c2412b);
+  margin-top: 0.125rem;
+  padding-left: 0.5rem;
+}

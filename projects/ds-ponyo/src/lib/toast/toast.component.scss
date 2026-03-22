@@ -1,0 +1,102 @@
+.ponyo-toast-container {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: flex-end;
+  z-index: 2000;
+  max-width: calc(100vw - 2rem);
+}
+
+.ponyo-toast {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--ponyo-radius-md, 4px);
+  font-size: 0.8125rem;
+  max-width: 22.5rem;
+  background: var(--ponyo-color-background, #fff);
+  border: 1px solid var(--ponyo-color-border, #d1d5db);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  animation: ponyo-toast-in 200ms ease;
+
+  &--success {
+    border-left: 3px solid #16a34a;
+
+    .ponyo-toast-icon { color: #16a34a; }
+  }
+
+  &--warning {
+    border-left: 3px solid #d97706;
+
+    .ponyo-toast-icon { color: #d97706; }
+  }
+
+  &--error {
+    border-left: 3px solid var(--ponyo-color-danger, #c2412b);
+
+    .ponyo-toast-icon { color: var(--ponyo-color-danger, #c2412b); }
+  }
+
+  &--info {
+    border-left: 3px solid var(--ponyo-color-primary, #147a79);
+
+    .ponyo-toast-icon { color: var(--ponyo-color-primary, #147a79); }
+  }
+}
+
+.ponyo-toast-icon {
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+.ponyo-toast-message {
+  flex: 1;
+  color: var(--ponyo-color-text, #111827);
+}
+
+.ponyo-toast-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ponyo-color-text-muted, #6b7280);
+  font-size: 0.9rem;
+  padding: 0 0.125rem;
+  line-height: 1;
+
+  &:hover {
+    color: var(--ponyo-color-text, #111827);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+    border-radius: var(--ponyo-radius-md, 4px);
+  }
+}
+
+@keyframes ponyo-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive: full width on small screens
+@media (max-width: 480px) {
+  .ponyo-toast-container {
+    left: 1rem;
+    align-items: stretch;
+  }
+
+  .ponyo-toast {
+    max-width: none;
+  }
+}

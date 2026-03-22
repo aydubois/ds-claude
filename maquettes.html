@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ds-ponyo — Maquettes</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #147a79;
+      --primary-hover: #0f5f5e;
+      --primary-active: #0a4544;
+      --danger: #c2412b;
+      --danger-hover: #a3361f;
+      --bg: #ffffff;
+      --surface: #f4f5f7;
+      --border: #d1d5db;
+      --text: #111827;
+      --text-muted: #6b7280;
+      --text-disabled: #9ca3af;
+      --focus-ring: 0 0 0 3px rgba(20, 122, 121, 0.4);
+      --radius: 4px;
+      --font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--surface);
+      color: var(--text);
+      padding: 32px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 4px; }
+    .subtitle { color: var(--text-muted); margin-bottom: 32px; font-size: 0.9rem; }
+
+    .section {
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+    }
+    .section-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .row + .row { margin-top: 12px; }
+    .label-text {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    /* ─── State grid for buttons ─── */
+    .state-grid {
+      display: grid;
+      grid-template-columns: 80px repeat(5, auto);
+      gap: 8px 16px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .state-grid .state-header {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    .state-grid .state-label {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* ─── Buttons ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 150ms ease;
+      white-space: nowrap;
+    }
+    .btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+    .btn-sm { padding: 4px 12px; font-size: 0.8125rem; height: 28px; }
+    .btn-md { padding: 6px 16px; font-size: 0.875rem; height: 32px; }
+
+    /* Filled */
+    .btn-filled { background: var(--primary); color: #fff; }
+    .btn-filled:hover { background: var(--primary-hover); filter: brightness(0.88); }
+    .btn-filled:active { background: var(--primary-active); }
+    .btn-filled.btn-danger { background: var(--danger); }
+    .btn-filled.btn-danger:hover { background: var(--danger-hover); filter: brightness(0.88); }
+    .btn-filled:disabled { background: var(--border); color: var(--text-disabled); cursor: not-allowed; filter: none; }
+
+    /* Outlined */
+    .btn-outlined { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-outlined:hover { background: rgba(20, 122, 121, 0.12); border-color: var(--primary-hover); }
+    .btn-outlined:active { background: rgba(20, 122, 121, 0.2); border-color: var(--primary-active); }
+    .btn-outlined.btn-danger { color: var(--danger); border-color: var(--danger); }
+    .btn-outlined.btn-danger:hover { background: rgba(194, 65, 43, 0.1); border-color: var(--danger-hover); }
+    .btn-outlined:disabled { border-color: var(--border); color: var(--text-disabled); cursor: not-allowed; background: transparent; }
+
+    /* Text */
+    .btn-text { background: transparent; color: var(--primary); border: none; }
+    .btn-text:hover { background: rgba(20, 122, 121, 0.1); }
+    .btn-text:active { background: rgba(20, 122, 121, 0.18); }
+    .btn-text.btn-danger { color: var(--danger); }
+    .btn-text.btn-danger:hover { background: rgba(194, 65, 43, 0.08); }
+    .btn-text:disabled { color: var(--text-disabled); cursor: not-allowed; background: transparent; }
+
+    .btn svg { width: 14px; height: 14px; fill: currentColor; }
+
+    /* ─── Inputs (floating label) ─── */
+    .form-field {
+      position: relative;
+      width: 260px;
+    }
+    .form-input, .form-select {
+      width: 100%;
+      height: 40px;
+      padding: 14px 8px 4px;
+      font-size: 0.875rem;
+      font-family: var(--font);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      color: var(--text);
+      transition: border-color 150ms ease;
+    }
+    .form-input::placeholder { color: transparent; }
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: var(--focus-ring);
+    }
+    .form-label {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      pointer-events: none;
+      transition: all 150ms ease;
+      background: var(--bg);
+      padding: 0 2px;
+    }
+    .form-label .required { color: var(--danger); margin-left: 2px; }
+    .form-input:focus + .form-label,
+    .form-input:not(:placeholder-shown) + .form-label,
+    .form-select + .form-label {
+      top: 0;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--primary);
+    }
+    .form-input:not(:focus):not(:placeholder-shown) + .form-label,
+    .form-select:not(:focus) + .form-label {
+      color: var(--text-muted);
+    }
+    .form-select:focus + .form-label { color: var(--primary); }
+    .form-input.is-error, .form-select.is-error { border-color: var(--danger); }
+    .form-input.is-error:focus, .form-select.is-error:focus { box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.25); }
+    .form-input.is-error + .form-label,
+    .form-input.is-error:focus + .form-label,
+    .form-select.is-error + .form-label { color: var(--danger); }
+    .form-input:disabled, .form-select:disabled { background: var(--surface); color: var(--text-disabled); cursor: not-allowed; }
+    .form-input:disabled + .form-label, .form-select:disabled + .form-label { color: var(--text-disabled); background: var(--surface); }
+    .form-helper { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; padding-left: 8px; }
+    .form-error { font-size: 0.75rem; color: var(--danger); margin-top: 2px; padding-left: 8px; }
+
+    /* ─── Custom Select (dropdown like multi-select) ─── */
+    .custom-select {
+      position: relative;
+      width: 260px;
+    }
+    .custom-select-box {
+      height: 40px;
+      padding: 14px 28px 4px 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-size: 0.875rem;
+      color: var(--text);
+      transition: border-color 150ms ease;
+    }
+    .custom-select-box:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: var(--focus-ring);
+    }
+    .custom-select-box.is-error { border-color: var(--danger); }
+    .custom-select-box.is-error:focus { box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.25); }
+    .custom-select-box:disabled, .custom-select-box[aria-disabled="true"] {
+      background: var(--surface);
+      color: var(--text-disabled);
+      cursor: not-allowed;
+    }
+    .custom-select-label {
+      position: absolute;
+      left: 8px;
+      top: 0;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--bg);
+      padding: 0 2px;
+      pointer-events: none;
+      transform: translateY(-50%);
+    }
+    .custom-select-box:focus ~ .custom-select-label { color: var(--primary); }
+    .custom-select-box.is-error ~ .custom-select-label { color: var(--danger); }
+    .custom-select-box[aria-disabled="true"] ~ .custom-select-label { color: var(--text-disabled); background: var(--surface); }
+    .custom-select-arrow {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid var(--text-muted);
+      pointer-events: none;
+    }
+    .custom-select-dropdown {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 10;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+    .custom-select-option {
+      padding: 6px 8px;
+      font-size: 0.8125rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .custom-select-option:hover { background: var(--surface); }
+    .custom-select-option.selected {
+      background: rgba(20, 122, 121, 0.08);
+      color: var(--primary);
+      font-weight: 500;
+    }
+    .custom-select-option .option-check {
+      width: 14px;
+      display: inline-flex;
+      color: var(--primary);
+      font-size: 0.75rem;
+    }
+
+    /* ─── Multi-select ─── */
+    .multi-select {
+      position: relative;
+      width: 260px;
+    }
+    .multi-select-box {
+      min-height: 40px;
+      padding: 14px 28px 4px 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      cursor: pointer;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+      transition: border-color 150ms ease;
+    }
+    .multi-select-box:focus-within {
+      border-color: var(--primary);
+      box-shadow: var(--focus-ring);
+    }
+    .multi-select-label {
+      position: absolute;
+      left: 8px;
+      top: 0;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--bg);
+      padding: 0 2px;
+      pointer-events: none;
+      transform: translateY(-50%);
+    }
+    .multi-select-box:focus-within ~ .multi-select-label { color: var(--primary); }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      background: rgba(20, 122, 121, 0.12);
+      color: var(--primary-active);
+      border: 1px solid rgba(20, 122, 121, 0.25);
+    }
+    .chip-remove {
+      cursor: pointer;
+      font-size: 0.85rem;
+      line-height: 1;
+      color: var(--text-muted);
+    }
+    .chip-remove:hover { color: var(--danger); }
+    .multi-select-arrow {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid var(--text-muted);
+      pointer-events: none;
+    }
+    .multi-select-dropdown {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 10;
+      max-height: 160px;
+      overflow-y: auto;
+    }
+    .multi-select-option {
+      padding: 6px 8px;
+      font-size: 0.8125rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .multi-select-option:hover { background: var(--surface); }
+    .multi-select-option .check-box { width: 14px; height: 14px; }
+    .multi-select-toolbar {
+      display: flex;
+      gap: 4px;
+      padding: 4px 8px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .multi-select-toolbar .btn { height: 22px; padding: 1px 8px; font-size: 0.7rem; }
+
+    /* ─── Checkbox & Radio ─── */
+    .check-group { display: flex; flex-direction: column; gap: 6px; }
+    .check-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.875rem; cursor: pointer; min-height: 28px; padding: 2px 0;
+    }
+    .check-box {
+      width: 16px; height: 16px; border-radius: 3px;
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all 150ms ease;
+    }
+    .check-box.checked { background: var(--primary); border-color: var(--primary); }
+    .check-box.checked::after {
+      content: ''; width: 8px; height: 5px;
+      border-left: 2px solid white; border-bottom: 2px solid white;
+      transform: rotate(-45deg) translateY(-1px);
+    }
+    .check-box.indeterminate { background: var(--primary); border-color: var(--primary); }
+    .check-box.indeterminate::after { content: ''; width: 8px; height: 2px; background: white; }
+    .radio-circle {
+      width: 16px; height: 16px; border-radius: 50%;
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all 150ms ease;
+    }
+    .radio-circle.selected { border-color: var(--primary); }
+    .radio-circle.selected::after {
+      content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--primary);
+    }
+
+    /* ─── Dialog ─── */
+    .dialog-backdrop {
+      position: relative; background: rgba(0,0,0,0.35); border-radius: 8px;
+      padding: 40px; display: flex; align-items: center; justify-content: center;
+    }
+    .dialog {
+      background: var(--bg); border-radius: 8px; width: 400px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18); overflow: hidden;
+    }
+    .dialog-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 12px; border-bottom: 1px solid var(--border);
+      font-weight: 600; font-size: 0.9rem;
+    }
+    .dialog-close {
+      background: none; border: none; cursor: pointer; color: var(--text-muted);
+      font-size: 1.1rem; padding: 2px 4px; border-radius: var(--radius); line-height: 1;
+    }
+    .dialog-close:hover { background: var(--surface); }
+    .dialog-body { padding: 12px; font-size: 0.875rem; color: var(--text); }
+    .dialog-footer {
+      display: flex; justify-content: flex-end; gap: 8px;
+      padding: 8px 12px; border-top: 1px solid var(--border);
+    }
+
+    /* ─── Toast ─── */
+    .toast-stack { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+    .toast {
+      display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+      border-radius: var(--radius); font-size: 0.8125rem; max-width: 360px;
+      background: var(--bg); border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .toast-icon { flex-shrink: 0; font-size: 1rem; }
+    .toast-message { flex: 1; }
+    .toast-close {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-muted); font-size: 0.9rem; padding: 0 2px;
+    }
+    .toast.toast-success { border-left: 3px solid #16a34a; }
+    .toast.toast-success .toast-icon { color: #16a34a; }
+    .toast.toast-warning { border-left: 3px solid #d97706; }
+    .toast.toast-warning .toast-icon { color: #d97706; }
+    .toast.toast-error { border-left: 3px solid var(--danger); }
+    .toast.toast-error .toast-icon { color: var(--danger); }
+    .toast.toast-info { border-left: 3px solid var(--primary); }
+    .toast.toast-info .toast-icon { color: var(--primary); }
+
+    /* ─── Data Table ─── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+    }
+    .data-table thead th {
+      text-align: left;
+      padding: 8px 10px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--text-muted);
+      border-bottom: 2px solid var(--border);
+      background: var(--surface);
+      white-space: nowrap;
+      user-select: none;
+    }
+    .data-table thead th.sortable { cursor: pointer; }
+    .data-table thead th.sortable:hover { color: var(--text); }
+    .data-table thead th .sort-icon {
+      display: inline-block;
+      margin-left: 4px;
+      font-size: 0.65rem;
+      vertical-align: middle;
+      color: var(--text-disabled);
+    }
+    .data-table thead th.sorted-asc .sort-icon,
+    .data-table thead th.sorted-desc .sort-icon { color: var(--primary); }
+    .data-table tbody td {
+      padding: 6px 10px;
+      border-bottom: 1px solid #eee;
+      color: var(--text);
+    }
+    .data-table tbody tr:nth-child(even) { background: var(--surface); }
+    .data-table tbody tr:hover { background: rgba(20, 122, 121, 0.06); }
+    .data-table tbody tr.selected { background: rgba(20, 122, 121, 0.1); }
+    .data-table .cell-actions {
+      display: flex;
+      gap: 4px;
+    }
+    .data-table .cell-actions .btn { height: 24px; padding: 2px 8px; font-size: 0.75rem; }
+    .status-badge {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+    .status-badge.active { background: rgba(22, 163, 106, 0.12); color: #15803d; }
+    .status-badge.inactive { background: rgba(107, 114, 128, 0.12); color: #4b5563; }
+    .status-badge.pending { background: rgba(217, 119, 6, 0.12); color: #b45309; }
+
+    /* Table toolbar / filters */
+    .table-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .table-search {
+      height: 32px;
+      padding: 4px 8px 4px 28px;
+      font-size: 0.8125rem;
+      font-family: var(--font);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      color: var(--text);
+      width: 220px;
+      transition: border-color 150ms ease;
+    }
+    .table-search:focus { outline: none; border-color: var(--primary); box-shadow: var(--focus-ring); }
+    .search-wrapper {
+      position: relative;
+    }
+    .search-wrapper::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236b7280'%3E%3Cpath fill-rule='evenodd' d='M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.45 4.38l3.08 3.09a.75.75 0 11-1.06 1.06l-3.09-3.08A7 7 0 012 9z'/%3E%3C/svg%3E") no-repeat center/contain;
+    }
+    .table-filter-select {
+      height: 32px;
+      padding: 4px 24px 4px 8px;
+      font-size: 0.8125rem;
+      font-family: var(--font);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      color: var(--text);
+      appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%236b7280' d='M4.5 6l3.5 4 3.5-4z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 6px center;
+      background-size: 12px;
+    }
+    .table-filter-select:focus { outline: none; border-color: var(--primary); box-shadow: var(--focus-ring); }
+    .table-pagination {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 10px;
+      justify-content: flex-end;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    .table-pagination .page-btn {
+      width: 28px; height: 28px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.8125rem;
+      cursor: pointer;
+    }
+    .table-pagination .page-btn:hover { background: var(--surface); }
+    .table-pagination .page-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .table-pagination .page-btn:disabled {
+      color: var(--text-disabled);
+      cursor: not-allowed;
+    }
+
+    /* ─── Color palette ─── */
+    .palette { display: flex; gap: 8px; flex-wrap: wrap; }
+    .swatch {
+      width: 48px; height: 48px; border-radius: var(--radius);
+      border: 1px solid var(--border);
+      display: flex; align-items: flex-end; justify-content: center; padding-bottom: 2px;
+    }
+    .swatch-label { font-size: 0.5rem; color: white; text-shadow: 0 0 2px rgba(0,0,0,0.5); text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>ds-ponyo</h1>
+  <p class="subtitle">Design system compact &amp; accessible — Maquettes v2</p>
+
+  <!-- Colors -->
+  <div class="section">
+    <div class="section-title">Couleurs</div>
+    <div class="palette">
+      <div><div class="swatch" style="background:#147a79"><span class="swatch-label">Primary</span></div></div>
+      <div><div class="swatch" style="background:#0f5f5e"><span class="swatch-label">P. Hover</span></div></div>
+      <div><div class="swatch" style="background:#0a4544"><span class="swatch-label">P. Active</span></div></div>
+      <div><div class="swatch" style="background:#6b7280"><span class="swatch-label">Secondary</span></div></div>
+      <div><div class="swatch" style="background:#c2412b"><span class="swatch-label">Danger</span></div></div>
+      <div><div class="swatch" style="background:#111827"><span class="swatch-label">Text</span></div></div>
+      <div><div class="swatch" style="background:#6b7280"><span class="swatch-label">Muted</span></div></div>
+      <div><div class="swatch" style="background:#d1d5db"><span class="swatch-label">Border</span></div></div>
+      <div><div class="swatch" style="background:#f4f5f7; border-color:#d1d5db"><span class="swatch-label" style="color:#111827">Surface</span></div></div>
+    </div>
+  </div>
+
+  <!-- Buttons — all states -->
+  <div class="section">
+    <div class="section-title">Buttons — Tous les états</div>
+
+    <!-- Filled -->
+    <div class="label-text" style="margin-bottom:8px">Filled (primary)</div>
+    <div class="state-grid">
+      <div class="state-header"></div>
+      <div class="state-header">Default</div>
+      <div class="state-header">Hover</div>
+      <div class="state-header">Focus</div>
+      <div class="state-header">Active</div>
+      <div class="state-header">Disabled</div>
+
+      <div class="state-label">md</div>
+      <div><button class="btn btn-md btn-filled">Enregistrer</button></div>
+      <div><button class="btn btn-md btn-filled" style="background:var(--primary-hover);filter:brightness(0.88)">Enregistrer</button></div>
+      <div><button class="btn btn-md btn-filled" style="box-shadow:var(--focus-ring)">Enregistrer</button></div>
+      <div><button class="btn btn-md btn-filled" style="background:var(--primary-active)">Enregistrer</button></div>
+      <div><button class="btn btn-md btn-filled" disabled>Enregistrer</button></div>
+
+      <div class="state-label">sm</div>
+      <div><button class="btn btn-sm btn-filled">Enregistrer</button></div>
+      <div><button class="btn btn-sm btn-filled" style="background:var(--primary-hover);filter:brightness(0.88)">Enregistrer</button></div>
+      <div><button class="btn btn-sm btn-filled" style="box-shadow:var(--focus-ring)">Enregistrer</button></div>
+      <div><button class="btn btn-sm btn-filled" style="background:var(--primary-active)">Enregistrer</button></div>
+      <div><button class="btn btn-sm btn-filled" disabled>Enregistrer</button></div>
+    </div>
+
+    <!-- Filled danger -->
+    <div class="label-text" style="margin-bottom:8px">Filled (danger)</div>
+    <div class="state-grid">
+      <div class="state-header"></div>
+      <div class="state-header">Default</div>
+      <div class="state-header">Hover</div>
+      <div class="state-header">Focus</div>
+      <div class="state-header">Active</div>
+      <div class="state-header">Disabled</div>
+
+      <div class="state-label">md</div>
+      <div><button class="btn btn-md btn-filled btn-danger">Supprimer</button></div>
+      <div><button class="btn btn-md btn-filled btn-danger" style="background:var(--danger-hover);filter:brightness(0.88)">Supprimer</button></div>
+      <div><button class="btn btn-md btn-filled btn-danger" style="box-shadow:0 0 0 3px rgba(194,65,43,0.35)">Supprimer</button></div>
+      <div><button class="btn btn-md btn-filled" style="background:#862c18">Supprimer</button></div>
+      <div><button class="btn btn-md btn-filled" disabled>Supprimer</button></div>
+
+      <div class="state-label">sm</div>
+      <div><button class="btn btn-sm btn-filled btn-danger">Supprimer</button></div>
+      <div><button class="btn btn-sm btn-filled btn-danger" style="background:var(--danger-hover);filter:brightness(0.88)">Supprimer</button></div>
+      <div><button class="btn btn-sm btn-filled btn-danger" style="box-shadow:0 0 0 3px rgba(194,65,43,0.35)">Supprimer</button></div>
+      <div><button class="btn btn-sm btn-filled" style="background:#862c18">Supprimer</button></div>
+      <div><button class="btn btn-sm btn-filled" disabled>Supprimer</button></div>
+    </div>
+
+    <!-- Outlined primary -->
+    <div class="label-text" style="margin-bottom:8px">Outlined (primary)</div>
+    <div class="state-grid">
+      <div class="state-header"></div>
+      <div class="state-header">Default</div>
+      <div class="state-header">Hover</div>
+      <div class="state-header">Focus</div>
+      <div class="state-header">Active</div>
+      <div class="state-header">Disabled</div>
+
+      <div class="state-label">md</div>
+      <div><button class="btn btn-md btn-outlined">Annuler</button></div>
+      <div><button class="btn btn-md btn-outlined" style="background:rgba(20,122,121,0.12);border-color:var(--primary-hover)">Annuler</button></div>
+      <div><button class="btn btn-md btn-outlined" style="box-shadow:var(--focus-ring)">Annuler</button></div>
+      <div><button class="btn btn-md btn-outlined" style="background:rgba(20,122,121,0.2);border-color:var(--primary-active)">Annuler</button></div>
+      <div><button class="btn btn-md btn-outlined" disabled>Annuler</button></div>
+
+      <div class="state-label">sm</div>
+      <div><button class="btn btn-sm btn-outlined">Annuler</button></div>
+      <div><button class="btn btn-sm btn-outlined" style="background:rgba(20,122,121,0.12);border-color:var(--primary-hover)">Annuler</button></div>
+      <div><button class="btn btn-sm btn-outlined" style="box-shadow:var(--focus-ring)">Annuler</button></div>
+      <div><button class="btn btn-sm btn-outlined" style="background:rgba(20,122,121,0.2);border-color:var(--primary-active)">Annuler</button></div>
+      <div><button class="btn btn-sm btn-outlined" disabled>Annuler</button></div>
+    </div>
+
+    <!-- Outlined danger -->
+    <div class="label-text" style="margin-bottom:8px">Outlined (danger)</div>
+    <div class="state-grid">
+      <div class="state-header"></div>
+      <div class="state-header">Default</div>
+      <div class="state-header">Hover</div>
+      <div class="state-header">Focus</div>
+      <div class="state-header">Active</div>
+      <div class="state-header">Disabled</div>
+
+      <div class="state-label">md</div>
+      <div><button class="btn btn-md btn-outlined btn-danger">Supprimer</button></div>
+      <div><button class="btn btn-md btn-outlined btn-danger" style="background:rgba(194,65,43,0.1);border-color:var(--danger-hover)">Supprimer</button></div>
+      <div><button class="btn btn-md btn-outlined btn-danger" style="box-shadow:0 0 0 3px rgba(194,65,43,0.35)">Supprimer</button></div>
+      <div><button class="btn btn-md btn-outlined btn-danger" style="background:rgba(194,65,43,0.18);border-color:#862c18">Supprimer</button></div>
+      <div><button class="btn btn-md btn-outlined" disabled>Supprimer</button></div>
+    </div>
+
+    <!-- Text primary -->
+    <div class="label-text" style="margin-bottom:8px">Text (primary)</div>
+    <div class="state-grid">
+      <div class="state-header"></div>
+      <div class="state-header">Default</div>
+      <div class="state-header">Hover</div>
+      <div class="state-header">Focus</div>
+      <div class="state-header">Active</div>
+      <div class="state-header">Disabled</div>
+
+      <div class="state-label">md</div>
+      <div><button class="btn btn-md btn-text">Voir plus</button></div>
+      <div><button class="btn btn-md btn-text" style="background:rgba(20,122,121,0.1)">Voir plus</button></div>
+      <div><button class="btn btn-md btn-text" style="box-shadow:var(--focus-ring)">Voir plus</button></div>
+      <div><button class="btn btn-md btn-text" style="background:rgba(20,122,121,0.18)">Voir plus</button></div>
+      <div><button class="btn btn-md btn-text" disabled>Voir plus</button></div>
+
+      <div class="state-label">sm</div>
+      <div><button class="btn btn-sm btn-text">Voir plus</button></div>
+      <div><button class="btn btn-sm btn-text" style="background:rgba(20,122,121,0.1)">Voir plus</button></div>
+      <div><button class="btn btn-sm btn-text" style="box-shadow:var(--focus-ring)">Voir plus</button></div>
+      <div><button class="btn btn-sm btn-text" style="background:rgba(20,122,121,0.18)">Voir plus</button></div>
+      <div><button class="btn btn-sm btn-text" disabled>Voir plus</button></div>
+    </div>
+
+    <!-- Text danger -->
+    <div class="label-text" style="margin-bottom:8px">Text (danger)</div>
+    <div class="state-grid">
+      <div class="state-header"></div>
+      <div class="state-header">Default</div>
+      <div class="state-header">Hover</div>
+      <div class="state-header">Focus</div>
+      <div class="state-header">Active</div>
+      <div class="state-header">Disabled</div>
+
+      <div class="state-label">md</div>
+      <div><button class="btn btn-md btn-text btn-danger">Supprimer</button></div>
+      <div><button class="btn btn-md btn-text btn-danger" style="background:rgba(194,65,43,0.08)">Supprimer</button></div>
+      <div><button class="btn btn-md btn-text btn-danger" style="box-shadow:0 0 0 3px rgba(194,65,43,0.35)">Supprimer</button></div>
+      <div><button class="btn btn-md btn-text btn-danger" style="background:rgba(194,65,43,0.15)">Supprimer</button></div>
+      <div><button class="btn btn-md btn-text" disabled>Supprimer</button></div>
+    </div>
+
+    <!-- With icon -->
+    <div class="label-text" style="margin-top:12px; margin-bottom:8px">Avec icône</div>
+    <div class="row">
+      <button class="btn btn-md btn-filled">
+        <svg viewBox="0 0 16 16"><path d="M8 2v12M2 8h12" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        Ajouter
+      </button>
+      <button class="btn btn-sm btn-filled">
+        <svg viewBox="0 0 16 16"><path d="M8 2v12M2 8h12" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        Ajouter
+      </button>
+      <button class="btn btn-md btn-outlined">
+        <svg viewBox="0 0 16 16"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        Ajouter
+      </button>
+      <button class="btn btn-sm btn-outlined">
+        <svg viewBox="0 0 16 16"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        Ajouter
+      </button>
+      <button class="btn btn-md btn-text">
+        <svg viewBox="0 0 16 16"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        Ajouter
+      </button>
+    </div>
+  </div>
+
+  <!-- Inputs -->
+  <div class="section">
+    <div class="section-title">Inputs / Form Fields</div>
+
+    <div class="label-text" style="margin-bottom:8px">Text input (floating label)</div>
+    <div class="row" style="align-items:flex-start; gap: 16px;">
+      <div>
+        <div class="form-field">
+          <input class="form-input" id="email1" type="email" placeholder=" " value="john@example.com">
+          <label class="form-label" for="email1">Email<span class="required">*</span></label>
+        </div>
+        <span class="form-helper">Adresse email professionnelle</span>
+      </div>
+      <div>
+        <div class="form-field">
+          <input class="form-input" id="email-empty" type="email" placeholder=" ">
+          <label class="form-label" for="email-empty">Email (vide)</label>
+        </div>
+        <span class="form-helper">Cliquez pour voir le label monter</span>
+      </div>
+      <div>
+        <div class="form-field">
+          <input class="form-input is-error" id="email2" type="email" placeholder=" " value="john@">
+          <label class="form-label" for="email2">Email<span class="required">*</span></label>
+        </div>
+        <span class="form-error">&#10005; Adresse email invalide</span>
+      </div>
+      <div>
+        <div class="form-field">
+          <input class="form-input" id="email3" type="email" placeholder=" " value="disabled@test.com" disabled>
+          <label class="form-label" for="email3">Email</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Select (custom dropdown) -->
+    <div class="label-text" style="margin-top:20px; margin-bottom:8px">Select (custom dropdown)</div>
+    <div class="row" style="align-items:flex-start; gap: 16px;">
+      <!-- Closed -->
+      <div>
+        <div class="custom-select">
+          <div class="custom-select-box" tabindex="0">Administrateur</div>
+          <span class="custom-select-label">Rôle<span class="required" style="color:var(--danger);margin-left:2px">*</span></span>
+          <span class="custom-select-arrow"></span>
+        </div>
+        <span class="form-helper">Rôle de l'utilisateur</span>
+      </div>
+      <!-- Open -->
+      <div>
+        <div class="custom-select">
+          <div class="custom-select-box" tabindex="0" style="border-color:var(--primary); box-shadow:var(--focus-ring)">Éditeur</div>
+          <span class="custom-select-label" style="color:var(--primary)">Rôle<span class="required" style="color:var(--danger);margin-left:2px">*</span></span>
+          <span class="custom-select-arrow"></span>
+          <div class="custom-select-dropdown">
+            <div class="custom-select-option">
+              <span class="option-check"></span> Administrateur
+            </div>
+            <div class="custom-select-option selected">
+              <span class="option-check">&#10003;</span> Éditeur
+            </div>
+            <div class="custom-select-option" style="background:var(--surface)">
+              <span class="option-check"></span> Lecteur
+            </div>
+          </div>
+        </div>
+        <span class="form-helper">Dropdown ouvert</span>
+      </div>
+      <!-- Error -->
+      <div>
+        <div class="custom-select">
+          <div class="custom-select-box is-error" tabindex="0" style="color:var(--text-disabled)">— Sélectionner —</div>
+          <span class="custom-select-label">Pays<span class="required" style="color:var(--danger);margin-left:2px">*</span></span>
+          <span class="custom-select-arrow"></span>
+        </div>
+        <span class="form-error">&#10005; Ce champ est requis</span>
+      </div>
+      <!-- Disabled -->
+      <div>
+        <div class="custom-select">
+          <div class="custom-select-box" tabindex="-1" aria-disabled="true">Actif</div>
+          <span class="custom-select-label">Statut</span>
+          <span class="custom-select-arrow"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Multi select -->
+    <div class="label-text" style="margin-top:20px; margin-bottom:8px">Multi-select</div>
+    <div class="row" style="align-items:flex-start; gap: 16px;">
+      <!-- With selections -->
+      <div>
+        <div class="multi-select">
+          <div class="multi-select-box" tabindex="0">
+            <span class="chip">Admin <span class="chip-remove">&times;</span></span>
+            <span class="chip">Éditeur <span class="chip-remove">&times;</span></span>
+          </div>
+          <span class="multi-select-label">Permissions</span>
+          <span class="multi-select-arrow"></span>
+        </div>
+        <span class="form-helper">2 sélectionnés</span>
+      </div>
+      <!-- With dropdown open + toolbar -->
+      <div>
+        <div class="multi-select">
+          <div class="multi-select-box" tabindex="0" style="border-color:var(--primary); box-shadow:var(--focus-ring)">
+            <span class="chip">France <span class="chip-remove">&times;</span></span>
+          </div>
+          <span class="multi-select-label" style="color:var(--primary)">Pays</span>
+          <span class="multi-select-arrow"></span>
+          <div class="multi-select-dropdown">
+            <div class="multi-select-toolbar">
+              <button class="btn btn-text" style="font-size:0.7rem;height:22px;padding:1px 8px">Tout sélectionner</button>
+              <button class="btn btn-text" style="font-size:0.7rem;height:22px;padding:1px 8px">Tout désélectionner</button>
+            </div>
+            <div class="multi-select-option">
+              <span class="check-box checked" style="width:14px;height:14px"></span> France
+            </div>
+            <div class="multi-select-option">
+              <span class="check-box" style="width:14px;height:14px"></span> Allemagne
+            </div>
+            <div class="multi-select-option" style="background:var(--surface)">
+              <span class="check-box" style="width:14px;height:14px"></span> Espagne
+            </div>
+            <div class="multi-select-option">
+              <span class="check-box" style="width:14px;height:14px"></span> Italie
+            </div>
+            <div class="multi-select-option">
+              <span class="check-box" style="width:14px;height:14px"></span> Portugal
+            </div>
+          </div>
+        </div>
+        <span class="form-helper">Avec toolbar tout sélectionner / désélectionner</span>
+      </div>
+      <!-- Empty -->
+      <div>
+        <div class="multi-select">
+          <div class="multi-select-box" tabindex="0">
+            <span style="color:var(--text-disabled);font-size:0.8125rem;padding:2px 0">Aucune sélection</span>
+          </div>
+          <span class="multi-select-label">Tags</span>
+          <span class="multi-select-arrow"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkbox & Radio -->
+  <div class="section">
+    <div class="section-title">Checkbox &amp; Radio</div>
+    <div class="row" style="align-items:flex-start; gap: 48px;">
+      <div>
+        <div class="label-text">Checkbox</div>
+        <div class="check-group">
+          <label class="check-item"><span class="check-box"></span> Option inactive</label>
+          <label class="check-item"><span class="check-box checked"></span> Option active</label>
+          <label class="check-item"><span class="check-box indeterminate"></span> Indeterminate</label>
+        </div>
+      </div>
+      <div>
+        <div class="label-text">Radio</div>
+        <div class="check-group">
+          <label class="check-item"><span class="radio-circle"></span> Choix A</label>
+          <label class="check-item"><span class="radio-circle selected"></span> Choix B</label>
+          <label class="check-item"><span class="radio-circle"></span> Choix C</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table — sans filtre -->
+  <div class="section">
+    <div class="section-title">Table — Sans filtre</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:32px"><span class="check-box" style="width:14px;height:14px"></span></th>
+          <th class="sortable sorted-asc">Nom <span class="sort-icon">&#9650;</span></th>
+          <th class="sortable">Email <span class="sort-icon">&#9650;&#9660;</span></th>
+          <th class="sortable">Rôle <span class="sort-icon">&#9650;&#9660;</span></th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="check-box" style="width:14px;height:14px"></span></td>
+          <td>Alice Martin</td>
+          <td>alice@example.com</td>
+          <td>Admin</td>
+          <td><span class="status-badge active">Actif</span></td>
+          <td class="cell-actions">
+            <button class="btn btn-text">Éditer</button>
+            <button class="btn btn-text btn-danger">Suppr.</button>
+          </td>
+        </tr>
+        <tr class="selected">
+          <td><span class="check-box checked" style="width:14px;height:14px"></span></td>
+          <td>Bob Dupont</td>
+          <td>bob@example.com</td>
+          <td>Éditeur</td>
+          <td><span class="status-badge active">Actif</span></td>
+          <td class="cell-actions">
+            <button class="btn btn-text">Éditer</button>
+            <button class="btn btn-text btn-danger">Suppr.</button>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="check-box" style="width:14px;height:14px"></span></td>
+          <td>Claire Moreau</td>
+          <td>claire@example.com</td>
+          <td>Lecteur</td>
+          <td><span class="status-badge inactive">Inactif</span></td>
+          <td class="cell-actions">
+            <button class="btn btn-text">Éditer</button>
+            <button class="btn btn-text btn-danger">Suppr.</button>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="check-box" style="width:14px;height:14px"></span></td>
+          <td>David Leroy</td>
+          <td>david@example.com</td>
+          <td>Éditeur</td>
+          <td><span class="status-badge pending">En attente</span></td>
+          <td class="cell-actions">
+            <button class="btn btn-text">Éditer</button>
+            <button class="btn btn-text btn-danger">Suppr.</button>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="check-box" style="width:14px;height:14px"></span></td>
+          <td>Emma Bernard</td>
+          <td>emma@example.com</td>
+          <td>Admin</td>
+          <td><span class="status-badge active">Actif</span></td>
+          <td class="cell-actions">
+            <button class="btn btn-text">Éditer</button>
+            <button class="btn btn-text btn-danger">Suppr.</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table-pagination">
+      <span>1-5 sur 24</span>
+      <button class="page-btn" disabled>&lsaquo;</button>
+      <button class="page-btn active">1</button>
+      <button class="page-btn">2</button>
+      <button class="page-btn">3</button>
+      <button class="page-btn">5</button>
+      <button class="page-btn">&rsaquo;</button>
+    </div>
+  </div>
+
+  <!-- Table — avec filtres -->
+  <div class="section">
+    <div class="section-title">Table — Avec filtres</div>
+    <div class="table-toolbar">
+      <div class="search-wrapper">
+        <input class="table-search" type="text" placeholder="Rechercher..." value="alice">
+      </div>
+      <select class="table-filter-select">
+        <option>Tous les rôles</option>
+        <option>Admin</option>
+        <option selected>Éditeur</option>
+        <option>Lecteur</option>
+      </select>
+      <select class="table-filter-select">
+        <option selected>Tous les statuts</option>
+        <option>Actif</option>
+        <option>Inactif</option>
+        <option>En attente</option>
+      </select>
+      <button class="btn btn-sm btn-text" style="margin-left:auto">Réinitialiser</button>
+      <button class="btn btn-sm btn-filled">
+        <svg viewBox="0 0 16 16"><path d="M8 2v12M2 8h12" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        Ajouter
+      </button>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:32px"><span class="check-box" style="width:14px;height:14px"></span></th>
+          <th class="sortable sorted-asc">Nom <span class="sort-icon">&#9650;</span></th>
+          <th class="sortable">Email <span class="sort-icon">&#9650;&#9660;</span></th>
+          <th class="sortable">Rôle <span class="sort-icon">&#9650;&#9660;</span></th>
+          <th>Statut</th>
+          <th>Créé le</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="check-box" style="width:14px;height:14px"></span></td>
+          <td><strong>Alice</strong> Martin</td>
+          <td>alice@example.com</td>
+          <td>Admin</td>
+          <td><span class="status-badge active">Actif</span></td>
+          <td style="color:var(--text-muted)">12 mars 2026</td>
+          <td class="cell-actions">
+            <button class="btn btn-text">Éditer</button>
+            <button class="btn btn-text btn-danger">Suppr.</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table-pagination">
+      <span>1 résultat filtré sur 24</span>
+    </div>
+  </div>
+
+  <!-- Dialog -->
+  <div class="section">
+    <div class="section-title">Dialog / Modal</div>
+    <div class="dialog-backdrop">
+      <div class="dialog">
+        <div class="dialog-header">
+          Supprimer l'élément ?
+          <button class="dialog-close">&times;</button>
+        </div>
+        <div class="dialog-body">
+          Êtes-vous sûr de vouloir supprimer cet élément ?<br>
+          Cette action est irréversible.
+        </div>
+        <div class="dialog-footer">
+          <button class="btn btn-md btn-outlined">Annuler</button>
+          <button class="btn btn-md btn-filled btn-danger">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="section">
+    <div class="section-title">Toast / Notifications</div>
+    <div class="toast-stack">
+      <div class="toast toast-success">
+        <span class="toast-icon">&#10003;</span>
+        <span class="toast-message">Élément sauvegardé avec succès</span>
+        <button class="toast-close">&times;</button>
+      </div>
+      <div class="toast toast-warning">
+        <span class="toast-icon">&#9888;</span>
+        <span class="toast-message">Connexion instable</span>
+        <button class="toast-close">&times;</button>
+      </div>
+      <div class="toast toast-error">
+        <span class="toast-icon">&#10007;</span>
+        <span class="toast-message">Erreur lors de la suppression</span>
+        <button class="toast-close">&times;</button>
+      </div>
+      <div class="toast toast-info">
+        <span class="toast-icon">&#8505;</span>
+        <span class="toast-message">3 éléments mis à jour</span>
+        <button class="toast-close">&times;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Specs -->
+  <div class="section">
+    <div class="section-title">Specs compact admin</div>
+    <table style="font-size:0.8125rem; border-collapse:collapse; width:100%;">
+      <thead>
+        <tr style="text-align:left; border-bottom:1px solid var(--border);">
+          <th style="padding:4px 8px">Composant</th>
+          <th style="padding:4px 8px">Height</th>
+          <th style="padding:4px 8px">Padding</th>
+          <th style="padding:4px 8px">Font size</th>
+          <th style="padding:4px 8px">Radius</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:4px 8px">Button sm</td><td style="padding:4px 8px">28px</td><td style="padding:4px 8px">4px 12px</td><td style="padding:4px 8px">13px</td><td style="padding:4px 8px">4px</td></tr>
+        <tr style="background:var(--surface)"><td style="padding:4px 8px">Button md</td><td style="padding:4px 8px">32px</td><td style="padding:4px 8px">6px 16px</td><td style="padding:4px 8px">14px</td><td style="padding:4px 8px">4px</td></tr>
+        <tr><td style="padding:4px 8px">Input / Select</td><td style="padding:4px 8px">40px</td><td style="padding:4px 8px">14px 8px 4px</td><td style="padding:4px 8px">14px</td><td style="padding:4px 8px">4px</td></tr>
+        <tr style="background:var(--surface)"><td style="padding:4px 8px">Checkbox/Radio</td><td style="padding:4px 8px">16×16</td><td style="padding:4px 8px">—</td><td style="padding:4px 8px">14px</td><td style="padding:4px 8px">3px / 50%</td></tr>
+        <tr><td style="padding:4px 8px">Table row</td><td style="padding:4px 8px">auto</td><td style="padding:4px 8px">6px 10px</td><td style="padding:4px 8px">13px</td><td style="padding:4px 8px">—</td></tr>
+        <tr style="background:var(--surface)"><td style="padding:4px 8px">Toast</td><td style="padding:4px 8px">auto</td><td style="padding:4px 8px">8px 12px</td><td style="padding:4px 8px">13px</td><td style="padding:4px 8px">4px</td></tr>
+        <tr><td style="padding:4px 8px">Dialog</td><td style="padding:4px 8px">auto</td><td style="padding:4px 8px">10-12px</td><td style="padding:4px 8px">14px</td><td style="padding:4px 8px">8px</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
