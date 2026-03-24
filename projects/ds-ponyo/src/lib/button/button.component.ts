@@ -1,9 +1,11 @@
 import { Component, input } from '@angular/core';
+import { AyIconComponent } from '../icon/icon.component'
 import { AyButtonVariant, AyButtonColor, AyButtonSize } from './button.model'
 
 @Component({
   selector: 'ay-button, button[ay-button], a[ay-button]',
   standalone: true,
+  imports: [AyIconComponent],
   host: {
     'class': 'ay-button',
     '[class.ay-button--filled]': 'variant() === "filled"',
@@ -24,5 +26,7 @@ export class AyButtonComponent {
   readonly variant = input<AyButtonVariant>('filled')
   readonly color = input<AyButtonColor>('primary')
   readonly size = input<AyButtonSize>('md')
+  readonly icon = input<string>('')
+  readonly iconPosition = input<'left' | 'right'>('left')
   readonly isDisabled = input(false, { alias: 'disabled' })
 }
