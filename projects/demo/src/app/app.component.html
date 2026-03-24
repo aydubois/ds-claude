@@ -102,6 +102,16 @@
       </div>
     </div>
 
+    <h3 class="demo-label">Avec icônes</h3>
+    <div class="demo-row demo-row--top">
+      <div class="demo-field">
+        <ay-input label="Rechercher" type="text" prefixIcon="search" [clearable]="true" />
+      </div>
+      <div class="demo-field">
+        <ay-input label="Données" type="text" suffixIcon="refresh" (suffixClick)="toastService.info('Données rafraîchies')" />
+      </div>
+    </div>
+
     <h3 class="demo-label">États</h3>
     <div class="demo-row demo-row--top">
       <div class="demo-field">

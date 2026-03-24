@@ -1,4 +1,7 @@
 <div class="ay-input-wrapper">
+  @if (prefixIcon()) {
+    <ay-icon [name]="prefixIcon()" class="ay-input-prefix" />
+  }
   <input
     #inputEl
     class="ay-input"
@@ -22,15 +25,23 @@
   </label>
   @if (showClear()) {
     <button
-      class="ay-input-clear"
+      class="ay-input-action ay-input-clear"
       type="button"
       tabindex="-1"
       aria-label="Effacer"
       (mousedown)="onClear($event)"
     >
-      <svg viewBox="0 0 16 16" aria-hidden="true">
-        <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
+      <ay-icon name="close" />
+    </button>
+  } @else if (suffixIcon()) {
+    <button
+      class="ay-input-action ay-input-suffix"
+      type="button"
+      tabindex="-1"
+      [attr.aria-label]="suffixIcon()"
+      (mousedown)="onSuffixClick($event)"
+    >
+      <ay-icon [name]="suffixIcon()" />
     </button>
   }
 </div>

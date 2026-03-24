@@ -9,6 +9,7 @@ import {
   viewChild,
 } from '@angular/core'
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AyIconComponent } from '../icon/icon.component'
 import { AyInputType } from './input.model'
 
 let nextId = 0
@@ -16,6 +17,7 @@ let nextId = 0
 @Component({
   selector: 'ay-input',
   standalone: true,
+  imports: [AyIconComponent],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -30,6 +32,8 @@ let nextId = 0
     '[class.ay-input-field--error]': '!!error()',
     '[class.ay-input-field--disabled]': 'disabled()',
     '[class.ay-input-field--clearable]': 'showClear()',
+    '[class.ay-input-field--has-prefix]': '!!prefixIcon()',
+    '[class.ay-input-field--has-suffix]': 'hasSuffix()',
   },
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss',
@@ -44,8 +48,11 @@ export class AyInputComponent implements ControlValueAccessor {
   readonly required = input<boolean>(false)
   readonly disabled = input<boolean>(false)
   readonly clearable = input<boolean>(false)
+  readonly prefixIcon = input<string>('')
+  readonly suffixIcon = input<string>('')
 
   readonly valueChange = output<string>()
+  readonly suffixClick = output<void>()
 
   readonly inputEl = viewChild<ElementRef<HTMLInputElement>>('inputEl')
 
@@ -58,6 +65,10 @@ export class AyInputComponent implements ControlValueAccessor {
 
   readonly showClear = computed(() =>
     this.clearable() && !!this.value() && !this.disabled()
+  )
+
+  readonly hasSuffix = computed(() =>
+    !!this.suffixIcon() || this.showClear()
   )
 
   readonly describedBy = computed(() => {
@@ -83,6 +94,12 @@ export class AyInputComponent implements ControlValueAccessor {
   onBlur(): void {
     this.focused.set(false)
     this.onTouched()
+  }
+
+  onSuffixClick(event: MouseEvent): void {
+    event.preventDefault()
+    this.suffixClick.emit()
+    this.inputEl()?.nativeElement.focus()
   }
 
   onClear(event: MouseEvent): void {
