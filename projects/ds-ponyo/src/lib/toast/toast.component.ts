@@ -11,5 +11,5 @@ import { AyToastService } from './toast.service';
   styleUrl: './toast.component.scss',
 })
 export class AyToastContainerComponent {
-  protected readonly toastService = inject(AyToastService);
+  protected readonly toastService = inject(AyToastService)
 }

@@ -5,10 +5,10 @@ import {
   signal,
   computed,
   forwardRef,
-} from '@angular/core';
+} from '@angular/core'
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-let nextId = 0;
+let nextId = 0
 
 @Component({
   selector: 'ay-checkbox',
@@ -32,37 +32,37 @@ let nextId = 0;
   styleUrl: './checkbox.component.scss',
 })
 export class AyCheckboxComponent implements ControlValueAccessor {
-  private readonly uid = nextId++;
+  private readonly uid = nextId++
 
-  readonly disabled = input<boolean>(false);
-  readonly indeterminate = input<boolean>(false);
+  readonly disabled = input<boolean>(false)
+  readonly indeterminate = input<boolean>(false)
 
-  readonly checkedChange = output<boolean>();
+  readonly checkedChange = output<boolean>()
 
-  readonly checked = signal(false);
-  readonly labelId = computed(() => `ay-checkbox-label-${this.uid}`);
+  readonly checked = signal(false)
+  readonly labelId = computed(() => `ay-checkbox-label-${this.uid}`)
 
-  private onChange: (value: boolean) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: boolean) => void = () => {}
+  private onTouched: () => void = () => {}
 
   toggle(): void {
-    if (this.disabled()) return;
-    const next = !this.checked();
-    this.checked.set(next);
-    this.onChange(next);
-    this.onTouched();
-    this.checkedChange.emit(next);
+    if (this.disabled()) return
+    const next = !this.checked()
+    this.checked.set(next)
+    this.onChange(next)
+    this.onTouched()
+    this.checkedChange.emit(next)
   }
 
   writeValue(value: boolean): void {
-    this.checked.set(!!value);
+    this.checked.set(!!value)
   }
 
   registerOnChange(fn: (value: boolean) => void): void {
-    this.onChange = fn;
+    this.onChange = fn
   }
 
   registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
+    this.onTouched = fn
   }
 }

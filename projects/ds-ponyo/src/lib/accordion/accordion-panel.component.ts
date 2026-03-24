@@ -3,9 +3,9 @@ import {
   input,
   signal,
   computed,
-} from '@angular/core';
+} from '@angular/core'
 
-let nextId = 0;
+let nextId = 0
 
 @Component({
   selector: 'ay-accordion-panel',
@@ -20,44 +20,44 @@ let nextId = 0;
   styleUrl: './accordion-panel.component.scss',
 })
 export class AyAccordionPanelComponent {
-  private readonly uid = nextId++;
+  private readonly uid = nextId++
 
-  readonly panelId = input<string>(`panel-${this.uid}`);
-  readonly startExpanded = input<boolean>(true);
+  readonly panelId = input<string>(`panel-${this.uid}`)
+  readonly startExpanded = input<boolean>(true)
 
-  readonly expanded = signal(true);
-  readonly dragging = signal(false);
+  readonly expanded = signal(true)
+  readonly dragging = signal(false)
 
-  readonly headerId = computed(() => `ay-accordion-header-${this.uid}`);
-  readonly contentId = computed(() => `ay-accordion-content-${this.uid}`);
+  readonly headerId = computed(() => `ay-accordion-header-${this.uid}`)
+  readonly contentId = computed(() => `ay-accordion-content-${this.uid}`)
 
   constructor() {
     // Defer reading startExpanded to after input binding
     Promise.resolve().then(() => {
-      this.expanded.set(this.startExpanded());
-    });
+      this.expanded.set(this.startExpanded())
+    })
   }
 
   toggle(): void {
-    this.expanded.update(v => !v);
+    this.expanded.update(v => !v)
   }
 
   onDragStart(event: DragEvent): void {
-    this.dragging.set(true);
-    event.dataTransfer?.setData('text/plain', this.panelId());
+    this.dragging.set(true)
+    event.dataTransfer?.setData('text/plain', this.panelId())
     if (event.dataTransfer) {
-      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.effectAllowed = 'move'
     }
   }
 
   onDragEnd(): void {
-    this.dragging.set(false);
+    this.dragging.set(false)
   }
 
   onHandleKeydown(event: KeyboardEvent): void {
     // Keyboard reorder is handled by the parent accordion container
     if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-      event.preventDefault();
+      event.preventDefault()
       const customEvent = new CustomEvent('ay-panel-move', {
         bubbles: true,
         detail: {
@@ -65,7 +65,7 @@ export class AyAccordionPanelComponent {
           direction: event.key === 'ArrowUp' ? 'up' : 'down',
         },
       });
-      (event.target as HTMLElement).dispatchEvent(customEvent);
+      (event.target as HTMLElement).dispatchEvent(customEvent)
     }
   }
 }

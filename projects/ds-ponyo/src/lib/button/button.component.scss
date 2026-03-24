@@ -14,9 +14,12 @@
   box-sizing: border-box;
   line-height: 1;
 
-  &:focus-visible { outline: none; }
+  &:focus-visible {
+    outline: none;
+  }
 
-  svg, .ay-button-icon {
+  svg,
+  .ay-button-icon {
     width: 0.875em;
     height: 0.875em;
     flex-shrink: 0;
@@ -25,50 +28,157 @@
 }
 
 // ─── Sizes ───
-:host(.ay-button--sm) { padding: 0.25rem 0.75rem; font-size: var(--ay-font-size-sm, 0.8125rem); height: 1.75rem; }
-:host(.ay-button--md) { padding: 0.375rem 1rem; font-size: var(--ay-font-size-md, 0.875rem); height: 2rem; }
+:host(.ay-button--sm) {
+  padding: 0.25rem 0.75rem;
+  font-size: var(--ay-font-size-sm, 0.8125rem);
+  height: 1.75rem;
+}
+
+:host(.ay-button--md) {
+  padding: 0.375rem 1rem;
+  font-size: var(--ay-font-size-md, 0.875rem);
+  height: 2rem;
+}
 
 // ─── Filled ───
-:host(.ay-button--filled) { color: #fff; }
-:host(.ay-button--filled.ay-button--primary) { background: var(--ay-color-primary, #147a79); }
-:host(.ay-button--filled.ay-button--danger)  { background: var(--ay-color-danger, #c2412b); }
+:host(.ay-button--filled) {
+  color: #fff;
+}
 
-:host(.ay-button--filled.ay-button--primary:hover:not(.ay-button--disabled))  { background: var(--ay-color-primary-hover, #0f5f5e); filter: brightness(0.88); }
-:host(.ay-button--filled.ay-button--primary:active:not(.ay-button--disabled)) { background: var(--ay-color-primary-active, #0a4544); filter: none; }
-:host(.ay-button--filled.ay-button--primary:focus-visible) { box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4)); }
+:host(.ay-button--filled.ay-button--primary) {
+  background: var(--ay-color-primary, #147a79);
+}
 
-:host(.ay-button--filled.ay-button--danger:hover:not(.ay-button--disabled))  { background: var(--ay-color-danger-hover, #a3361f); filter: brightness(0.88); }
-:host(.ay-button--filled.ay-button--danger:active:not(.ay-button--disabled)) { background: var(--ay-color-danger-active, #862c18); filter: none; }
-:host(.ay-button--filled.ay-button--danger:focus-visible) { box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35); }
+:host(.ay-button--filled.ay-button--danger) {
+  background: var(--ay-color-danger, #c2412b);
+}
+
+:host(.ay-button--filled.ay-button--primary:hover:not(.ay-button--disabled)) {
+  background: var(--ay-color-primary-hover, #0f5f5e);
+  filter: brightness(0.88);
+}
+
+:host(.ay-button--filled.ay-button--primary:active:not(.ay-button--disabled)) {
+  background: var(--ay-color-primary-active, #0a4544);
+  filter: none;
+}
+
+:host(.ay-button--filled.ay-button--primary:focus-visible) {
+  box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+}
+
+:host(.ay-button--filled.ay-button--danger:hover:not(.ay-button--disabled)) {
+  background: var(--ay-color-danger-hover, #a3361f);
+  filter: brightness(0.88);
+}
+
+:host(.ay-button--filled.ay-button--danger:active:not(.ay-button--disabled)) {
+  background: var(--ay-color-danger-active, #862c18);
+  filter: none;
+}
+
+:host(.ay-button--filled.ay-button--danger:focus-visible) {
+  box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35);
+}
 
 // ─── Outlined ───
-:host(.ay-button--outlined) { background: transparent; border: 1.5px solid; }
-:host(.ay-button--outlined.ay-button--primary) { color: var(--ay-color-primary, #147a79); border-color: var(--ay-color-primary, #147a79); }
-:host(.ay-button--outlined.ay-button--danger)  { color: var(--ay-color-danger, #c2412b); border-color: var(--ay-color-danger, #c2412b); }
+:host(.ay-button--outlined) {
+  background: transparent;
+  border: 1.5px solid;
+}
 
-:host(.ay-button--outlined.ay-button--primary:hover:not(.ay-button--disabled))  { background: rgba(20, 122, 121, 0.12); border-color: var(--ay-color-primary-hover, #0f5f5e); }
-:host(.ay-button--outlined.ay-button--primary:active:not(.ay-button--disabled)) { background: rgba(20, 122, 121, 0.2); border-color: var(--ay-color-primary-active, #0a4544); }
-:host(.ay-button--outlined.ay-button--primary:focus-visible) { box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4)); }
+:host(.ay-button--outlined.ay-button--primary) {
+  color: var(--ay-color-primary, #147a79);
+  border-color: var(--ay-color-primary, #147a79);
+}
 
-:host(.ay-button--outlined.ay-button--danger:hover:not(.ay-button--disabled))  { background: rgba(194, 65, 43, 0.1); border-color: var(--ay-color-danger-hover, #a3361f); }
-:host(.ay-button--outlined.ay-button--danger:active:not(.ay-button--disabled)) { background: rgba(194, 65, 43, 0.18); }
-:host(.ay-button--outlined.ay-button--danger:focus-visible) { box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35); }
+:host(.ay-button--outlined.ay-button--danger) {
+  color: var(--ay-color-danger, #c2412b);
+  border-color: var(--ay-color-danger, #c2412b);
+}
+
+:host(.ay-button--outlined.ay-button--primary:hover:not(.ay-button--disabled)) {
+  background: rgba(20, 122, 121, 0.12);
+  border-color: var(--ay-color-primary-hover, #0f5f5e);
+}
+
+:host(.ay-button--outlined.ay-button--primary:active:not(.ay-button--disabled)) {
+  background: rgba(20, 122, 121, 0.2);
+  border-color: var(--ay-color-primary-active, #0a4544);
+}
+
+:host(.ay-button--outlined.ay-button--primary:focus-visible) {
+  box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+}
+
+:host(.ay-button--outlined.ay-button--danger:hover:not(.ay-button--disabled)) {
+  background: rgba(194, 65, 43, 0.1);
+  border-color: var(--ay-color-danger-hover, #a3361f);
+}
+
+:host(.ay-button--outlined.ay-button--danger:active:not(.ay-button--disabled)) {
+  background: rgba(194, 65, 43, 0.18);
+}
+
+:host(.ay-button--outlined.ay-button--danger:focus-visible) {
+  box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35);
+}
 
 // ─── Text ───
-:host(.ay-button--text) { background: transparent; border: none; }
-:host(.ay-button--text.ay-button--primary) { color: var(--ay-color-primary, #147a79); }
-:host(.ay-button--text.ay-button--danger)  { color: var(--ay-color-danger, #c2412b); }
+:host(.ay-button--text) {
+  background: transparent;
+  border: none;
+}
 
-:host(.ay-button--text.ay-button--primary:hover:not(.ay-button--disabled))  { background: rgba(20, 122, 121, 0.1); }
-:host(.ay-button--text.ay-button--primary:active:not(.ay-button--disabled)) { background: rgba(20, 122, 121, 0.18); }
-:host(.ay-button--text.ay-button--primary:focus-visible) { box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4)); }
+:host(.ay-button--text.ay-button--primary) {
+  color: var(--ay-color-primary, #147a79);
+}
 
-:host(.ay-button--text.ay-button--danger:hover:not(.ay-button--disabled))  { background: rgba(194, 65, 43, 0.08); }
-:host(.ay-button--text.ay-button--danger:active:not(.ay-button--disabled)) { background: rgba(194, 65, 43, 0.15); }
-:host(.ay-button--text.ay-button--danger:focus-visible) { box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35); }
+:host(.ay-button--text.ay-button--danger) {
+  color: var(--ay-color-danger, #c2412b);
+}
+
+:host(.ay-button--text.ay-button--primary:hover:not(.ay-button--disabled)) {
+  background: rgba(20, 122, 121, 0.1);
+}
+
+:host(.ay-button--text.ay-button--primary:active:not(.ay-button--disabled)) {
+  background: rgba(20, 122, 121, 0.18);
+}
+
+:host(.ay-button--text.ay-button--primary:focus-visible) {
+  box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+}
+
+:host(.ay-button--text.ay-button--danger:hover:not(.ay-button--disabled)) {
+  background: rgba(194, 65, 43, 0.08);
+}
+
+:host(.ay-button--text.ay-button--danger:active:not(.ay-button--disabled)) {
+  background: rgba(194, 65, 43, 0.15);
+}
+
+:host(.ay-button--text.ay-button--danger:focus-visible) {
+  box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35);
+}
 
 // ─── Disabled ───
-:host(.ay-button--disabled) { cursor: not-allowed; pointer-events: none; }
-:host(.ay-button--disabled.ay-button--filled)   { background: var(--ay-color-border, #d1d5db); color: var(--ay-color-text-disabled, #9ca3af); filter: none; }
-:host(.ay-button--disabled.ay-button--outlined)  { border-color: var(--ay-color-border, #d1d5db); color: var(--ay-color-text-disabled, #9ca3af); }
-:host(.ay-button--disabled.ay-button--text)      { color: var(--ay-color-text-disabled, #9ca3af); }
+:host(.ay-button--disabled) {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+:host(.ay-button--disabled.ay-button--filled) {
+  background: var(--ay-color-border, #d1d5db);
+  color: var(--ay-color-text-disabled, #9ca3af);
+  filter: none;
+}
+
+:host(.ay-button--disabled.ay-button--outlined) {
+  border-color: var(--ay-color-border, #d1d5db);
+  color: var(--ay-color-text-disabled, #9ca3af);
+}
+
+:host(.ay-button--disabled.ay-button--text) {
+  color: var(--ay-color-text-disabled, #9ca3af);
+}

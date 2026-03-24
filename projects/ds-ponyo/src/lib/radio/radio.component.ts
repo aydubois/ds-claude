@@ -5,10 +5,10 @@ import {
   signal,
   computed,
   forwardRef,
-} from '@angular/core';
+} from '@angular/core'
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-let nextId = 0;
+let nextId = 0
 
 @Component({
   selector: 'ay-radio',
@@ -31,37 +31,37 @@ let nextId = 0;
   styleUrl: './radio.component.scss',
 })
 export class AyRadioComponent implements ControlValueAccessor {
-  private readonly uid = nextId++;
+  private readonly uid = nextId++
 
-  readonly value = input.required<string>();
-  readonly disabled = input<boolean>(false);
+  readonly value = input.required<string>()
+  readonly disabled = input<boolean>(false)
 
-  readonly selectedChange = output<string>();
+  readonly selectedChange = output<string>()
 
-  readonly selectedValue = signal<string | null>(null);
-  readonly labelId = computed(() => `ay-radio-label-${this.uid}`);
-  readonly isSelected = computed(() => this.selectedValue() === this.value());
+  readonly selectedValue = signal<string | null>(null)
+  readonly labelId = computed(() => `ay-radio-label-${this.uid}`)
+  readonly isSelected = computed(() => this.selectedValue() === this.value())
 
-  private onChange: (value: string) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: string) => void = () => {}
+  private onTouched: () => void = () => {}
 
   select(): void {
-    if (this.disabled()) return;
-    this.selectedValue.set(this.value());
-    this.onChange(this.value());
-    this.onTouched();
-    this.selectedChange.emit(this.value());
+    if (this.disabled()) return
+    this.selectedValue.set(this.value())
+    this.onChange(this.value())
+    this.onTouched()
+    this.selectedChange.emit(this.value())
   }
 
   writeValue(value: string): void {
-    this.selectedValue.set(value);
+    this.selectedValue.set(value)
   }
 
   registerOnChange(fn: (value: string) => void): void {
-    this.onChange = fn;
+    this.onChange = fn
   }
 
   registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
+    this.onTouched = fn
   }
 }

@@ -59,4 +59,4 @@ export const AY_ICONS: Record<string, string> = {
   'sort-desc': '<path d="M4 6l4 6 4-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
   'logout': '<path d="M9 3H4a1 1 0 00-1 1v8a1 1 0 001 1h5M7 8h7M12 5l2.5 3-2.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
   'login': '<path d="M7 3h5a1 1 0 011 1v8a1 1 0 01-1 1H7M3 8h7M8 5l2.5 3L8 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
-};
+}

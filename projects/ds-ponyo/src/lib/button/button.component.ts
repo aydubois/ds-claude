@@ -1,8 +1,8 @@
 import { Component, input } from '@angular/core';
 
-export type AyButtonVariant = 'filled' | 'outlined' | 'text';
-export type AyButtonColor = 'primary' | 'danger';
-export type AyButtonSize = 'sm' | 'md';
+export type AyButtonVariant = 'filled' | 'outlined' | 'text'
+export type AyButtonColor = 'primary' | 'danger'
+export type AyButtonSize = 'sm' | 'md'
 
 @Component({
   selector: 'ay-button, button[ay-button], a[ay-button]',
@@ -24,8 +24,8 @@ export type AyButtonSize = 'sm' | 'md';
   styleUrl: './button.component.scss',
 })
 export class AyButtonComponent {
-  readonly variant = input<AyButtonVariant>('filled');
-  readonly color = input<AyButtonColor>('primary');
-  readonly size = input<AyButtonSize>('md');
-  readonly isDisabled = input(false, { alias: 'disabled' });
+  readonly variant = input<AyButtonVariant>('filled')
+  readonly color = input<AyButtonColor>('primary')
+  readonly size = input<AyButtonSize>('md')
+  readonly isDisabled = input(false, { alias: 'disabled' })
 }

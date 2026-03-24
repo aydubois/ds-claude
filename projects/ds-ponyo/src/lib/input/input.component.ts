@@ -7,12 +7,12 @@ import {
   forwardRef,
   ElementRef,
   viewChild,
-} from '@angular/core';
+} from '@angular/core'
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-export type AyInputType = 'text' | 'number' | 'email' | 'password';
+export type AyInputType = 'text' | 'number' | 'email' | 'password'
 
-let nextId = 0;
+let nextId = 0
 
 @Component({
   selector: 'ay-input',
@@ -36,75 +36,75 @@ let nextId = 0;
   styleUrl: './input.component.scss',
 })
 export class AyInputComponent implements ControlValueAccessor {
-  private readonly uid = nextId++;
+  private readonly uid = nextId++
 
-  readonly label = input.required<string>();
-  readonly type = input<AyInputType>('text');
-  readonly helper = input<string>('');
-  readonly error = input<string>('');
-  readonly required = input<boolean>(false);
-  readonly disabled = input<boolean>(false);
-  readonly clearable = input<boolean>(false);
+  readonly label = input.required<string>()
+  readonly type = input<AyInputType>('text')
+  readonly helper = input<string>('')
+  readonly error = input<string>('')
+  readonly required = input<boolean>(false)
+  readonly disabled = input<boolean>(false)
+  readonly clearable = input<boolean>(false)
 
-  readonly valueChange = output<string>();
+  readonly valueChange = output<string>()
 
-  readonly inputEl = viewChild<ElementRef<HTMLInputElement>>('inputEl');
+  readonly inputEl = viewChild<ElementRef<HTMLInputElement>>('inputEl')
 
-  readonly value = signal('');
-  readonly focused = signal(false);
+  readonly value = signal('')
+  readonly focused = signal(false)
 
-  readonly inputId = computed(() => `ay-input-${this.uid}`);
-  readonly errorId = computed(() => `ay-input-error-${this.uid}`);
-  readonly helperId = computed(() => `ay-input-helper-${this.uid}`);
+  readonly inputId = computed(() => `ay-input-${this.uid}`)
+  readonly errorId = computed(() => `ay-input-error-${this.uid}`)
+  readonly helperId = computed(() => `ay-input-helper-${this.uid}`)
 
   readonly showClear = computed(() =>
     this.clearable() && !!this.value() && !this.disabled()
-  );
+  )
 
   readonly describedBy = computed(() => {
-    if (this.error()) return this.errorId();
-    if (this.helper()) return this.helperId();
-    return null;
-  });
+    if (this.error()) return this.errorId()
+    if (this.helper()) return this.helperId()
+    return null
+  })
 
-  private onChange: (value: string) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: string) => void = () => {}
+  private onTouched: () => void = () => {}
 
   onInput(event: Event): void {
-    const val = (event.target as HTMLInputElement).value;
-    this.value.set(val);
-    this.onChange(val);
-    this.valueChange.emit(val);
+    const val = (event.target as HTMLInputElement).value
+    this.value.set(val)
+    this.onChange(val)
+    this.valueChange.emit(val)
   }
 
   onFocus(): void {
-    this.focused.set(true);
+    this.focused.set(true)
   }
 
   onBlur(): void {
-    this.focused.set(false);
-    this.onTouched();
+    this.focused.set(false)
+    this.onTouched()
   }
 
   onClear(event: MouseEvent): void {
     event.preventDefault(); // Prevent blur on input
-    this.value.set('');
-    this.onChange('');
-    this.valueChange.emit('');
-    this.inputEl()?.nativeElement.focus();
+    this.value.set('')
+    this.onChange('')
+    this.valueChange.emit('')
+    this.inputEl()?.nativeElement.focus()
   }
 
   // ControlValueAccessor
   writeValue(value: string): void {
-    this.value.set(value ?? '');
+    this.value.set(value ?? '')
   }
 
   registerOnChange(fn: (value: string) => void): void {
-    this.onChange = fn;
+    this.onChange = fn
   }
 
   registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
+    this.onTouched = fn
   }
 
   setDisabledState?(isDisabled: boolean): void {
