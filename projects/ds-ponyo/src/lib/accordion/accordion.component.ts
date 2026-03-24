@@ -9,15 +9,15 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'ponyo-accordion',
+  selector: 'ay-accordion',
   standalone: true,
   host: {
-    'class': 'ponyo-accordion',
+    'class': 'ay-accordion',
   },
-  template: `<ng-content />`,
+  templateUrl: './accordion.component.html',
   styleUrl: './accordion.component.scss',
 })
-export class PonyoAccordionComponent {
+export class AyAccordionComponent {
   private readonly elRef = inject(ElementRef<HTMLElement>);
 
   readonly gap = input<string>('0.5rem');
@@ -26,7 +26,7 @@ export class PonyoAccordionComponent {
 
   readonly dragOverIndex = signal<number | null>(null);
 
-  @HostListener('ponyo-panel-move', ['$event'])
+  @HostListener('ay-panel-move', ['$event'])
   onPanelMove(event: CustomEvent<{ panelId: string; direction: 'up' | 'down' }>): void {
     event.stopPropagation();
     const { panelId, direction } = event.detail;
@@ -47,15 +47,15 @@ export class PonyoAccordionComponent {
       this.dragOverIndex.set(idx);
 
       // Remove all drop indicators
-      panels.forEach(p => p.classList.remove('ponyo-accordion-panel--drop-above', 'ponyo-accordion-panel--drop-below'));
+      panels.forEach(p => p.classList.remove('ay-accordion-panel--drop-above', 'ay-accordion-panel--drop-below'));
 
       // Add indicator
       const rect = target.getBoundingClientRect();
       const midY = rect.top + rect.height / 2;
       if (event.clientY < midY) {
-        target.classList.add('ponyo-accordion-panel--drop-above');
+        target.classList.add('ay-accordion-panel--drop-above');
       } else {
-        target.classList.add('ponyo-accordion-panel--drop-below');
+        target.classList.add('ay-accordion-panel--drop-below');
       }
     }
   }
@@ -64,7 +64,7 @@ export class PonyoAccordionComponent {
   onDragLeave(event: DragEvent): void {
     const target = this.findPanelElement(event.target as HTMLElement);
     if (target) {
-      target.classList.remove('ponyo-accordion-panel--drop-above', 'ponyo-accordion-panel--drop-below');
+      target.classList.remove('ay-accordion-panel--drop-above', 'ay-accordion-panel--drop-below');
     }
   }
 
@@ -76,7 +76,7 @@ export class PonyoAccordionComponent {
 
     // Clean up indicators
     this.getPanelElements().forEach(p =>
-      p.classList.remove('ponyo-accordion-panel--drop-above', 'ponyo-accordion-panel--drop-below')
+      p.classList.remove('ay-accordion-panel--drop-above', 'ay-accordion-panel--drop-below')
     );
 
     const target = this.findPanelElement(event.target as HTMLElement);
@@ -121,20 +121,20 @@ export class PonyoAccordionComponent {
 
     // Re-focus the drag handle
     setTimeout(() => {
-      const handle = currentEl.querySelector('.ponyo-accordion-drag-handle') as HTMLElement;
+      const handle = currentEl.querySelector('.ay-accordion-drag-handle') as HTMLElement;
       handle?.focus();
     });
   }
 
   private getPanelElements(): HTMLElement[] {
     return Array.from(
-      this.elRef.nativeElement.querySelectorAll(':scope > ponyo-accordion-panel')
+      this.elRef.nativeElement.querySelectorAll(':scope > ay-accordion-panel')
     );
   }
 
   private findPanelElement(el: HTMLElement | null): HTMLElement | null {
     while (el && el !== this.elRef.nativeElement) {
-      if (el.tagName === 'PONYO-ACCORDION-PANEL') return el;
+      if (el.tagName === 'AY-ACCORDION-PANEL') return el;
       el = el.parentElement;
     }
     return null;

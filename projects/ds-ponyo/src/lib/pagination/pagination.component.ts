@@ -6,79 +6,29 @@ import {
   computed,
 } from '@angular/core';
 
-export interface PonyoPageEvent {
+export interface AyPageEvent {
   page: number;
   pageSize: number;
   totalItems: number;
 }
 
 @Component({
-  selector: 'ponyo-pagination',
+  selector: 'ay-pagination',
   standalone: true,
   host: {
-    'class': 'ponyo-pagination',
+    'class': 'ay-pagination',
     'role': 'navigation',
     '[attr.aria-label]': 'ariaLabel()',
   },
-  template: `
-    <span class="ponyo-pagination-info">
-      {{ rangeLabel() }}
-    </span>
-    <div class="ponyo-pagination-controls">
-      <button
-        class="ponyo-pagination-btn"
-        type="button"
-        [disabled]="currentPage() === 1"
-        aria-label="Première page"
-        (click)="goToPage(1)"
-      >&#171;</button>
-      <button
-        class="ponyo-pagination-btn"
-        type="button"
-        [disabled]="currentPage() === 1"
-        aria-label="Page précédente"
-        (click)="goToPage(currentPage() - 1)"
-      >&#8249;</button>
-
-      @for (p of visiblePages(); track p) {
-        @if (p === -1) {
-          <span class="ponyo-pagination-ellipsis">…</span>
-        } @else {
-          <button
-            class="ponyo-pagination-btn"
-            [class.ponyo-pagination-btn--active]="p === currentPage()"
-            type="button"
-            [attr.aria-label]="'Page ' + p"
-            [attr.aria-current]="p === currentPage() ? 'page' : null"
-            (click)="goToPage(p)"
-          >{{ p }}</button>
-        }
-      }
-
-      <button
-        class="ponyo-pagination-btn"
-        type="button"
-        [disabled]="currentPage() === totalPages()"
-        aria-label="Page suivante"
-        (click)="goToPage(currentPage() + 1)"
-      >&#8250;</button>
-      <button
-        class="ponyo-pagination-btn"
-        type="button"
-        [disabled]="currentPage() === totalPages()"
-        aria-label="Dernière page"
-        (click)="goToPage(totalPages())"
-      >&#187;</button>
-    </div>
-  `,
+  templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.scss',
 })
-export class PonyoPaginationComponent {
+export class AyPaginationComponent {
   readonly totalItems = input.required<number>();
   readonly pageSize = input<number>(10);
   readonly ariaLabel = input<string>('Pagination');
 
-  readonly pageChange = output<PonyoPageEvent>();
+  readonly pageChange = output<AyPageEvent>();
 
   readonly currentPage = signal(1);
 

@@ -2,62 +2,62 @@
   display: flex;
   align-items: center;
   gap: 0.625rem;
-  font-family: var(--ponyo-font-family, system-ui, sans-serif);
+  font-family: var(--ay-font-family, system-ui, sans-serif);
   font-size: 0.8125rem;
-  color: var(--ponyo-color-text-muted, #6b7280);
+  color: var(--ay-color-text-muted, #6b7280);
   flex-wrap: wrap;
 }
 
-.ponyo-pagination-info {
+.ay-pagination-info {
   white-space: nowrap;
 }
 
-.ponyo-pagination-controls {
+.ay-pagination-controls {
   display: flex;
   align-items: center;
   gap: 0.25rem;
 }
 
-.ponyo-pagination-btn {
+.ay-pagination-btn {
   width: 1.75rem; // 28px
   height: 1.75rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--ponyo-color-border, #d1d5db);
-  border-radius: var(--ponyo-radius-md, 4px);
-  background: var(--ponyo-color-background, #fff);
-  color: var(--ponyo-color-text, #111827);
+  border: 1px solid var(--ay-color-border, #d1d5db);
+  border-radius: var(--ay-radius-md, 4px);
+  background: var(--ay-color-background, #fff);
+  color: var(--ay-color-text, #111827);
   font-size: 0.8125rem;
   font-family: inherit;
   cursor: pointer;
   transition: all 150ms ease;
   padding: 0;
 
-  &:hover:not(:disabled):not(.ponyo-pagination-btn--active) {
-    background: var(--ponyo-color-surface, #f4f5f7);
+  &:hover:not(:disabled):not(.ay-pagination-btn--active) {
+    background: var(--ay-color-surface, #f4f5f7);
   }
 
   &:focus-visible {
     outline: none;
-    box-shadow: var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+    box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
   }
 
   &--active {
-    background: var(--ponyo-color-primary, #147a79);
+    background: var(--ay-color-primary, #147a79);
     color: #fff;
-    border-color: var(--ponyo-color-primary, #147a79);
+    border-color: var(--ay-color-primary, #147a79);
   }
 
   &:disabled {
-    color: var(--ponyo-color-text-disabled, #9ca3af);
+    color: var(--ay-color-text-disabled, #9ca3af);
     cursor: not-allowed;
   }
 }
 
-.ponyo-pagination-ellipsis {
+.ay-pagination-ellipsis {
   width: 1.75rem;
   text-align: center;
-  color: var(--ponyo-color-text-muted, #6b7280);
+  color: var(--ay-color-text-muted, #6b7280);
   user-select: none;
 }

@@ -10,75 +10,75 @@
   max-width: calc(100vw - 2rem);
 }
 
-.ponyo-toast {
+.ay-toast {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 0.75rem;
-  border-radius: var(--ponyo-radius-md, 4px);
+  border-radius: var(--ay-radius-md, 4px);
   font-size: 0.8125rem;
   max-width: 22.5rem;
-  background: var(--ponyo-color-background, #fff);
-  border: 1px solid var(--ponyo-color-border, #d1d5db);
+  background: var(--ay-color-background, #fff);
+  border: 1px solid var(--ay-color-border, #d1d5db);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  animation: ponyo-toast-in 200ms ease;
+  animation: ay-toast-in 200ms ease;
 
   &--success {
     border-left: 3px solid #16a34a;
 
-    .ponyo-toast-icon { color: #16a34a; }
+    .ay-toast-icon { color: #16a34a; }
   }
 
   &--warning {
     border-left: 3px solid #d97706;
 
-    .ponyo-toast-icon { color: #d97706; }
+    .ay-toast-icon { color: #d97706; }
   }
 
   &--error {
-    border-left: 3px solid var(--ponyo-color-danger, #c2412b);
+    border-left: 3px solid var(--ay-color-danger, #c2412b);
 
-    .ponyo-toast-icon { color: var(--ponyo-color-danger, #c2412b); }
+    .ay-toast-icon { color: var(--ay-color-danger, #c2412b); }
   }
 
   &--info {
-    border-left: 3px solid var(--ponyo-color-primary, #147a79);
+    border-left: 3px solid var(--ay-color-primary, #147a79);
 
-    .ponyo-toast-icon { color: var(--ponyo-color-primary, #147a79); }
+    .ay-toast-icon { color: var(--ay-color-primary, #147a79); }
   }
 }
 
-.ponyo-toast-icon {
+.ay-toast-icon {
   flex-shrink: 0;
   font-size: 1rem;
 }
 
-.ponyo-toast-message {
+.ay-toast-message {
   flex: 1;
-  color: var(--ponyo-color-text, #111827);
+  color: var(--ay-color-text, #111827);
 }
 
-.ponyo-toast-close {
+.ay-toast-close {
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--ponyo-color-text-muted, #6b7280);
+  color: var(--ay-color-text-muted, #6b7280);
   font-size: 0.9rem;
   padding: 0 0.125rem;
   line-height: 1;
 
   &:hover {
-    color: var(--ponyo-color-text, #111827);
+    color: var(--ay-color-text, #111827);
   }
 
   &:focus-visible {
     outline: none;
-    box-shadow: var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
-    border-radius: var(--ponyo-radius-md, 4px);
+    box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+    border-radius: var(--ay-radius-md, 4px);
   }
 }
 
-@keyframes ponyo-toast-in {
+@keyframes ay-toast-in {
   from {
     opacity: 0;
     transform: translateY(0.5rem);
@@ -96,7 +96,7 @@
     align-items: stretch;
   }
 
-  .ponyo-toast {
+  .ay-toast {
     max-width: none;
   }
 }

@@ -1,31 +1,31 @@
 import { Component, input } from '@angular/core';
 
-export type PonyoButtonVariant = 'filled' | 'outlined' | 'text';
-export type PonyoButtonColor = 'primary' | 'danger';
-export type PonyoButtonSize = 'sm' | 'md';
+export type AyButtonVariant = 'filled' | 'outlined' | 'text';
+export type AyButtonColor = 'primary' | 'danger';
+export type AyButtonSize = 'sm' | 'md';
 
 @Component({
-  selector: 'ponyo-button, button[ponyo-button], a[ponyo-button]',
+  selector: 'ay-button, button[ay-button], a[ay-button]',
   standalone: true,
   host: {
-    'class': 'ponyo-button',
-    '[class.ponyo-button--filled]': 'variant() === "filled"',
-    '[class.ponyo-button--outlined]': 'variant() === "outlined"',
-    '[class.ponyo-button--text]': 'variant() === "text"',
-    '[class.ponyo-button--primary]': 'color() === "primary"',
-    '[class.ponyo-button--danger]': 'color() === "danger"',
-    '[class.ponyo-button--sm]': 'size() === "sm"',
-    '[class.ponyo-button--md]': 'size() === "md"',
-    '[class.ponyo-button--disabled]': 'isDisabled()',
+    'class': 'ay-button',
+    '[class.ay-button--filled]': 'variant() === "filled"',
+    '[class.ay-button--outlined]': 'variant() === "outlined"',
+    '[class.ay-button--text]': 'variant() === "text"',
+    '[class.ay-button--primary]': 'color() === "primary"',
+    '[class.ay-button--danger]': 'color() === "danger"',
+    '[class.ay-button--sm]': 'size() === "sm"',
+    '[class.ay-button--md]': 'size() === "md"',
+    '[class.ay-button--disabled]': 'isDisabled()',
     '[attr.aria-disabled]': 'isDisabled()',
     '[tabindex]': 'isDisabled() ? -1 : 0',
   },
-  template: `<ng-content />`,
+  templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
 })
-export class PonyoButtonComponent {
-  readonly variant = input<PonyoButtonVariant>('filled');
-  readonly color = input<PonyoButtonColor>('primary');
-  readonly size = input<PonyoButtonSize>('md');
+export class AyButtonComponent {
+  readonly variant = input<AyButtonVariant>('filled');
+  readonly color = input<AyButtonColor>('primary');
+  readonly size = input<AyButtonSize>('md');
   readonly isDisabled = input(false, { alias: 'disabled' });
 }

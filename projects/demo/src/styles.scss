@@ -1,12 +1,12 @@
-@use '../../ds-ponyo/src/lib/tokens/theming' as ponyo;
+@use '../../ds-ponyo/src/lib/tokens/theming' as ay;
 
-@include ponyo.theme();
+@include ay.theme();
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: var(--ponyo-font-family, system-ui, sans-serif);
-  background: var(--ponyo-color-surface);
-  color: var(--ponyo-color-text);
+  font-family: var(--ay-font-family, system-ui, sans-serif);
+  background: var(--ay-color-surface);
+  color: var(--ay-color-text);
   line-height: 1.5;
 }

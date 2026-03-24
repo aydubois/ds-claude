@@ -11,39 +11,27 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 let nextId = 0;
 
 @Component({
-  selector: 'ponyo-checkbox',
+  selector: 'ay-checkbox',
   standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PonyoCheckboxComponent),
+      useExisting: forwardRef(() => AyCheckboxComponent),
       multi: true,
     },
   ],
   host: {
-    'class': 'ponyo-checkbox',
-    '[class.ponyo-checkbox--checked]': 'checked()',
-    '[class.ponyo-checkbox--indeterminate]': 'indeterminate()',
-    '[class.ponyo-checkbox--disabled]': 'disabled()',
+    'class': 'ay-checkbox',
+    '[class.ay-checkbox--checked]': 'checked()',
+    '[class.ay-checkbox--indeterminate]': 'indeterminate()',
+    '[class.ay-checkbox--disabled]': 'disabled()',
     '(click)': 'toggle()',
     '(keydown.space)': 'toggle(); $event.preventDefault()',
   },
-  template: `
-    <span
-      class="ponyo-checkbox-box"
-      role="checkbox"
-      [attr.aria-checked]="indeterminate() ? 'mixed' : checked()"
-      [attr.aria-disabled]="disabled()"
-      [attr.aria-labelledby]="labelId()"
-      [tabindex]="disabled() ? -1 : 0"
-    ></span>
-    <span class="ponyo-checkbox-label" [id]="labelId()">
-      <ng-content />
-    </span>
-  `,
+  templateUrl: './checkbox.component.html',
   styleUrl: './checkbox.component.scss',
 })
-export class PonyoCheckboxComponent implements ControlValueAccessor {
+export class AyCheckboxComponent implements ControlValueAccessor {
   private readonly uid = nextId++;
 
   readonly disabled = input<boolean>(false);
@@ -52,7 +40,7 @@ export class PonyoCheckboxComponent implements ControlValueAccessor {
   readonly checkedChange = output<boolean>();
 
   readonly checked = signal(false);
-  readonly labelId = computed(() => `ponyo-checkbox-label-${this.uid}`);
+  readonly labelId = computed(() => `ay-checkbox-label-${this.uid}`);
 
   private onChange: (value: boolean) => void = () => {};
   private onTouched: () => void = () => {};

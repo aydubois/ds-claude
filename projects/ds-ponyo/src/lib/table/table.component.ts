@@ -10,126 +10,52 @@ import {
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
-export interface PonyoColumnDef {
+export interface AyColumnDef {
   key: string;
   label: string;
   sortable?: boolean;
 }
 
-export type PonyoSortDirection = 'asc' | 'desc' | null;
+export type AySortDirection = 'asc' | 'desc' | null;
 
-export interface PonyoSortEvent {
+export interface AySortEvent {
   column: string;
-  direction: PonyoSortDirection;
+  direction: AySortDirection;
 }
 
 @Directive({
-  selector: '[ponyoCellDef]',
+  selector: '[ayCellDef]',
   standalone: true,
 })
-export class PonyoCellDefDirective {
-  readonly column = input.required<string>({ alias: 'ponyoCellDef' });
+export class AyCellDefDirective {
+  readonly column = input.required<string>({ alias: 'ayCellDef' });
   constructor(public templateRef: TemplateRef<unknown>) {}
 }
 
 @Component({
-  selector: 'ponyo-table',
+  selector: 'ay-table',
   standalone: true,
   imports: [NgTemplateOutlet],
   host: {
-    'class': 'ponyo-table-wrapper',
+    'class': 'ay-table-wrapper',
   },
-  template: `
-    <div class="ponyo-table-scroll">
-      <table class="ponyo-table" role="grid">
-        <thead>
-          <tr>
-            @if (selectable()) {
-              <th class="ponyo-table-th ponyo-table-th--check" style="width:2rem">
-                <span
-                  class="ponyo-table-check"
-                  [class.ponyo-table-check--checked]="allSelected()"
-                  [class.ponyo-table-check--indeterminate]="someSelected()"
-                  role="checkbox"
-                  [attr.aria-checked]="allSelected() ? 'true' : someSelected() ? 'mixed' : 'false'"
-                  [tabindex]="0"
-                  (click)="toggleAll()"
-                  (keydown.space)="toggleAll(); $event.preventDefault()"
-                ></span>
-              </th>
-            }
-            @for (col of columns(); track col.key) {
-              <th
-                class="ponyo-table-th"
-                [class.ponyo-table-th--sortable]="col.sortable"
-                [class.ponyo-table-th--sorted]="sortColumn() === col.key"
-                [attr.aria-sort]="getSortAria(col.key)"
-                (click)="col.sortable ? toggleSort(col.key) : null"
-                (keydown.enter)="col.sortable ? toggleSort(col.key) : null"
-                [tabindex]="col.sortable ? 0 : -1"
-              >
-                {{ col.label }}
-                @if (col.sortable) {
-                  <span class="ponyo-table-sort-icon">
-                    @if (sortColumn() === col.key && sortDirection() === 'asc') { &#9650; }
-                    @else if (sortColumn() === col.key && sortDirection() === 'desc') { &#9660; }
-                    @else { &#9650;&#9660; }
-                  </span>
-                }
-              </th>
-            }
-          </tr>
-        </thead>
-        <tbody>
-          @for (row of data(); track trackByFn()(row); let i = $index) {
-            <tr
-              class="ponyo-table-row"
-              [class.ponyo-table-row--selected]="isRowSelected(row)"
-            >
-              @if (selectable()) {
-                <td class="ponyo-table-td ponyo-table-td--check">
-                  <span
-                    class="ponyo-table-check"
-                    [class.ponyo-table-check--checked]="isRowSelected(row)"
-                    role="checkbox"
-                    [attr.aria-checked]="isRowSelected(row)"
-                    [tabindex]="0"
-                    (click)="toggleRow(row)"
-                    (keydown.space)="toggleRow(row); $event.preventDefault()"
-                  ></span>
-                </td>
-              }
-              @for (col of columns(); track col.key) {
-                <td class="ponyo-table-td">
-                  @if (getCellTemplate(col.key); as tmpl) {
-                    <ng-container *ngTemplateOutlet="tmpl; context: { $implicit: row, index: i }" />
-                  } @else {
-                    {{ row[col.key] }}
-                  }
-                </td>
-              }
-            </tr>
-          }
-        </tbody>
-      </table>
-    </div>
-  `,
+  templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
-export class PonyoTableComponent {
-  readonly columns = input.required<PonyoColumnDef[]>();
+export class AyTableComponent {
+  readonly columns = input.required<AyColumnDef[]>();
   readonly data = input.required<Record<string, unknown>[]>();
   readonly selectable = input<boolean>(false);
   readonly trackByFn = input<(row: Record<string, unknown>) => unknown>(() => (row: Record<string, unknown>) => row);
 
-  readonly sortChange = output<PonyoSortEvent>();
+  readonly sortChange = output<AySortEvent>();
   readonly selectionChange = output<Record<string, unknown>[]>();
 
   readonly sortColumn = signal<string | null>(null);
-  readonly sortDirection = signal<PonyoSortDirection>(null);
+  readonly sortDirection = signal<AySortDirection>(null);
   readonly selectedRows = signal<Set<unknown>>(new Set());
 
-  readonly cellDefs = contentChildren(PonyoCellDefDirective);
+  readonly cellDefs = contentChildren(AyCellDefDirective);
 
   readonly allSelected = computed(() => {
     const d = this.data();
@@ -153,7 +79,7 @@ export class PonyoTableComponent {
 
   toggleSort(columnKey: string): void {
     if (this.sortColumn() === columnKey) {
-      const next: PonyoSortDirection =
+      const next: AySortDirection =
         this.sortDirection() === 'asc' ? 'desc' :
         this.sortDirection() === 'desc' ? null : 'asc';
       this.sortDirection.set(next);

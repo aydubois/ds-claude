@@ -1,0 +1,31 @@
+@if (open()) {
+  <div class="ay-dialog-backdrop" (click)="onBackdropClick()">
+    <div
+      #dialogEl
+      class="ay-dialog"
+      role="dialog"
+      [attr.aria-modal]="true"
+      [attr.aria-labelledby]="titleId()"
+      (click)="$event.stopPropagation()"
+      (keydown.escape)="close()"
+    >
+      <div class="ay-dialog-header">
+        <span [id]="titleId()">
+          <ng-content select="[ay-dialog-title]" />
+        </span>
+        <button
+          class="ay-dialog-close"
+          type="button"
+          aria-label="Fermer"
+          (click)="close()"
+        >&times;</button>
+      </div>
+      <div class="ay-dialog-body">
+        <ng-content />
+      </div>
+      <div class="ay-dialog-footer">
+        <ng-content select="[ay-dialog-actions]" />
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,41 @@
+<div class="ay-input-wrapper">
+  <input
+    #inputEl
+    class="ay-input"
+    [id]="inputId()"
+    [type]="type()"
+    [value]="value()"
+    [disabled]="disabled()"
+    [required]="required()"
+    [attr.aria-describedby]="describedBy()"
+    [attr.aria-invalid]="!!error()"
+    [attr.placeholder]="' '"
+    (input)="onInput($event)"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+  />
+  <label class="ay-input-label" [attr.for]="inputId()">
+    {{ label() }}
+    @if (required()) {
+      <span class="ay-input-required" aria-hidden="true">*</span>
+    }
+  </label>
+  @if (showClear()) {
+    <button
+      class="ay-input-clear"
+      type="button"
+      tabindex="-1"
+      aria-label="Effacer"
+      (mousedown)="onClear($event)"
+    >
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  }
+</div>
+@if (error()) {
+  <span class="ay-input-error" [id]="errorId()">{{ error() }}</span>
+} @else if (helper()) {
+  <span class="ay-input-helper" [id]="helperId()">{{ helper() }}</span>
+}

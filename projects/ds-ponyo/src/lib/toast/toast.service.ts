@@ -1,21 +1,21 @@
 import { Injectable, signal } from '@angular/core';
 
-export type PonyoToastType = 'success' | 'warning' | 'error' | 'info';
+export type AyToastType = 'success' | 'warning' | 'error' | 'info';
 
-export interface PonyoToast {
+export interface AyToast {
   id: number;
   message: string;
-  type: PonyoToastType;
+  type: AyToastType;
   autoDismiss: boolean;
 }
 
 let toastId = 0;
 
 @Injectable({ providedIn: 'root' })
-export class PonyoToastService {
-  readonly toasts = signal<PonyoToast[]>([]);
+export class AyToastService {
+  readonly toasts = signal<AyToast[]>([]);
 
-  show(message: string, type: PonyoToastType = 'info', duration = 5000): void {
+  show(message: string, type: AyToastType = 'info', duration = 5000): void {
     const id = toastId++;
     const autoDismiss = type !== 'error';
 

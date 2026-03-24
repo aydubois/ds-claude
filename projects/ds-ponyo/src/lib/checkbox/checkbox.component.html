@@ -1,0 +1,11 @@
+<span
+  class="ay-checkbox-box"
+  role="checkbox"
+  [attr.aria-checked]="indeterminate() ? 'mixed' : checked()"
+  [attr.aria-disabled]="disabled()"
+  [attr.aria-labelledby]="labelId()"
+  [tabindex]="disabled() ? -1 : 0"
+></span>
+<span class="ay-checkbox-label" [id]="labelId()">
+  <ng-content />
+</span>

@@ -8,61 +8,18 @@ import {
 let nextId = 0;
 
 @Component({
-  selector: 'ponyo-accordion-panel',
+  selector: 'ay-accordion-panel',
   standalone: true,
   host: {
-    'class': 'ponyo-accordion-panel',
-    '[class.ponyo-accordion-panel--collapsed]': '!expanded()',
-    '[class.ponyo-accordion-panel--dragging]': 'dragging()',
+    'class': 'ay-accordion-panel',
+    '[class.ay-accordion-panel--collapsed]': '!expanded()',
+    '[class.ay-accordion-panel--dragging]': 'dragging()',
     '[attr.data-panel-id]': 'panelId()',
   },
-  template: `
-    <div
-      class="ponyo-accordion-header"
-      role="heading"
-      aria-level="3"
-    >
-      <span
-        class="ponyo-accordion-drag-handle"
-        role="button"
-        aria-label="Réordonner"
-        tabindex="0"
-        draggable="true"
-        (dragstart)="onDragStart($event)"
-        (dragend)="onDragEnd()"
-        (keydown)="onHandleKeydown($event)"
-      >≡</span>
-      <button
-        class="ponyo-accordion-toggle"
-        type="button"
-        [attr.aria-expanded]="expanded()"
-        [attr.aria-controls]="contentId()"
-        [id]="headerId()"
-        (click)="toggle()"
-      >
-        <span class="ponyo-accordion-title">
-          <ng-content select="[ponyo-accordion-title]" />
-        </span>
-        <span class="ponyo-accordion-chevron" aria-hidden="true">
-          @if (expanded()) { &#9662; } @else { &#9656; }
-        </span>
-      </button>
-    </div>
-    <div
-      class="ponyo-accordion-content"
-      [id]="contentId()"
-      role="region"
-      [attr.aria-labelledby]="headerId()"
-      [hidden]="!expanded()"
-    >
-      <div class="ponyo-accordion-body">
-        <ng-content />
-      </div>
-    </div>
-  `,
+  templateUrl: './accordion-panel.component.html',
   styleUrl: './accordion-panel.component.scss',
 })
-export class PonyoAccordionPanelComponent {
+export class AyAccordionPanelComponent {
   private readonly uid = nextId++;
 
   readonly panelId = input<string>(`panel-${this.uid}`);
@@ -71,8 +28,8 @@ export class PonyoAccordionPanelComponent {
   readonly expanded = signal(true);
   readonly dragging = signal(false);
 
-  readonly headerId = computed(() => `ponyo-accordion-header-${this.uid}`);
-  readonly contentId = computed(() => `ponyo-accordion-content-${this.uid}`);
+  readonly headerId = computed(() => `ay-accordion-header-${this.uid}`);
+  readonly contentId = computed(() => `ay-accordion-content-${this.uid}`);
 
   constructor() {
     // Defer reading startExpanded to after input binding
@@ -101,7 +58,7 @@ export class PonyoAccordionPanelComponent {
     // Keyboard reorder is handled by the parent accordion container
     if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
       event.preventDefault();
-      const customEvent = new CustomEvent('ponyo-panel-move', {
+      const customEvent = new CustomEvent('ay-panel-move', {
         bubbles: true,
         detail: {
           panelId: this.panelId(),

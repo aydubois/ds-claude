@@ -8,16 +8,16 @@
   user-select: none;
 }
 
-:host(.ponyo-checkbox--disabled) {
+:host(.ay-checkbox--disabled) {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.ponyo-checkbox-box {
+.ay-checkbox-box {
   width: 1rem;
   height: 1rem;
   border-radius: 3px;
-  border: 2px solid var(--ponyo-color-border, #d1d5db);
+  border: 2px solid var(--ay-color-border, #d1d5db);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,37 +27,35 @@
 
   &:focus-visible {
     outline: none;
-    box-shadow: var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+    box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
   }
 }
 
-:host(.ponyo-checkbox--checked) .ponyo-checkbox-box {
-  background: var(--ponyo-color-primary, #147a79);
-  border-color: var(--ponyo-color-primary, #147a79);
-
-  &::after {
-    content: '';
-    width: 0.5rem;
-    height: 0.3125rem;
-    border-left: 2px solid #fff;
-    border-bottom: 2px solid #fff;
-    transform: rotate(-45deg) translateY(-1px);
+:host(.ay-checkbox--checked),
+:host(.ay-checkbox--indeterminate) {
+  .ay-checkbox-box {
+    background: var(--ay-color-primary, #147a79);
+    border-color: var(--ay-color-primary, #147a79);
   }
 }
 
-:host(.ponyo-checkbox--indeterminate) .ponyo-checkbox-box {
-  background: var(--ponyo-color-primary, #147a79);
-  border-color: var(--ponyo-color-primary, #147a79);
-
-  &::after {
-    content: '';
-    width: 0.5rem;
-    height: 2px;
-    background: #fff;
-  }
+:host(.ay-checkbox--checked) .ay-checkbox-box::after {
+  content: '';
+  width: 0.5rem;
+  height: 0.3125rem;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg) translateY(-1px);
 }
 
-.ponyo-checkbox-label {
-  font-size: var(--ponyo-font-size-md, 0.875rem);
-  color: var(--ponyo-color-text, #111827);
+:host(.ay-checkbox--indeterminate) .ay-checkbox-box::after {
+  content: '';
+  width: 0.5rem;
+  height: 2px;
+  background: #fff;
+}
+
+.ay-checkbox-label {
+  font-size: var(--ay-font-size-md, 0.875rem);
+  color: var(--ay-color-text, #111827);
 }

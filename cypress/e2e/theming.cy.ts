@@ -19,7 +19,7 @@ describe('Theming', () => {
       .trigger('input');
 
     // Buttons should reflect new primary color
-    cy.get('button[ponyo-button][variant="filled"][color="primary"]').first()
+    cy.get('button[ay-button][variant="filled"][color="primary"]').first()
       .should('have.css', 'background-color', 'rgb(255, 0, 0)');
   });
 
@@ -28,7 +28,7 @@ describe('Theming', () => {
       .invoke('val', '#9c27b0')
       .trigger('input');
 
-    cy.get('button[ponyo-button][variant="filled"][color="danger"]').first()
+    cy.get('button[ay-button][variant="filled"][color="danger"]').first()
       .should('have.css', 'background-color', 'rgb(156, 39, 176)');
   });
 });

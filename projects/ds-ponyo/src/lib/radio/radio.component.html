@@ -1,0 +1,11 @@
+<span
+  class="ay-radio-circle"
+  role="radio"
+  [attr.aria-checked]="isSelected()"
+  [attr.aria-disabled]="disabled()"
+  [attr.aria-labelledby]="labelId()"
+  [tabindex]="disabled() ? -1 : 0"
+></span>
+<span class="ay-radio-label" [id]="labelId()">
+  <ng-content />
+</span>

@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-export interface PonyoMultiSelectOption {
+export interface AyMultiSelectOption {
   value: string;
   label: string;
 }
@@ -19,103 +19,30 @@ export interface PonyoMultiSelectOption {
 let nextId = 0;
 
 @Component({
-  selector: 'ponyo-multi-select',
+  selector: 'ay-multi-select',
   standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PonyoMultiSelectComponent),
+      useExisting: forwardRef(() => AyMultiSelectComponent),
       multi: true,
     },
   ],
   host: {
-    'class': 'ponyo-multi-select',
-    '[class.ponyo-multi-select--open]': 'isOpen()',
-    '[class.ponyo-multi-select--error]': '!!error()',
-    '[class.ponyo-multi-select--disabled]': 'disabled()',
+    'class': 'ay-multi-select',
+    '[class.ay-multi-select--open]': 'isOpen()',
+    '[class.ay-multi-select--error]': '!!error()',
+    '[class.ay-multi-select--disabled]': 'disabled()',
   },
-  template: `
-    <div
-      class="ponyo-multi-select-box"
-      [tabindex]="disabled() ? -1 : 0"
-      role="combobox"
-      [attr.aria-expanded]="isOpen()"
-      [attr.aria-haspopup]="'listbox'"
-      [attr.aria-labelledby]="labelId()"
-      [attr.aria-describedby]="describedBy()"
-      [attr.aria-invalid]="!!error()"
-      (click)="toggleDropdown()"
-      (keydown)="onKeydown($event)"
-    >
-      @if (selectedOptions().length) {
-        @for (opt of selectedOptions(); track opt.value) {
-          <span class="ponyo-chip">
-            {{ opt.label }}
-            <span
-              class="ponyo-chip-remove"
-              role="button"
-              [attr.aria-label]="'Retirer ' + opt.label"
-              (click)="removeValue(opt.value); $event.stopPropagation()"
-            >&times;</span>
-          </span>
-        }
-      } @else {
-        <span class="ponyo-multi-select-placeholder">{{ placeholder() }}</span>
-      }
-    </div>
-    <span class="ponyo-multi-select-label" [id]="labelId()">
-      {{ label() }}
-      @if (required()) {
-        <span class="ponyo-multi-select-required" aria-hidden="true">*</span>
-      }
-    </span>
-    <span class="ponyo-multi-select-arrow"></span>
-    @if (isOpen()) {
-      <div class="ponyo-multi-select-dropdown" role="listbox" [attr.aria-multiselectable]="true">
-        <div class="ponyo-multi-select-toolbar">
-          <button
-            class="ponyo-multi-select-toolbar-btn"
-            type="button"
-            (click)="selectAll(); $event.stopPropagation()"
-          >Tout sélectionner</button>
-          <button
-            class="ponyo-multi-select-toolbar-btn"
-            type="button"
-            (click)="deselectAll(); $event.stopPropagation()"
-          >Tout désélectionner</button>
-        </div>
-        @for (option of options(); track option.value; let i = $index) {
-          <div
-            class="ponyo-multi-select-option"
-            [class.ponyo-multi-select-option--highlighted]="i === highlightedIndex()"
-            role="option"
-            [attr.aria-selected]="isSelected(option.value)"
-            (click)="toggleOption(option.value); $event.stopPropagation()"
-            (mouseenter)="highlightedIndex.set(i)"
-          >
-            <span
-              class="ponyo-multi-select-check"
-              [class.ponyo-multi-select-check--checked]="isSelected(option.value)"
-            ></span>
-            {{ option.label }}
-          </div>
-        }
-      </div>
-    }
-    @if (error()) {
-      <span class="ponyo-multi-select-error" [id]="errorId()">{{ error() }}</span>
-    } @else if (helper()) {
-      <span class="ponyo-multi-select-helper" [id]="helperId()">{{ helper() }}</span>
-    }
-  `,
+  templateUrl: './multi-select.component.html',
   styleUrl: './multi-select.component.scss',
 })
-export class PonyoMultiSelectComponent implements ControlValueAccessor {
+export class AyMultiSelectComponent implements ControlValueAccessor {
   private readonly uid = nextId++;
   private readonly elRef = inject(ElementRef);
 
   readonly label = input.required<string>();
-  readonly options = input.required<PonyoMultiSelectOption[]>();
+  readonly options = input.required<AyMultiSelectOption[]>();
   readonly placeholder = input<string>('Aucune sélection');
   readonly helper = input<string>('');
   readonly error = input<string>('');
@@ -128,9 +55,9 @@ export class PonyoMultiSelectComponent implements ControlValueAccessor {
   readonly isOpen = signal(false);
   readonly highlightedIndex = signal(-1);
 
-  readonly labelId = computed(() => `ponyo-multi-select-label-${this.uid}`);
-  readonly errorId = computed(() => `ponyo-multi-select-error-${this.uid}`);
-  readonly helperId = computed(() => `ponyo-multi-select-helper-${this.uid}`);
+  readonly labelId = computed(() => `ay-multi-select-label-${this.uid}`);
+  readonly errorId = computed(() => `ay-multi-select-error-${this.uid}`);
+  readonly helperId = computed(() => `ay-multi-select-helper-${this.uid}`);
 
   readonly selectedOptions = computed(() =>
     this.options().filter(o => this.values().includes(o.value))

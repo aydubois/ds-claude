@@ -1,41 +1,44 @@
 import { Component, signal, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
-  PonyoButtonComponent,
-  PonyoInputComponent,
-  PonyoSelectComponent,
-  PonyoMultiSelectComponent,
-  PonyoCheckboxComponent,
-  PonyoRadioComponent,
-  PonyoTableComponent,
-  PonyoCellDefDirective,
-  PonyoDialogComponent,
-  PonyoToastContainerComponent,
-  PonyoToastService,
-  PonyoPaginationComponent,
-  PonyoAccordionComponent,
-  PonyoAccordionPanelComponent,
+  AyButtonComponent,
+  AyInputComponent,
+  AySelectComponent,
+  AyMultiSelectComponent,
+  AyCheckboxComponent,
+  AyRadioComponent,
+  AyTableComponent,
+  AyCellDefDirective,
+  AyDialogComponent,
+  AyToastContainerComponent,
+  AyToastService,
+  AyPaginationComponent,
+  AyAccordionComponent,
+  AyAccordionPanelComponent,
+  AyIconComponent,
+  AY_ICONS,
 } from 'ds-ponyo';
-import type { PonyoSelectOption, PonyoMultiSelectOption, PonyoColumnDef } from 'ds-ponyo';
+import type { AySelectOption, AyMultiSelectOption, AyColumnDef } from 'ds-ponyo';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     FormsModule,
-    PonyoButtonComponent,
-    PonyoInputComponent,
-    PonyoSelectComponent,
-    PonyoMultiSelectComponent,
-    PonyoCheckboxComponent,
-    PonyoRadioComponent,
-    PonyoTableComponent,
-    PonyoCellDefDirective,
-    PonyoDialogComponent,
-    PonyoToastContainerComponent,
-    PonyoPaginationComponent,
-    PonyoAccordionComponent,
-    PonyoAccordionPanelComponent,
+    AyButtonComponent,
+    AyInputComponent,
+    AySelectComponent,
+    AyMultiSelectComponent,
+    AyCheckboxComponent,
+    AyRadioComponent,
+    AyTableComponent,
+    AyCellDefDirective,
+    AyDialogComponent,
+    AyToastContainerComponent,
+    AyPaginationComponent,
+    AyAccordionComponent,
+    AyAccordionPanelComponent,
+    AyIconComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -43,6 +46,7 @@ import type { PonyoSelectOption, PonyoMultiSelectOption, PonyoColumnDef } from '
 export class AppComponent {
   // ─── Theming ───
   primaryColor = signal('#147a79');
+  iconNames = Object.keys(AY_ICONS);
   dangerColor = signal('#c2412b');
   surfaceColor = signal('#f4f5f7');
   bgColor = signal('#ffffff');
@@ -52,18 +56,18 @@ export class AppComponent {
     const p = this.primaryColor();
     const d = this.dangerColor();
 
-    root.style.setProperty('--ponyo-color-primary', p);
-    root.style.setProperty('--ponyo-color-primary-hover', this.darken(p, 0.18));
-    root.style.setProperty('--ponyo-color-primary-active', this.darken(p, 0.32));
-    root.style.setProperty('--ponyo-color-focus', p);
-    root.style.setProperty('--ponyo-color-focus-ring', `0 0 0 3px ${this.alpha(p, 0.4)}`);
+    root.style.setProperty('--ay-color-primary', p);
+    root.style.setProperty('--ay-color-primary-hover', this.darken(p, 0.18));
+    root.style.setProperty('--ay-color-primary-active', this.darken(p, 0.32));
+    root.style.setProperty('--ay-color-focus', p);
+    root.style.setProperty('--ay-color-focus-ring', `0 0 0 3px ${this.alpha(p, 0.4)}`);
 
-    root.style.setProperty('--ponyo-color-danger', d);
-    root.style.setProperty('--ponyo-color-danger-hover', this.darken(d, 0.18));
-    root.style.setProperty('--ponyo-color-danger-active', this.darken(d, 0.32));
+    root.style.setProperty('--ay-color-danger', d);
+    root.style.setProperty('--ay-color-danger-hover', this.darken(d, 0.18));
+    root.style.setProperty('--ay-color-danger-active', this.darken(d, 0.32));
 
-    root.style.setProperty('--ponyo-color-surface', this.surfaceColor());
-    root.style.setProperty('--ponyo-color-background', this.bgColor());
+    root.style.setProperty('--ay-color-surface', this.surfaceColor());
+    root.style.setProperty('--ay-color-background', this.bgColor());
   }
 
   private darken(hex: string, amount: number): string {
@@ -84,14 +88,14 @@ export class AppComponent {
   }
 
   // ─── Select ───
-  roleOptions: PonyoSelectOption[] = [
+  roleOptions: AySelectOption[] = [
     { value: 'admin', label: 'Administrateur' },
     { value: 'editor', label: 'Éditeur' },
     { value: 'viewer', label: 'Lecteur' },
   ];
 
   // ─── Multi-select ───
-  countryOptions: PonyoMultiSelectOption[] = [
+  countryOptions: AyMultiSelectOption[] = [
     { value: 'fr', label: 'France' },
     { value: 'de', label: 'Allemagne' },
     { value: 'es', label: 'Espagne' },
@@ -100,7 +104,7 @@ export class AppComponent {
   ];
 
   // ─── Table ───
-  tableColumns: PonyoColumnDef[] = [
+  tableColumns: AyColumnDef[] = [
     { key: 'name', label: 'Nom', sortable: true },
     { key: 'email', label: 'Email', sortable: true },
     { key: 'role', label: 'Rôle', sortable: true },
@@ -118,14 +122,14 @@ export class AppComponent {
   trackByName = (row: Record<string, unknown>) => row['name'];
 
   // ─── Dialog ───
-  dialog = signal<PonyoDialogComponent | null>(null);
+  dialog = signal<AyDialogComponent | null>(null);
 
-  openDialog(dialogRef: PonyoDialogComponent): void {
+  openDialog(dialogRef: AyDialogComponent): void {
     dialogRef.show();
   }
 
   // ─── Toast ───
-  constructor(public toastService: PonyoToastService) {}
+  constructor(public toastService: AyToastService) {}
 
   // ─── Accordion ───
   onAccordionReorder(ids: string[]): void {

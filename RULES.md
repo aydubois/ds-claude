@@ -6,7 +6,7 @@
 - **Signals** : utiliser les signals Angular (`signal()`, `computed()`, `effect()`) pour la gestion d'état interne des composants. Pas de `BehaviorSubject` pour l'état local.
 - **Inputs** : utiliser `input()` et `input.required()` (signal inputs) plutôt que le décorateur `@Input()`.
 - **Outputs** : utiliser `output()` plutôt que le décorateur `@Output()`.
-- **Préfixe** : tous les composants utilisent le préfixe `ponyo-` (selector: `ponyo-button`, `ponyo-input`, etc.).
+- **Préfixe** : tous les composants utilisent le préfixe `ay-` (selector: `ay-button`, `ay-input`, etc.).
 
 ## Accessibilité (WCAG 2.1 AA minimum)
 
@@ -28,10 +28,10 @@
 ## Styles
 
 - Utiliser les **CSS custom properties** définies dans `tokens/` pour toutes les valeurs (couleurs, spacing, radius, etc.).
-- Préfixer les custom properties avec `--ponyo-`.
+- Préfixer les custom properties avec `--ay-`.
 - Les styles des composants utilisent l'encapsulation par défaut (`Emulated`). Ne pas utiliser `ViewEncapsulation.None`.
 - Pas de dépendance externe pour le CSS (pas de Tailwind, Bootstrap, etc.).
-- La personnalisation des couleurs se fait via le **mixin SCSS `ponyo.theme()`** dans `tokens/_theming.scss`, qui génère toutes les variantes automatiquement à partir de couleurs de base.
+- La personnalisation des couleurs se fait via le **mixin SCSS `ay.theme()`** dans `tokens/_theming.scss`, qui génère toutes les variantes automatiquement à partir de couleurs de base.
 
 ## Tests
 

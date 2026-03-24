@@ -31,46 +31,74 @@
     </div>
   </section>
 
+  <!-- ═══ Icons ═══ -->
+  <section class="demo-section">
+    <h2 class="demo-section-title">Icons ({{ iconNames.length }})</h2>
+    <div class="demo-icon-grid">
+      @for (name of iconNames; track name) {
+        <div class="demo-icon-item">
+          <ay-icon [name]="name" size="20" />
+          <span class="demo-icon-name">{{ name }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
   <!-- ═══ Buttons ═══ -->
   <section class="demo-section">
     <h2 class="demo-section-title">Button</h2>
 
     <h3 class="demo-label">Filled</h3>
     <div class="demo-row">
-      <button ponyo-button variant="filled" color="primary" size="md">Enregistrer</button>
-      <button ponyo-button variant="filled" color="primary" size="sm">Petit</button>
-      <button ponyo-button variant="filled" color="danger" size="md">Supprimer</button>
-      <button ponyo-button variant="filled" color="primary" size="md" [disabled]="true">Disabled</button>
+      <button ay-button variant="filled" color="primary" size="md">Enregistrer</button>
+      <button ay-button variant="filled" color="primary" size="sm">Petit</button>
+      <button ay-button variant="filled" color="danger" size="md">Supprimer</button>
+      <button ay-button variant="filled" color="primary" size="md" [disabled]="true">Disabled</button>
     </div>
 
     <h3 class="demo-label">Outlined</h3>
     <div class="demo-row">
-      <button ponyo-button variant="outlined" color="primary" size="md">Annuler</button>
-      <button ponyo-button variant="outlined" color="primary" size="sm">Petit</button>
-      <button ponyo-button variant="outlined" color="danger" size="md">Supprimer</button>
-      <button ponyo-button variant="outlined" color="primary" size="md" [disabled]="true">Disabled</button>
+      <button ay-button variant="outlined" color="primary" size="md">Annuler</button>
+      <button ay-button variant="outlined" color="primary" size="sm">Petit</button>
+      <button ay-button variant="outlined" color="danger" size="md">Supprimer</button>
+      <button ay-button variant="outlined" color="primary" size="md" [disabled]="true">Disabled</button>
     </div>
 
     <h3 class="demo-label">Text</h3>
     <div class="demo-row">
-      <button ponyo-button variant="text" color="primary" size="md">Voir plus</button>
-      <button ponyo-button variant="text" color="danger" size="md">Supprimer</button>
-      <button ponyo-button variant="text" color="primary" size="md" [disabled]="true">Disabled</button>
+      <button ay-button variant="text" color="primary" size="md">Voir plus</button>
+      <button ay-button variant="text" color="danger" size="md">Supprimer</button>
+      <button ay-button variant="text" color="primary" size="md" [disabled]="true">Disabled</button>
     </div>
   </section>
 
   <!-- ═══ Input ═══ -->
   <section class="demo-section">
     <h2 class="demo-section-title">Input</h2>
+
+    <h3 class="demo-label">Types</h3>
     <div class="demo-row demo-row--top">
       <div class="demo-field">
-        <ponyo-input label="Email" [required]="true" helper="Adresse email professionnelle" />
+        <ay-input label="Email" type="email" [required]="true" [clearable]="true" helper="Adresse email professionnelle" />
       </div>
       <div class="demo-field">
-        <ponyo-input label="Email (erreur)" [required]="true" error="Adresse email invalide" />
+        <ay-input label="Mot de passe" type="password" [required]="true" [clearable]="true" />
       </div>
       <div class="demo-field">
-        <ponyo-input label="Email (disabled)" [disabled]="true" />
+        <ay-input label="Quantité" type="number" [clearable]="true" helper="Nombre entier" />
+      </div>
+      <div class="demo-field">
+        <ay-input label="Nom" type="text" [clearable]="true" />
+      </div>
+    </div>
+
+    <h3 class="demo-label">États</h3>
+    <div class="demo-row demo-row--top">
+      <div class="demo-field">
+        <ay-input label="Email (erreur)" type="email" [required]="true" error="Adresse email invalide" [clearable]="true" />
+      </div>
+      <div class="demo-field">
+        <ay-input label="Email (disabled)" type="email" [disabled]="true" />
       </div>
     </div>
   </section>
@@ -80,13 +108,13 @@
     <h2 class="demo-section-title">Select</h2>
     <div class="demo-row demo-row--top">
       <div class="demo-field">
-        <ponyo-select label="Rôle" [options]="roleOptions" [required]="true" helper="Rôle de l'utilisateur" />
+        <ay-select label="Rôle" [options]="roleOptions" [required]="true" helper="Rôle de l'utilisateur" />
       </div>
       <div class="demo-field">
-        <ponyo-select label="Pays" [options]="[]" error="Ce champ est requis" [required]="true" />
+        <ay-select label="Pays" [options]="[]" error="Ce champ est requis" [required]="true" />
       </div>
       <div class="demo-field">
-        <ponyo-select label="Statut" [options]="roleOptions" [disabled]="true" />
+        <ay-select label="Statut" [options]="roleOptions" [disabled]="true" />
       </div>
     </div>
   </section>
@@ -96,10 +124,10 @@
     <h2 class="demo-section-title">Multi-select</h2>
     <div class="demo-row demo-row--top">
       <div class="demo-field">
-        <ponyo-multi-select label="Pays" [options]="countryOptions" helper="Sélection multiple" />
+        <ay-multi-select label="Pays" [options]="countryOptions" helper="Sélection multiple" />
       </div>
       <div class="demo-field">
-        <ponyo-multi-select label="Tags" [options]="countryOptions" [disabled]="true" />
+        <ay-multi-select label="Tags" [options]="countryOptions" [disabled]="true" />
       </div>
     </div>
   </section>
@@ -111,18 +139,18 @@
       <div>
         <h3 class="demo-label">Checkbox</h3>
         <div class="demo-col">
-          <ponyo-checkbox>Option inactive</ponyo-checkbox>
-          <ponyo-checkbox>Option active</ponyo-checkbox>
-          <ponyo-checkbox [indeterminate]="true">Indeterminate</ponyo-checkbox>
-          <ponyo-checkbox [disabled]="true">Disabled</ponyo-checkbox>
+          <ay-checkbox>Option inactive</ay-checkbox>
+          <ay-checkbox>Option active</ay-checkbox>
+          <ay-checkbox [indeterminate]="true">Indeterminate</ay-checkbox>
+          <ay-checkbox [disabled]="true">Disabled</ay-checkbox>
         </div>
       </div>
       <div>
         <h3 class="demo-label">Radio</h3>
         <div class="demo-col">
-          <ponyo-radio value="a">Choix A</ponyo-radio>
-          <ponyo-radio value="b">Choix B</ponyo-radio>
-          <ponyo-radio value="c" [disabled]="true">Choix C (disabled)</ponyo-radio>
+          <ay-radio value="a">Choix A</ay-radio>
+          <ay-radio value="b">Choix B</ay-radio>
+          <ay-radio value="c" [disabled]="true">Choix C (disabled)</ay-radio>
         </div>
       </div>
     </div>
@@ -131,74 +159,74 @@
   <!-- ═══ Table ═══ -->
   <section class="demo-section">
     <h2 class="demo-section-title">Table</h2>
-    <ponyo-table
+    <ay-table
       [columns]="tableColumns"
       [data]="tableData"
       [selectable]="true"
       [trackByFn]="trackByName"
     >
-      <ng-template ponyoCellDef="status" let-row>
+      <ng-template ayCellDef="status" let-row>
         <span class="demo-badge" [class]="'demo-badge--' + (row.status === 'Actif' ? 'active' : row.status === 'Inactif' ? 'inactive' : 'pending')">
           {{ row.status }}
         </span>
       </ng-template>
-    </ponyo-table>
+    </ay-table>
   </section>
 
   <!-- ═══ Pagination ═══ -->
   <section class="demo-section">
     <h2 class="demo-section-title">Pagination</h2>
-    <ponyo-pagination [totalItems]="120" [pageSize]="10" />
+    <ay-pagination [totalItems]="120" [pageSize]="10" />
   </section>
 
   <!-- ═══ Accordion ═══ -->
   <section class="demo-section">
     <h2 class="demo-section-title">Accordion — Drag & Drop</h2>
-    <ponyo-accordion (orderChange)="onAccordionReorder($event)">
-      <ponyo-accordion-panel panelId="users">
-        <span ponyo-accordion-title>Utilisateurs</span>
+    <ay-accordion (orderChange)="onAccordionReorder($event)">
+      <ay-accordion-panel panelId="users">
+        <span ay-accordion-title>Utilisateurs</span>
         <p>Contenu de la section utilisateurs. Gérez les rôles et permissions ici.</p>
-      </ponyo-accordion-panel>
-      <ponyo-accordion-panel panelId="settings" [startExpanded]="false">
-        <span ponyo-accordion-title>Paramètres</span>
+      </ay-accordion-panel>
+      <ay-accordion-panel panelId="settings" [startExpanded]="false">
+        <span ay-accordion-title>Paramètres</span>
         <p>Configuration générale de l'application.</p>
-      </ponyo-accordion-panel>
-      <ponyo-accordion-panel panelId="notifications">
-        <span ponyo-accordion-title>Notifications</span>
+      </ay-accordion-panel>
+      <ay-accordion-panel panelId="notifications">
+        <span ay-accordion-title>Notifications</span>
         <div class="demo-col">
-          <ponyo-checkbox>Notifications par email</ponyo-checkbox>
-          <ponyo-checkbox>Notifications push</ponyo-checkbox>
-          <ponyo-checkbox>Résumé hebdomadaire</ponyo-checkbox>
+          <ay-checkbox>Notifications par email</ay-checkbox>
+          <ay-checkbox>Notifications push</ay-checkbox>
+          <ay-checkbox>Résumé hebdomadaire</ay-checkbox>
         </div>
-      </ponyo-accordion-panel>
-    </ponyo-accordion>
+      </ay-accordion-panel>
+    </ay-accordion>
   </section>
 
   <!-- ═══ Dialog ═══ -->
   <section class="demo-section">
     <h2 class="demo-section-title">Dialog</h2>
-    <button ponyo-button variant="filled" color="primary" (click)="openDialog(demoDialog)">Ouvrir la modale</button>
+    <button ay-button variant="filled" color="primary" (click)="openDialog(demoDialog)">Ouvrir la modale</button>
 
-    <ponyo-dialog #demoDialog>
-      <span ponyo-dialog-title>Supprimer l'élément ?</span>
+    <ay-dialog #demoDialog>
+      <span ay-dialog-title>Supprimer l'élément ?</span>
       Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.
-      <div ponyo-dialog-actions>
-        <button ponyo-button variant="outlined" color="primary" (click)="demoDialog.close()">Annuler</button>
-        <button ponyo-button variant="filled" color="danger" (click)="demoDialog.close(); toastService.success('Élément supprimé')">Supprimer</button>
+      <div ay-dialog-actions>
+        <button ay-button variant="outlined" color="primary" (click)="demoDialog.close()">Annuler</button>
+        <button ay-button variant="filled" color="danger" (click)="demoDialog.close(); toastService.success('Élément supprimé')">Supprimer</button>
       </div>
-    </ponyo-dialog>
+    </ay-dialog>
   </section>
 
   <!-- ═══ Toast ═══ -->
   <section class="demo-section">
     <h2 class="demo-section-title">Toast</h2>
     <div class="demo-row">
-      <button ponyo-button variant="filled" color="primary" size="sm" (click)="toastService.success('Sauvegardé avec succès')">Success</button>
-      <button ponyo-button variant="outlined" color="primary" size="sm" (click)="toastService.info('3 éléments mis à jour')">Info</button>
-      <button ponyo-button variant="outlined" color="danger" size="sm" (click)="toastService.warning('Connexion instable')">Warning</button>
-      <button ponyo-button variant="filled" color="danger" size="sm" (click)="toastService.error('Erreur de suppression')">Error</button>
+      <button ay-button variant="filled" color="primary" size="sm" (click)="toastService.success('Sauvegardé avec succès')">Success</button>
+      <button ay-button variant="outlined" color="primary" size="sm" (click)="toastService.info('3 éléments mis à jour')">Info</button>
+      <button ay-button variant="outlined" color="danger" size="sm" (click)="toastService.warning('Connexion instable')">Warning</button>
+      <button ay-button variant="filled" color="danger" size="sm" (click)="toastService.error('Erreur de suppression')">Error</button>
     </div>
   </section>
 
-  <ponyo-toast-container />
+  <ay-toast-container />
 </div>

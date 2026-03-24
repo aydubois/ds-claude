@@ -1,0 +1,51 @@
+<div
+  class="ay-select-box"
+  [tabindex]="disabled() ? -1 : 0"
+  role="combobox"
+  [attr.aria-expanded]="isOpen()"
+  [attr.aria-haspopup]="'listbox'"
+  [attr.aria-labelledby]="labelId()"
+  [attr.aria-describedby]="describedBy()"
+  [attr.aria-invalid]="!!error()"
+  [attr.aria-disabled]="disabled()"
+  (click)="toggleDropdown()"
+  (keydown)="onKeydown($event)"
+>
+  {{ selectedOption()?.label || placeholder() }}
+</div>
+<span class="ay-select-label" [id]="labelId()">
+  {{ label() }}
+  @if (required()) {
+    <span class="ay-select-required" aria-hidden="true">*</span>
+  }
+</span>
+<span class="ay-select-arrow"></span>
+@if (isOpen()) {
+  <div
+    class="ay-select-dropdown"
+    role="listbox"
+    [attr.aria-labelledby]="labelId()"
+  >
+    @for (option of options(); track option.value; let i = $index) {
+      <div
+        class="ay-select-option"
+        [class.ay-select-option--selected]="option.value === value()"
+        [class.ay-select-option--highlighted]="i === highlightedIndex()"
+        role="option"
+        [attr.aria-selected]="option.value === value()"
+        (click)="selectOption(option); $event.stopPropagation()"
+        (mouseenter)="highlightedIndex.set(i)"
+      >
+        <span class="ay-select-option-check">
+          @if (option.value === value()) { &#10003; }
+        </span>
+        {{ option.label }}
+      </div>
+    }
+  </div>
+}
+@if (error()) {
+  <span class="ay-select-error" [id]="errorId()">{{ error() }}</span>
+} @else if (helper()) {
+  <span class="ay-select-helper" [id]="helperId()">{{ helper() }}</span>
+}

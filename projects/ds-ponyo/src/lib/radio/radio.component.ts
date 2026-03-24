@@ -11,38 +11,26 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 let nextId = 0;
 
 @Component({
-  selector: 'ponyo-radio',
+  selector: 'ay-radio',
   standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PonyoRadioComponent),
+      useExisting: forwardRef(() => AyRadioComponent),
       multi: true,
     },
   ],
   host: {
-    'class': 'ponyo-radio',
-    '[class.ponyo-radio--selected]': 'isSelected()',
-    '[class.ponyo-radio--disabled]': 'disabled()',
+    'class': 'ay-radio',
+    '[class.ay-radio--selected]': 'isSelected()',
+    '[class.ay-radio--disabled]': 'disabled()',
     '(click)': 'select()',
     '(keydown.space)': 'select(); $event.preventDefault()',
   },
-  template: `
-    <span
-      class="ponyo-radio-circle"
-      role="radio"
-      [attr.aria-checked]="isSelected()"
-      [attr.aria-disabled]="disabled()"
-      [attr.aria-labelledby]="labelId()"
-      [tabindex]="disabled() ? -1 : 0"
-    ></span>
-    <span class="ponyo-radio-label" [id]="labelId()">
-      <ng-content />
-    </span>
-  `,
+  templateUrl: './radio.component.html',
   styleUrl: './radio.component.scss',
 })
-export class PonyoRadioComponent implements ControlValueAccessor {
+export class AyRadioComponent implements ControlValueAccessor {
   private readonly uid = nextId++;
 
   readonly value = input.required<string>();
@@ -51,7 +39,7 @@ export class PonyoRadioComponent implements ControlValueAccessor {
   readonly selectedChange = output<string>();
 
   readonly selectedValue = signal<string | null>(null);
-  readonly labelId = computed(() => `ponyo-radio-label-${this.uid}`);
+  readonly labelId = computed(() => `ay-radio-label-${this.uid}`);
   readonly isSelected = computed(() => this.selectedValue() === this.value());
 
   private onChange: (value: string) => void = () => {};

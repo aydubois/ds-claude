@@ -12,47 +12,15 @@ import {
 let nextId = 0;
 
 @Component({
-  selector: 'ponyo-dialog',
+  selector: 'ay-dialog',
   standalone: true,
   host: {
-    'class': 'ponyo-dialog-wrapper',
+    'class': 'ay-dialog-wrapper',
   },
-  template: `
-    @if (open()) {
-      <div class="ponyo-dialog-backdrop" (click)="onBackdropClick()">
-        <div
-          #dialogEl
-          class="ponyo-dialog"
-          role="dialog"
-          [attr.aria-modal]="true"
-          [attr.aria-labelledby]="titleId()"
-          (click)="$event.stopPropagation()"
-          (keydown.escape)="close()"
-        >
-          <div class="ponyo-dialog-header">
-            <span [id]="titleId()">
-              <ng-content select="[ponyo-dialog-title]" />
-            </span>
-            <button
-              class="ponyo-dialog-close"
-              type="button"
-              aria-label="Fermer"
-              (click)="close()"
-            >&times;</button>
-          </div>
-          <div class="ponyo-dialog-body">
-            <ng-content />
-          </div>
-          <div class="ponyo-dialog-footer">
-            <ng-content select="[ponyo-dialog-actions]" />
-          </div>
-        </div>
-      </div>
-    }
-  `,
+  templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.scss',
 })
-export class PonyoDialogComponent {
+export class AyDialogComponent {
   private readonly uid = nextId++;
   private previouslyFocused: HTMLElement | null = null;
 
@@ -61,7 +29,7 @@ export class PonyoDialogComponent {
 
   readonly dialogEl = viewChild<ElementRef<HTMLElement>>('dialogEl');
 
-  readonly titleId = () => `ponyo-dialog-title-${this.uid}`;
+  readonly titleId = () => `ay-dialog-title-${this.uid}`;
 
   constructor() {
     afterNextRender(() => {

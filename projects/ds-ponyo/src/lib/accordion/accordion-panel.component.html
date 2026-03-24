@@ -1,0 +1,42 @@
+<div
+  class="ay-accordion-header"
+  role="heading"
+  aria-level="3"
+>
+  <span
+    class="ay-accordion-drag-handle"
+    role="button"
+    aria-label="Réordonner"
+    tabindex="0"
+    draggable="true"
+    (dragstart)="onDragStart($event)"
+    (dragend)="onDragEnd()"
+    (keydown)="onHandleKeydown($event)"
+  >≡</span>
+  <button
+    class="ay-accordion-toggle"
+    type="button"
+    [attr.aria-expanded]="expanded()"
+    [attr.aria-controls]="contentId()"
+    [id]="headerId()"
+    (click)="toggle()"
+  >
+    <span class="ay-accordion-title">
+      <ng-content select="[ay-accordion-title]" />
+    </span>
+    <span class="ay-accordion-chevron" aria-hidden="true">
+      @if (expanded()) { &#9662; } @else { &#9656; }
+    </span>
+  </button>
+</div>
+<div
+  class="ay-accordion-content"
+  [id]="contentId()"
+  role="region"
+  [attr.aria-labelledby]="headerId()"
+  [hidden]="!expanded()"
+>
+  <div class="ay-accordion-body">
+    <ng-content />
+  </div>
+</div>

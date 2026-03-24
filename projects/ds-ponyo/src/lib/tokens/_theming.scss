@@ -4,9 +4,9 @@
 /// Utilisation :
 ///
 /// ```scss
-/// @use 'ds-ponyo/theming' as ponyo;
+/// @use 'ds-ponyo/theming' as ay;
 ///
-/// @include ponyo.theme((
+/// @include ay.theme((
 ///   primary: #e65100,
 ///   danger: #9c27b0,
 ///   secondary: #455a64,
@@ -54,34 +54,34 @@ $_defaults: (
 
   :root {
     // Primary
-    --ponyo-color-primary: #{$primary};
-    --ponyo-color-primary-hover: #{$primary-hover};
-    --ponyo-color-primary-active: #{$primary-active};
-    --ponyo-color-primary-contrast: #{_contrast-color($primary)};
+    --ay-color-primary: #{$primary};
+    --ay-color-primary-hover: #{$primary-hover};
+    --ay-color-primary-active: #{$primary-active};
+    --ay-color-primary-contrast: #{_contrast-color($primary)};
 
     // Secondary
-    --ponyo-color-secondary: #{$secondary};
-    --ponyo-color-secondary-hover: #{$secondary-hover};
-    --ponyo-color-secondary-active: #{$secondary-active};
-    --ponyo-color-secondary-contrast: #{_contrast-color($secondary)};
+    --ay-color-secondary: #{$secondary};
+    --ay-color-secondary-hover: #{$secondary-hover};
+    --ay-color-secondary-active: #{$secondary-active};
+    --ay-color-secondary-contrast: #{_contrast-color($secondary)};
 
     // Danger
-    --ponyo-color-danger: #{$danger};
-    --ponyo-color-danger-hover: #{$danger-hover};
-    --ponyo-color-danger-active: #{$danger-active};
-    --ponyo-color-danger-contrast: #{_contrast-color($danger)};
+    --ay-color-danger: #{$danger};
+    --ay-color-danger-hover: #{$danger-hover};
+    --ay-color-danger-active: #{$danger-active};
+    --ay-color-danger-contrast: #{_contrast-color($danger)};
 
     // Surfaces & text
-    --ponyo-color-background: #{$background};
-    --ponyo-color-surface: #{$surface};
-    --ponyo-color-border: #{$border};
-    --ponyo-color-text: #{$text};
-    --ponyo-color-text-muted: #{$text-muted};
-    --ponyo-color-text-disabled: #{$text-disabled};
+    --ay-color-background: #{$background};
+    --ay-color-surface: #{$surface};
+    --ay-color-border: #{$border};
+    --ay-color-text: #{$text};
+    --ay-color-text-muted: #{$text-muted};
+    --ay-color-text-disabled: #{$text-disabled};
 
     // Focus ring (auto-generated from primary)
-    --ponyo-color-focus: #{$primary};
-    --ponyo-color-focus-ring: 0 0 0 3px #{color.change($primary, $alpha: 0.4)};
+    --ay-color-focus: #{$primary};
+    --ay-color-focus-ring: 0 0 0 3px #{color.change($primary, $alpha: 0.4)};
   }
 }
 
@@ -95,25 +95,25 @@ $_defaults: (
   $primary-light: color.mix(white, $primary, 35%);
   $danger-light: color.mix(white, $danger, 35%);
 
-  --ponyo-color-primary: #{$primary-light};
-  --ponyo-color-primary-hover: #{color.mix(white, $primary, 50%)};
-  --ponyo-color-primary-active: #{color.mix(white, $primary, 65%)};
-  --ponyo-color-primary-contrast: #111827;
+  --ay-color-primary: #{$primary-light};
+  --ay-color-primary-hover: #{color.mix(white, $primary, 50%)};
+  --ay-color-primary-active: #{color.mix(white, $primary, 65%)};
+  --ay-color-primary-contrast: #111827;
 
-  --ponyo-color-danger: #{$danger-light};
-  --ponyo-color-danger-hover: #{color.mix(white, $danger, 50%)};
-  --ponyo-color-danger-active: #{color.mix(white, $danger, 65%)};
-  --ponyo-color-danger-contrast: #111827;
+  --ay-color-danger: #{$danger-light};
+  --ay-color-danger-hover: #{color.mix(white, $danger, 50%)};
+  --ay-color-danger-active: #{color.mix(white, $danger, 65%)};
+  --ay-color-danger-contrast: #111827;
 
-  --ponyo-color-background: #111827;
-  --ponyo-color-surface: #1f2937;
-  --ponyo-color-border: #374151;
-  --ponyo-color-text: #f9fafb;
-  --ponyo-color-text-muted: #9ca3af;
-  --ponyo-color-text-disabled: #4b5563;
+  --ay-color-background: #111827;
+  --ay-color-surface: #1f2937;
+  --ay-color-border: #374151;
+  --ay-color-text: #f9fafb;
+  --ay-color-text-muted: #9ca3af;
+  --ay-color-text-disabled: #4b5563;
 
-  --ponyo-color-focus: #{$primary-light};
-  --ponyo-color-focus-ring: 0 0 0 3px #{color.change($primary-light, $alpha: 0.4)};
+  --ay-color-focus: #{$primary-light};
+  --ay-color-focus-ring: 0 0 0 3px #{color.change($primary-light, $alpha: 0.4)};
 }
 
 /// Détermine automatiquement si le texte doit être blanc ou noir selon le fond

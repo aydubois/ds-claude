@@ -10,66 +10,41 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+export type AyInputType = 'text' | 'number' | 'email' | 'password';
+
 let nextId = 0;
 
 @Component({
-  selector: 'ponyo-input',
+  selector: 'ay-input',
   standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PonyoInputComponent),
+      useExisting: forwardRef(() => AyInputComponent),
       multi: true,
     },
   ],
   host: {
-    'class': 'ponyo-input-field',
-    '[class.ponyo-input-field--focused]': 'focused()',
-    '[class.ponyo-input-field--filled]': '!!value()',
-    '[class.ponyo-input-field--error]': '!!error()',
-    '[class.ponyo-input-field--disabled]': 'disabled()',
+    'class': 'ay-input-field',
+    '[class.ay-input-field--focused]': 'focused()',
+    '[class.ay-input-field--filled]': '!!value()',
+    '[class.ay-input-field--error]': '!!error()',
+    '[class.ay-input-field--disabled]': 'disabled()',
+    '[class.ay-input-field--clearable]': 'showClear()',
   },
-  template: `
-    <div class="ponyo-input-wrapper">
-      <input
-        #inputEl
-        class="ponyo-input"
-        [id]="inputId()"
-        [type]="type()"
-        [value]="value()"
-        [disabled]="disabled()"
-        [required]="required()"
-        [attr.aria-describedby]="describedBy()"
-        [attr.aria-invalid]="!!error()"
-        [attr.placeholder]="' '"
-        (input)="onInput($event)"
-        (focus)="onFocus()"
-        (blur)="onBlur()"
-      />
-      <label class="ponyo-input-label" [attr.for]="inputId()">
-        {{ label() }}
-        @if (required()) {
-          <span class="ponyo-input-required" aria-hidden="true">*</span>
-        }
-      </label>
-    </div>
-    @if (error()) {
-      <span class="ponyo-input-error" [id]="errorId()">{{ error() }}</span>
-    } @else if (helper()) {
-      <span class="ponyo-input-helper" [id]="helperId()">{{ helper() }}</span>
-    }
-  `,
+  templateUrl: './input.component.html',
   styleUrl: './input.component.scss',
 })
-export class PonyoInputComponent implements ControlValueAccessor {
+export class AyInputComponent implements ControlValueAccessor {
   private readonly uid = nextId++;
 
   readonly label = input.required<string>();
-  readonly type = input<string>('text');
+  readonly type = input<AyInputType>('text');
   readonly helper = input<string>('');
   readonly error = input<string>('');
   readonly required = input<boolean>(false);
   readonly disabled = input<boolean>(false);
+  readonly clearable = input<boolean>(false);
 
   readonly valueChange = output<string>();
 
@@ -78,9 +53,13 @@ export class PonyoInputComponent implements ControlValueAccessor {
   readonly value = signal('');
   readonly focused = signal(false);
 
-  readonly inputId = computed(() => `ponyo-input-${this.uid}`);
-  readonly errorId = computed(() => `ponyo-input-error-${this.uid}`);
-  readonly helperId = computed(() => `ponyo-input-helper-${this.uid}`);
+  readonly inputId = computed(() => `ay-input-${this.uid}`);
+  readonly errorId = computed(() => `ay-input-error-${this.uid}`);
+  readonly helperId = computed(() => `ay-input-helper-${this.uid}`);
+
+  readonly showClear = computed(() =>
+    this.clearable() && !!this.value() && !this.disabled()
+  );
 
   readonly describedBy = computed(() => {
     if (this.error()) return this.errorId();
@@ -105,6 +84,14 @@ export class PonyoInputComponent implements ControlValueAccessor {
   onBlur(): void {
     this.focused.set(false);
     this.onTouched();
+  }
+
+  onClear(event: MouseEvent): void {
+    event.preventDefault(); // Prevent blur on input
+    this.value.set('');
+    this.onChange('');
+    this.valueChange.emit('');
+    this.inputEl()?.nativeElement.focus();
   }
 
   // ControlValueAccessor

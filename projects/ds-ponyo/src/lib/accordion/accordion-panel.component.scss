@@ -1,23 +1,23 @@
 :host {
   display: block;
-  border: 1px solid var(--ponyo-color-border, #d1d5db);
-  border-radius: var(--ponyo-radius-md, 4px);
-  background: var(--ponyo-color-background, #fff);
+  border: 1px solid var(--ay-color-border, #d1d5db);
+  border-radius: var(--ay-radius-md, 4px);
+  background: var(--ay-color-background, #fff);
   transition: box-shadow 150ms ease, opacity 150ms ease;
 }
 
-:host(.ponyo-accordion-panel--dragging) {
+:host(.ay-accordion-panel--dragging) {
   opacity: 0.5;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
-.ponyo-accordion-header {
+.ay-accordion-header {
   display: flex;
   align-items: center;
   gap: 0;
 }
 
-.ponyo-accordion-drag-handle {
+.ay-accordion-drag-handle {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,17 +25,17 @@
   height: 2.25rem;
   flex-shrink: 0;
   cursor: grab;
-  color: var(--ponyo-color-text-disabled, #9ca3af);
+  color: var(--ay-color-text-disabled, #9ca3af);
   font-size: 1rem;
   user-select: none;
   border: none;
   background: none;
-  border-radius: var(--ponyo-radius-md, 4px) 0 0 0;
+  border-radius: var(--ay-radius-md, 4px) 0 0 0;
   transition: color 150ms ease, background 150ms ease;
 
   &:hover {
-    color: var(--ponyo-color-text-muted, #6b7280);
-    background: var(--ponyo-color-surface, #f4f5f7);
+    color: var(--ay-color-text-muted, #6b7280);
+    background: var(--ay-color-surface, #f4f5f7);
   }
 
   &:active {
@@ -44,11 +44,11 @@
 
   &:focus-visible {
     outline: none;
-    box-shadow: inset var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+    box-shadow: inset var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
   }
 }
 
-.ponyo-accordion-toggle {
+.ay-accordion-toggle {
   flex: 1;
   display: flex;
   align-items: center;
@@ -57,35 +57,35 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-family: var(--ponyo-font-family, system-ui, sans-serif);
-  font-size: var(--ponyo-font-size-md, 0.875rem);
+  font-family: var(--ay-font-family, system-ui, sans-serif);
+  font-size: var(--ay-font-size-md, 0.875rem);
   font-weight: 600;
-  color: var(--ponyo-color-text, #111827);
+  color: var(--ay-color-text, #111827);
   text-align: left;
   min-height: 2.25rem;
 
   &:hover {
-    background: var(--ponyo-color-surface, #f4f5f7);
+    background: var(--ay-color-surface, #f4f5f7);
   }
 
   &:focus-visible {
     outline: none;
-    box-shadow: inset var(--ponyo-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+    box-shadow: inset var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
   }
 }
 
-.ponyo-accordion-title {
+.ay-accordion-title {
   flex: 1;
 }
 
-.ponyo-accordion-chevron {
+.ay-accordion-chevron {
   font-size: 0.75rem;
-  color: var(--ponyo-color-text-muted, #6b7280);
+  color: var(--ay-color-text-muted, #6b7280);
   flex-shrink: 0;
   margin-left: 0.5rem;
 }
 
-.ponyo-accordion-content {
+.ay-accordion-content {
   overflow: hidden;
 
   &[hidden] {
@@ -93,16 +93,16 @@
   }
 }
 
-.ponyo-accordion-body {
+.ay-accordion-body {
   padding: 0.75rem;
-  border-top: 1px solid var(--ponyo-color-border, #d1d5db);
-  font-size: var(--ponyo-font-size-md, 0.875rem);
-  color: var(--ponyo-color-text, #111827);
+  border-top: 1px solid var(--ay-color-border, #d1d5db);
+  font-size: var(--ay-font-size-md, 0.875rem);
+  color: var(--ay-color-text, #111827);
 }
 
 // Collapsed: round all corners
-:host(.ponyo-accordion-panel--collapsed) {
-  .ponyo-accordion-toggle {
-    border-radius: 0 var(--ponyo-radius-md, 4px) var(--ponyo-radius-md, 4px) 0;
+:host(.ay-accordion-panel--collapsed) {
+  .ay-accordion-toggle {
+    border-radius: 0 var(--ay-radius-md, 4px) var(--ay-radius-md, 4px) 0;
   }
 }

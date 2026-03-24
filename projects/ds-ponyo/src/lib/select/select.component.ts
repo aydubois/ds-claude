@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-export interface PonyoSelectOption {
+export interface AySelectOption {
   value: string;
   label: string;
 }
@@ -19,83 +19,31 @@ export interface PonyoSelectOption {
 let nextId = 0;
 
 @Component({
-  selector: 'ponyo-select',
+  selector: 'ay-select',
   standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PonyoSelectComponent),
+      useExisting: forwardRef(() => AySelectComponent),
       multi: true,
     },
   ],
   host: {
-    'class': 'ponyo-select',
-    '[class.ponyo-select--open]': 'isOpen()',
-    '[class.ponyo-select--error]': '!!error()',
-    '[class.ponyo-select--disabled]': 'disabled()',
-    '[class.ponyo-select--filled]': '!!selectedOption()',
+    'class': 'ay-select',
+    '[class.ay-select--open]': 'isOpen()',
+    '[class.ay-select--error]': '!!error()',
+    '[class.ay-select--disabled]': 'disabled()',
+    '[class.ay-select--filled]': '!!selectedOption()',
   },
-  template: `
-    <div
-      class="ponyo-select-box"
-      [tabindex]="disabled() ? -1 : 0"
-      role="combobox"
-      [attr.aria-expanded]="isOpen()"
-      [attr.aria-haspopup]="'listbox'"
-      [attr.aria-labelledby]="labelId()"
-      [attr.aria-describedby]="describedBy()"
-      [attr.aria-invalid]="!!error()"
-      [attr.aria-disabled]="disabled()"
-      (click)="toggleDropdown()"
-      (keydown)="onKeydown($event)"
-    >
-      {{ selectedOption()?.label || placeholder() }}
-    </div>
-    <span class="ponyo-select-label" [id]="labelId()">
-      {{ label() }}
-      @if (required()) {
-        <span class="ponyo-select-required" aria-hidden="true">*</span>
-      }
-    </span>
-    <span class="ponyo-select-arrow"></span>
-    @if (isOpen()) {
-      <div
-        class="ponyo-select-dropdown"
-        role="listbox"
-        [attr.aria-labelledby]="labelId()"
-      >
-        @for (option of options(); track option.value; let i = $index) {
-          <div
-            class="ponyo-select-option"
-            [class.ponyo-select-option--selected]="option.value === value()"
-            [class.ponyo-select-option--highlighted]="i === highlightedIndex()"
-            role="option"
-            [attr.aria-selected]="option.value === value()"
-            (click)="selectOption(option); $event.stopPropagation()"
-            (mouseenter)="highlightedIndex.set(i)"
-          >
-            <span class="ponyo-select-option-check">
-              @if (option.value === value()) { &#10003; }
-            </span>
-            {{ option.label }}
-          </div>
-        }
-      </div>
-    }
-    @if (error()) {
-      <span class="ponyo-select-error" [id]="errorId()">{{ error() }}</span>
-    } @else if (helper()) {
-      <span class="ponyo-select-helper" [id]="helperId()">{{ helper() }}</span>
-    }
-  `,
+  templateUrl: './select.component.html',
   styleUrl: './select.component.scss',
 })
-export class PonyoSelectComponent implements ControlValueAccessor {
+export class AySelectComponent implements ControlValueAccessor {
   private readonly uid = nextId++;
   private readonly elRef = inject(ElementRef);
 
   readonly label = input.required<string>();
-  readonly options = input.required<PonyoSelectOption[]>();
+  readonly options = input.required<AySelectOption[]>();
   readonly placeholder = input<string>('— Sélectionner —');
   readonly helper = input<string>('');
   readonly error = input<string>('');
@@ -108,9 +56,9 @@ export class PonyoSelectComponent implements ControlValueAccessor {
   readonly isOpen = signal(false);
   readonly highlightedIndex = signal(-1);
 
-  readonly labelId = computed(() => `ponyo-select-label-${this.uid}`);
-  readonly errorId = computed(() => `ponyo-select-error-${this.uid}`);
-  readonly helperId = computed(() => `ponyo-select-helper-${this.uid}`);
+  readonly labelId = computed(() => `ay-select-label-${this.uid}`);
+  readonly errorId = computed(() => `ay-select-error-${this.uid}`);
+  readonly helperId = computed(() => `ay-select-helper-${this.uid}`);
 
   readonly selectedOption = computed(() =>
     this.options().find(o => o.value === this.value()) ?? null
@@ -141,7 +89,7 @@ export class PonyoSelectComponent implements ControlValueAccessor {
     }
   }
 
-  selectOption(option: PonyoSelectOption): void {
+  selectOption(option: AySelectOption): void {
     this.value.set(option.value);
     this.isOpen.set(false);
     this.onChange(option.value);
