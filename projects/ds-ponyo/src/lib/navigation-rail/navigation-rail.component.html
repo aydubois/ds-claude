@@ -1,0 +1,19 @@
+<ul class="ay-nav-rail-list">
+  @for (item of items(); track item.value) {
+    <li class="ay-nav-rail-item">
+      <button
+        type="button"
+        class="ay-nav-rail-button"
+        [class.ay-nav-rail-button--active]="isActive(item)"
+        [attr.aria-current]="isActive(item) ? 'page' : null"
+        [attr.title]="collapsed() ? item.label : null"
+        (click)="select(item)"
+      >
+        <span class="ay-nav-rail-icon" aria-hidden="true">{{ item.icon }}</span>
+        @if (!collapsed()) {
+          <span class="ay-nav-rail-label">{{ item.label }}</span>
+        }
+      </button>
+    </li>
+  }
+</ul>

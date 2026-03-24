@@ -1,0 +1,91 @@
+:host {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 0;
+}
+
+.ay-slider-input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 0.25rem;
+  border-radius: var(--ay-radius-md, 4px);
+  background: linear-gradient(
+    to right,
+    var(--ay-color-primary, #147a79) 0%,
+    var(--ay-color-primary, #147a79) var(--ay-slider-progress, 0%),
+    var(--ay-color-border, #d1d5db) var(--ay-slider-progress, 0%),
+    var(--ay-color-border, #d1d5db) 100%
+  );
+  outline: none;
+  cursor: pointer;
+  transition: background 150ms ease;
+
+  // Webkit thumb
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1.125rem;
+    height: 1.125rem;
+    border-radius: 50%;
+    background: var(--ay-color-primary, #147a79);
+    border: 2px solid var(--ay-color-background, #fff);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  &::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+  }
+
+  &:focus-visible::-webkit-slider-thumb {
+    box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+  }
+
+  // Firefox thumb
+  &::-moz-range-thumb {
+    width: 1.125rem;
+    height: 1.125rem;
+    border-radius: 50%;
+    background: var(--ay-color-primary, #147a79);
+    border: 2px solid var(--ay-color-background, #fff);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  &::-moz-range-thumb:hover {
+    transform: scale(1.15);
+  }
+
+  &:focus-visible::-moz-range-thumb {
+    box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+  }
+
+  // Firefox track
+  &::-moz-range-track {
+    height: 0.25rem;
+    border-radius: var(--ay-radius-md, 4px);
+    background: transparent;
+  }
+}
+
+// Disabled state
+:host(.ay-slider--disabled) {
+  opacity: 0.5;
+
+  .ay-slider-input {
+    cursor: not-allowed;
+
+    &::-webkit-slider-thumb {
+      cursor: not-allowed;
+      background: var(--ay-color-text-disabled, #9ca3af);
+    }
+
+    &::-moz-range-thumb {
+      cursor: not-allowed;
+      background: var(--ay-color-text-disabled, #9ca3af);
+    }
+  }
+}

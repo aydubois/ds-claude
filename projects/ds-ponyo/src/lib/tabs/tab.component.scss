@@ -1,0 +1,11 @@
+:host {
+  display: none;
+}
+
+:host(.ay-tab--active) {
+  display: block;
+}
+
+.ay-tab-panel {
+  padding: 1rem 0;
+}

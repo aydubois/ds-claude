@@ -1,0 +1,55 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ay-spinner-circle {
+  display: block;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: currentColor;
+  border-top-color: transparent;
+  animation: ay-spinner-rotate 0.75s linear infinite;
+}
+
+// Sizes
+:host(.ay-spinner--sm) .ay-spinner-circle {
+  width: 1rem;
+  height: 1rem;
+  border-width: 2px;
+}
+
+:host(.ay-spinner--md) .ay-spinner-circle {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-width: 2.5px;
+}
+
+:host(.ay-spinner--lg) .ay-spinner-circle {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-width: 3px;
+}
+
+// Colors
+:host(.ay-spinner--primary) {
+  color: var(--ay-color-primary, #147a79);
+}
+
+:host(.ay-spinner--danger) {
+  color: var(--ay-color-danger, #c2412b);
+}
+
+:host(.ay-spinner--muted) {
+  color: var(--ay-color-text-muted, #6b7280);
+}
+
+@keyframes ay-spinner-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

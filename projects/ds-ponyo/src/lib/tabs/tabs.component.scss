@@ -1,0 +1,63 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.ay-tabs-header {
+  display: flex;
+  border-bottom: 1px solid var(--ay-color-border, #d1d5db);
+  gap: 0;
+}
+
+.ay-tabs-tab {
+  position: relative;
+  padding: 0.625rem 1rem;
+  font-size: var(--ay-font-size-md, 0.875rem);
+  font-family: var(--ay-font-family, system-ui, sans-serif);
+  font-weight: 500;
+  color: var(--ay-color-text-muted, #6b7280);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 150ms ease;
+  white-space: nowrap;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: transparent;
+    transition: background 150ms ease;
+  }
+
+  &:hover:not(:disabled) {
+    color: var(--ay-color-text, #111827);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+    border-radius: var(--ay-radius-md, 4px);
+    z-index: 1;
+  }
+
+  &--active {
+    color: var(--ay-color-primary, #147a79);
+
+    &::after {
+      background: var(--ay-color-primary, #147a79);
+    }
+  }
+
+  &--disabled {
+    color: var(--ay-color-text-disabled, #9ca3af);
+    cursor: not-allowed;
+  }
+}
+
+.ay-tabs-content {
+  width: 100%;
+}

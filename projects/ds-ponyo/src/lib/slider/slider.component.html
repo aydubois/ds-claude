@@ -1,0 +1,15 @@
+<input
+  type="range"
+  class="ay-slider-input"
+  [min]="min()"
+  [max]="max()"
+  [step]="step()"
+  [value]="value()"
+  [disabled]="disabled()"
+  [attr.aria-valuemin]="min()"
+  [attr.aria-valuemax]="max()"
+  [attr.aria-valuenow]="value()"
+  [style.--ay-slider-progress.%]="progress()"
+  (input)="onInput($event)"
+  (blur)="onBlur()"
+/>

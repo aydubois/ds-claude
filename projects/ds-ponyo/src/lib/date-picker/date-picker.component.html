@@ -1,0 +1,97 @@
+<div class="ay-date-picker-wrapper">
+  <input
+    class="ay-date-picker-input"
+    type="text"
+    readonly
+    [id]="inputId()"
+    [value]="displayValue()"
+    [disabled]="disabled()"
+    [required]="required()"
+    [attr.aria-describedby]="describedBy()"
+    [attr.aria-invalid]="!!error()"
+    [attr.placeholder]="' '"
+    (click)="toggleOpen()"
+    (keydown)="onInputKeydown($event)"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+  />
+  <label class="ay-date-picker-label" [attr.for]="inputId()">
+    {{ label() }}
+    @if (required()) {
+      <span class="ay-date-picker-required" aria-hidden="true">*</span>
+    }
+  </label>
+  <button
+    class="ay-date-picker-toggle"
+    type="button"
+    tabindex="-1"
+    aria-label="Ouvrir le calendrier"
+    [disabled]="disabled()"
+    (click)="toggleOpen()"
+  >
+    <svg viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M5 1v2M11 1v2M1 6h14M2 3h12a1 1 0 011 1v10a1 1 0 01-1 1H2a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</div>
+@if (open()) {
+  <div
+    class="ay-date-picker-dropdown"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Calendrier"
+    (keydown)="onCalendarKeydown($event)"
+  >
+    <div class="ay-date-picker-header">
+      <button
+        class="ay-date-picker-nav"
+        type="button"
+        aria-label="Mois précédent"
+        (click)="prevMonth()"
+      >
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <span class="ay-date-picker-month-label">{{ monthLabel() }}</span>
+      <button
+        class="ay-date-picker-nav"
+        type="button"
+        aria-label="Mois suivant"
+        (click)="nextMonth()"
+      >
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="ay-date-picker-weekdays">
+      @for (day of weekDays; track day) {
+        <span class="ay-date-picker-weekday">{{ day }}</span>
+      }
+    </div>
+    <div class="ay-date-picker-grid" role="grid">
+      @for (day of calendarDays(); track $index; let i = $index) {
+        <button
+          type="button"
+          class="ay-date-picker-day"
+          [class.ay-date-picker-day--other]="!day.currentMonth"
+          [class.ay-date-picker-day--today]="day.today"
+          [class.ay-date-picker-day--selected]="day.selected"
+          [class.ay-date-picker-day--disabled]="day.disabled"
+          [class.ay-date-picker-day--focused]="focusedDayIndex() === i"
+          [disabled]="day.disabled"
+          [tabindex]="day.selected || (focusedDayIndex() === i) ? 0 : -1"
+          (click)="selectDay(day)"
+        >
+          {{ day.day }}
+        </button>
+      }
+    </div>
+  </div>
+}
+@if (error()) {
+  <span class="ay-date-picker-error" [id]="errorId()">{{ error() }}</span>
+} @else if (helper()) {
+  <span class="ay-date-picker-helper" [id]="helperId()">{{ helper() }}</span>
+}

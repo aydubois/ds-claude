@@ -1,0 +1,54 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  min-height: 2rem;
+  user-select: none;
+}
+
+:host(.ay-switch--disabled) {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.ay-switch-track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 2rem;
+  height: 1.125rem;
+  border-radius: 0.5625rem;
+  background: var(--ay-color-border, #d1d5db);
+  transition: background 150ms ease;
+  flex-shrink: 0;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+  }
+}
+
+:host(.ay-switch--checked) .ay-switch-track {
+  background: var(--ay-color-primary, #147a79);
+}
+
+.ay-switch-thumb {
+  position: absolute;
+  left: 0.125rem;
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 150ms ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+:host(.ay-switch--checked) .ay-switch-thumb {
+  transform: translateX(0.875rem);
+}
+
+.ay-switch-label {
+  font-size: var(--ay-font-size-md, 0.875rem);
+  color: var(--ay-color-text, #111827);
+}

@@ -47,3 +47,36 @@ export { AyAccordionPanelComponent } from './lib/accordion/accordion-panel.compo
 // Icon
 export { AyIconComponent } from './lib/icon/icon.component';
 export { AY_ICONS } from './lib/icon/icons';
+
+// Spinner
+export { AySpinnerComponent } from './lib/spinner/spinner.component';
+
+// Skeleton
+export { AySkeletonComponent } from './lib/skeleton/skeleton.component';
+
+// Switch
+export { AySwitchComponent } from './lib/switch/switch.component';
+
+// Slider
+export { AySliderComponent } from './lib/slider/slider.component';
+export type { AySliderConfig } from './lib/slider/slider.model';
+
+// Snackbar
+export { AySnackbarContainerComponent } from './lib/snackbar/snackbar.component';
+export { AySnackbarService } from './lib/snackbar/snackbar.service';
+export type { AySnackbar, AySnackbarConfig } from './lib/snackbar/snackbar.model';
+
+// Tabs
+export { AyTabsComponent } from './lib/tabs/tabs.component';
+export { AyTabComponent } from './lib/tabs/tab.component';
+
+// Segmented Menu
+export { AySegmentedMenuComponent } from './lib/segmented-menu/segmented-menu.component';
+export type { AySegmentOption } from './lib/segmented-menu/segmented-menu.model';
+
+// Date Picker
+export { AyDatePickerComponent } from './lib/date-picker/date-picker.component';
+
+// Navigation Rail
+export { AyNavigationRailComponent } from './lib/navigation-rail/navigation-rail.component';
+export type { AyNavRailItem } from './lib/navigation-rail/navigation-rail.model';

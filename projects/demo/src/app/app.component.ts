@@ -1,4 +1,4 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   AyButtonComponent,
@@ -17,8 +17,19 @@ import {
   AyAccordionPanelComponent,
   AyIconComponent,
   AY_ICONS,
-} from 'ds-ponyo'
-import type { AySelectOption, AyMultiSelectOption, AyColumnDef } from 'ds-ponyo';
+  AySpinnerComponent,
+  AySkeletonComponent,
+  AySwitchComponent,
+  AySliderComponent,
+  AySnackbarContainerComponent,
+  AySnackbarService,
+  AyTabsComponent,
+  AyTabComponent,
+  AySegmentedMenuComponent,
+  AyDatePickerComponent,
+  AyNavigationRailComponent,
+} from 'ds-ponyo';
+import type { AySelectOption, AyMultiSelectOption, AyColumnDef, AySegmentOption, AyNavRailItem } from 'ds-ponyo';
 
 @Component({
   selector: 'app-root',
@@ -39,6 +50,16 @@ import type { AySelectOption, AyMultiSelectOption, AyColumnDef } from 'ds-ponyo'
     AyAccordionComponent,
     AyAccordionPanelComponent,
     AyIconComponent,
+    AySpinnerComponent,
+    AySkeletonComponent,
+    AySwitchComponent,
+    AySliderComponent,
+    AySnackbarContainerComponent,
+    AyTabsComponent,
+    AyTabComponent,
+    AySegmentedMenuComponent,
+    AyDatePickerComponent,
+    AyNavigationRailComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -122,17 +143,34 @@ export class AppComponent {
   trackByName = (row: Record<string, unknown>) => row['name']
 
   // ─── Dialog ───
-  dialog = signal<AyDialogComponent | null>(null)
-
   openDialog(dialogRef: AyDialogComponent): void {
     dialogRef.show()
   }
 
-  // ─── Toast ───
-  constructor(public toastService: AyToastService) {}
+  // ─── Toast / Snackbar ───
+  constructor(
+    public toastService: AyToastService,
+    public snackbarService: AySnackbarService,
+  ) {}
 
   // ─── Accordion ───
   onAccordionReorder(ids: string[]): void {
     this.toastService.info(`Nouvel ordre : ${ids.join(', ')}`)
   }
+
+  // ─── Segmented Menu ───
+  viewOptions: AySegmentOption[] = [
+    { value: 'list', label: 'Liste' },
+    { value: 'grid', label: 'Grille' },
+    { value: 'kanban', label: 'Kanban' },
+  ]
+
+  // ─── Navigation Rail ───
+  navItems: AyNavRailItem[] = [
+    { value: 'home', label: 'Accueil', icon: 'home' },
+    { value: 'users', label: 'Utilisateurs', icon: 'users' },
+    { value: 'settings', label: 'Paramètres', icon: 'settings' },
+    { value: 'mail', label: 'Messages', icon: 'mail' },
+  ]
+  navCollapsed = signal(false)
 }

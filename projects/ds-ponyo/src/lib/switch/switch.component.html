@@ -1,0 +1,12 @@
+<span
+  class="ay-switch-track"
+  role="switch"
+  [attr.aria-checked]="checked()"
+  [attr.aria-disabled]="disabled()"
+  [tabindex]="disabled() ? -1 : 0"
+>
+  <span class="ay-switch-thumb"></span>
+</span>
+<span class="ay-switch-label">
+  <ng-content />
+</span>

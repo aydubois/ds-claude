@@ -1,0 +1,41 @@
+:host {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  background: var(--ay-color-surface, #f4f5f7);
+}
+
+:host(.ay-skeleton--text) {
+  border-radius: var(--ay-radius-sm, 3px);
+}
+
+:host(.ay-skeleton--circle) {
+  border-radius: 50%;
+}
+
+:host(.ay-skeleton--rect) {
+  border-radius: var(--ay-radius-md, 4px);
+}
+
+.ay-skeleton-shimmer {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: ay-skeleton-pulse 1.5s ease-in-out infinite;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ay-color-border, #d1d5db) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+}
+
+@keyframes ay-skeleton-pulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
