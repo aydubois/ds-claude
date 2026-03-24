@@ -1,13 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-
-export type AyToastType = 'success' | 'warning' | 'error' | 'info'
-
-export interface AyToast {
-  id: number
-  message: string
-  type: AyToastType
-  autoDismiss: boolean
-}
+import { AyToast, AyToastType } from './toast.model'
 
 let toastId = 0
 

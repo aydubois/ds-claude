@@ -9,19 +9,7 @@ import {
   Directive,
 } from '@angular/core'
 import { NgTemplateOutlet } from '@angular/common';
-
-export interface AyColumnDef {
-  key: string
-  label: string
-  sortable?: boolean
-}
-
-export type AySortDirection = 'asc' | 'desc' | null
-
-export interface AySortEvent {
-  column: string
-  direction: AySortDirection
-}
+import { AyColumnDef, AySortDirection, AySortEvent } from './table.model'
 
 @Directive({
   selector: '[ayCellDef]',

@@ -10,11 +10,7 @@ import {
   inject,
 } from '@angular/core'
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-export interface AySelectOption {
-  value: string
-  label: string
-}
+import { AySelectOption } from './select.model'
 
 let nextId = 0
 

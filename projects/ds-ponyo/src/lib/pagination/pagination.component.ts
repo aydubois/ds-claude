@@ -5,12 +5,7 @@ import {
   signal,
   computed,
 } from '@angular/core'
-
-export interface AyPageEvent {
-  page: number
-  pageSize: number
-  totalItems: number
-}
+import { AyPageEvent } from './pagination.model'
 
 @Component({
   selector: 'ay-pagination',

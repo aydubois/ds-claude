@@ -1,8 +1,5 @@
 import { Component, input } from '@angular/core';
-
-export type AyButtonVariant = 'filled' | 'outlined' | 'text'
-export type AyButtonColor = 'primary' | 'danger'
-export type AyButtonSize = 'sm' | 'md'
+import { AyButtonVariant, AyButtonColor, AyButtonSize } from './button.model'
 
 @Component({
   selector: 'ay-button, button[ay-button], a[ay-button]',

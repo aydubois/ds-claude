@@ -9,8 +9,7 @@ import {
   viewChild,
 } from '@angular/core'
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-export type AyInputType = 'text' | 'number' | 'email' | 'password'
+import { AyInputType } from './input.model'
 
 let nextId = 0
 
