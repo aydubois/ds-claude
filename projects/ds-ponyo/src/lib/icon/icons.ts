@@ -21,7 +21,6 @@ export const AY_ICONS: Record<string, string> = {
   'eye-off': '<path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M2 14L14 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
   'file': '<path d="M4 2h5l4 4v7a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/><path d="M9 2v4h4" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/>',
   'filter': '<path d="M2 3h12M4 7h8M6 11h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
-  'flush': '<path d="M3 2v12M6 4v8M9 3v10M12 2v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M1 14h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
   'folder': '<path d="M2 4h4l2 2h6a1 1 0 011 1v5a1 1 0 01-1 1H2a1 1 0 01-1-1V5a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/>',
   'heart': '<path d="M8 13S2 9.5 2 5.5C2 3.5 3.5 2 5.5 2 7 2 8 3 8 3s1-1 2.5-1C12.5 2 14 3.5 14 5.5 14 9.5 8 13 8 13z" stroke="currentColor" stroke-width="1.5" fill="none"/>',
   'help': '<circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M6 6.5a2 2 0 013.5 1.5c0 1-1.5 1.5-1.5 1.5M8 12v0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>',

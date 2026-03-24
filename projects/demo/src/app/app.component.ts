@@ -67,7 +67,7 @@ import type { AySelectOption, AyMultiSelectOption, AyColumnDef, AySegmentOption,
 export class AppComponent {
   // ─── Theming ───
   primaryColor = signal('#147a79')
-  iconNames = Object.keys(AY_ICONS)
+  iconNames = Object.keys(AY_ICONS).sort()
   dangerColor = signal('#c2412b')
   surfaceColor = signal('#f4f5f7')
   bgColor = signal('#ffffff')
