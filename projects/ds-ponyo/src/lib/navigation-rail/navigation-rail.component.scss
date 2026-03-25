@@ -1,7 +1,8 @@
 :host {
   display: flex;
   flex-direction: column;
-  width: 220px;
+  width: fit-content;
+  min-width: 3.5rem;
   height: 100%;
   background: var(--ay-color-background, #fff);
   border-right: 1px solid var(--ay-color-border, #d1d5db);
@@ -10,7 +11,8 @@
 }
 
 :host(.ay-navigation-rail--collapsed) {
-  width: 56px;
+  min-width: 3.5rem;
+  width: 3.5rem;
 }
 
 .ay-nav-rail-list {
@@ -31,7 +33,7 @@
   align-items: center;
   gap: 0.75rem;
   width: 100%;
-  padding: 0.625rem 1rem;
+  padding: 0.5rem 0.75rem;
   font-size: var(--ay-font-size-md, 0.875rem);
   font-family: var(--ay-font-family, system-ui, sans-serif);
   font-weight: 400;
@@ -84,13 +86,12 @@
 
 // ─── Toggle button ───
 .ay-nav-rail-toggle {
-  margin-top: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0.5rem;
   border: none;
-  border-top: 1px solid var(--ay-color-border, #d1d5db);
+  border-bottom: 1px solid var(--ay-color-border, #d1d5db);
   background: none;
   color: var(--ay-color-text-muted, #6b7280);
   cursor: pointer;

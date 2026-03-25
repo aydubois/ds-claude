@@ -1,3 +1,14 @@
+@if (collapsible()) {
+  <button
+    type="button"
+    class="ay-nav-rail-toggle"
+    [attr.aria-label]="collapsed() ? 'Déplier la navigation' : 'Replier la navigation'"
+    [attr.title]="collapsed() ? 'Déplier' : 'Replier'"
+    (click)="toggleCollapse()"
+  >
+    <ay-icon [name]="collapsed() ? 'chevron-right' : 'chevron-left'" />
+  </button>
+}
 <ul class="ay-nav-rail-list">
   @for (item of items(); track item.value) {
     <li class="ay-nav-rail-item">
@@ -17,14 +28,3 @@
     </li>
   }
 </ul>
-@if (collapsible()) {
-  <button
-    type="button"
-    class="ay-nav-rail-toggle"
-    [attr.aria-label]="collapsed() ? 'Déplier la navigation' : 'Replier la navigation'"
-    [attr.title]="collapsed() ? 'Déplier' : 'Replier'"
-    (click)="toggleCollapse()"
-  >
-    <ay-icon [name]="collapsed() ? 'chevron-right' : 'chevron-left'" />
-  </button>
-}
