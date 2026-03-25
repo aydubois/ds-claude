@@ -47,12 +47,14 @@ export class AyMultiSelectComponent implements ControlValueAccessor {
   readonly required = input<boolean>(false)
   readonly disabled = input<boolean>(false)
   readonly maxChips = input<number>(2)
+  readonly searchable = input<boolean>(false)
 
   readonly selectionChange = output<string[]>()
 
   readonly values = signal<string[]>([])
   readonly isOpen = signal(false)
   readonly highlightedIndex = signal(-1)
+  readonly searchQuery = signal('')
 
   readonly labelId = computed(() => `ay-multi-select-label-${this.uid}`)
   readonly errorId = computed(() => `ay-multi-select-error-${this.uid}`)
@@ -61,6 +63,12 @@ export class AyMultiSelectComponent implements ControlValueAccessor {
   readonly selectedOptions = computed(() =>
     this.options().filter(o => this.values().includes(o.value))
   )
+
+  readonly filteredOptions = computed(() => {
+    const query = this.searchQuery().toLowerCase().trim()
+    if (!query) return this.options()
+    return this.options().filter(o => o.label.toLowerCase().includes(query))
+  })
 
   readonly displayMode = computed<'chips' | 'summary' | 'empty'>(() => {
     const count = this.selectedOptions().length
@@ -96,6 +104,14 @@ export class AyMultiSelectComponent implements ControlValueAccessor {
   toggleDropdown(): void {
     if (this.disabled()) return
     this.isOpen.update(v => !v)
+    if (this.isOpen()) {
+      this.searchQuery.set('')
+    }
+  }
+
+  onSearchInput(event: Event): void {
+    this.searchQuery.set((event.target as HTMLInputElement).value)
+    this.highlightedIndex.set(0)
   }
 
   toggleOption(value: string): void {
@@ -119,7 +135,7 @@ export class AyMultiSelectComponent implements ControlValueAccessor {
   }
 
   onKeydown(event: KeyboardEvent): void {
-    const opts = this.options()
+    const opts = this.filteredOptions()
     switch (event.key) {
       case 'Enter':
       case ' ':

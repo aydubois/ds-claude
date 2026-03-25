@@ -71,7 +71,20 @@
         <ay-icon name="close" />
       </button>
     </div>
-    @for (option of options(); track option.value; let i = $index) {
+    @if (searchable()) {
+      <div class="ay-multi-select-search">
+        <input
+          class="ay-multi-select-search-input"
+          type="text"
+          placeholder="Rechercher..."
+          [value]="searchQuery()"
+          (input)="onSearchInput($event)"
+          (keydown)="onKeydown($event)"
+          (click)="$event.stopPropagation()"
+        />
+      </div>
+    }
+    @for (option of filteredOptions(); track option.value; let i = $index) {
       <div
         class="ay-multi-select-option"
         [class.ay-multi-select-option--highlighted]="i === highlightedIndex()"

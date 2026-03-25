@@ -128,7 +128,7 @@
     <h2 class="demo-section-title">Select</h2>
     <div class="demo-row demo-row--top">
       <div class="demo-field">
-        <ay-select label="Rôle" [options]="roleOptions" [required]="true" [clearable]="true" helper="Rôle de l'utilisateur" />
+        <ay-select label="Rôle" [options]="roleOptions" [required]="true" [clearable]="true" [searchable]="true" helper="Rôle de l'utilisateur" />
       </div>
       <div class="demo-field">
         <ay-select label="Pays" [options]="[]" error="Ce champ est requis" [required]="true" />
@@ -144,7 +144,7 @@
     <h2 class="demo-section-title">Multi-select</h2>
     <div class="demo-row demo-row--top">
       <div class="demo-field">
-        <ay-multi-select label="Pays" [options]="countryOptions" helper="Sélection multiple" />
+        <ay-multi-select label="Pays" [options]="countryOptions" [searchable]="true" helper="Sélection multiple" />
       </div>
       <div class="demo-field">
         <ay-multi-select label="Tags" [options]="countryOptions" [disabled]="true" />

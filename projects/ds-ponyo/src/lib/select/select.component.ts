@@ -49,12 +49,14 @@ export class AySelectComponent implements ControlValueAccessor {
   readonly required = input<boolean>(false)
   readonly disabled = input<boolean>(false)
   readonly clearable = input<boolean>(false)
+  readonly searchable = input<boolean>(false)
 
   readonly selectionChange = output<string>()
 
   readonly value = signal<string>('')
   readonly isOpen = signal(false)
   readonly highlightedIndex = signal(-1)
+  readonly searchQuery = signal('')
 
   readonly labelId = computed(() => `ay-select-label-${this.uid}`)
   readonly errorId = computed(() => `ay-select-error-${this.uid}`)
@@ -63,6 +65,12 @@ export class AySelectComponent implements ControlValueAccessor {
   readonly selectedOption = computed(() =>
     this.options().find(o => o.value === this.value()) ?? null
   )
+
+  readonly filteredOptions = computed(() => {
+    const query = this.searchQuery().toLowerCase().trim()
+    if (!query) return this.options()
+    return this.options().filter(o => o.label.toLowerCase().includes(query))
+  })
 
   readonly showClear = computed(() =>
     this.clearable() && !!this.value() && !this.disabled()
@@ -88,9 +96,15 @@ export class AySelectComponent implements ControlValueAccessor {
     if (this.disabled()) return
     this.isOpen.update(v => !v)
     if (this.isOpen()) {
+      this.searchQuery.set('')
       const idx = this.options().findIndex(o => o.value === this.value())
       this.highlightedIndex.set(idx >= 0 ? idx : 0)
     }
+  }
+
+  onSearchInput(event: Event): void {
+    this.searchQuery.set((event.target as HTMLInputElement).value)
+    this.highlightedIndex.set(0)
   }
 
   clearValue(event: MouseEvent): void {
@@ -123,11 +137,10 @@ export class AySelectComponent implements ControlValueAccessor {
   }
 
   onKeydown(event: KeyboardEvent): void {
-    const opts = this.options()
+    const opts = this.filteredOptions()
 
     switch (event.key) {
       case 'Enter':
-      case ' ':
         event.preventDefault()
         if (this.isOpen() && this.highlightedIndex() >= 0) {
           this.selectOption(opts[this.highlightedIndex()])
