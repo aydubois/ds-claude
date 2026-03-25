@@ -45,13 +45,21 @@
       <button
         class="ay-multi-select-toolbar-btn"
         type="button"
+        aria-label="Tout sélectionner"
+        title="Tout sélectionner"
         (click)="selectAll(); $event.stopPropagation()"
-      >Tout sélectionner</button>
+      >
+        <ay-icon name="check" />
+      </button>
       <button
         class="ay-multi-select-toolbar-btn"
         type="button"
+        aria-label="Tout désélectionner"
+        title="Tout désélectionner"
         (click)="deselectAll(); $event.stopPropagation()"
-      >Tout désélectionner</button>
+      >
+        <ay-icon name="close" />
+      </button>
     </div>
     @for (option of options(); track option.value; let i = $index) {
       <div
