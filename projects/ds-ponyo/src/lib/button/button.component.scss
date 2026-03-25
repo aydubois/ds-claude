@@ -64,7 +64,7 @@
 }
 
 :host(.ay-button--filled.ay-button--primary:focus-visible) {
-  box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+  box-shadow: var(--ay-color-focus-ring);
 }
 
 :host(.ay-button--filled.ay-button--danger:hover:not(.ay-button--disabled)) {
@@ -78,7 +78,7 @@
 }
 
 :host(.ay-button--filled.ay-button--danger:focus-visible) {
-  box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35);
+  box-shadow: 0 0 0 3px var(--ay-color-danger-35);
 }
 
 // ─── Outlined ───
@@ -98,30 +98,30 @@
 }
 
 :host(.ay-button--outlined.ay-button--primary:hover:not(.ay-button--disabled)) {
-  background: rgba(20, 122, 121, 0.12);
+  background: var(--ay-color-primary-12);
   border-color: var(--ay-color-primary-hover, #0f5f5e);
 }
 
 :host(.ay-button--outlined.ay-button--primary:active:not(.ay-button--disabled)) {
-  background: rgba(20, 122, 121, 0.2);
+  background: var(--ay-color-primary-20);
   border-color: var(--ay-color-primary-active, #0a4544);
 }
 
 :host(.ay-button--outlined.ay-button--primary:focus-visible) {
-  box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+  box-shadow: var(--ay-color-focus-ring);
 }
 
 :host(.ay-button--outlined.ay-button--danger:hover:not(.ay-button--disabled)) {
-  background: rgba(194, 65, 43, 0.1);
+  background: var(--ay-color-danger-10);
   border-color: var(--ay-color-danger-hover, #a3361f);
 }
 
 :host(.ay-button--outlined.ay-button--danger:active:not(.ay-button--disabled)) {
-  background: rgba(194, 65, 43, 0.18);
+  background: var(--ay-color-danger-18);
 }
 
 :host(.ay-button--outlined.ay-button--danger:focus-visible) {
-  box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35);
+  box-shadow: 0 0 0 3px var(--ay-color-danger-35);
 }
 
 // ─── Text ───
@@ -139,27 +139,27 @@
 }
 
 :host(.ay-button--text.ay-button--primary:hover:not(.ay-button--disabled)) {
-  background: rgba(20, 122, 121, 0.1);
+  background: var(--ay-color-primary-10);
 }
 
 :host(.ay-button--text.ay-button--primary:active:not(.ay-button--disabled)) {
-  background: rgba(20, 122, 121, 0.18);
+  background: var(--ay-color-primary-18);
 }
 
 :host(.ay-button--text.ay-button--primary:focus-visible) {
-  box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+  box-shadow: var(--ay-color-focus-ring);
 }
 
 :host(.ay-button--text.ay-button--danger:hover:not(.ay-button--disabled)) {
-  background: rgba(194, 65, 43, 0.08);
+  background: var(--ay-color-danger-8);
 }
 
 :host(.ay-button--text.ay-button--danger:active:not(.ay-button--disabled)) {
-  background: rgba(194, 65, 43, 0.15);
+  background: var(--ay-color-danger-15);
 }
 
 :host(.ay-button--text.ay-button--danger:focus-visible) {
-  box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.35);
+  box-shadow: 0 0 0 3px var(--ay-color-danger-35);
 }
 
 // ─── Disabled ───

@@ -37,7 +37,7 @@
 
     &:focus-visible {
       outline: none;
-      box-shadow: inset var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+      box-shadow: inset var(--ay-color-focus-ring);
     }
   }
 
@@ -68,11 +68,11 @@
 }
 
 .ay-table-row:hover {
-  background: rgba(20, 122, 121, 0.06);
+  background: var(--ay-color-primary-6);
 }
 
 .ay-table-row--selected {
-  background: rgba(20, 122, 121, 0.1) !important;
+  background: var(--ay-color-primary-10) !important;
 }
 
 // Checkbox in table
@@ -90,7 +90,7 @@
 
   &:focus-visible {
     outline: none;
-    box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+    box-shadow: var(--ay-color-focus-ring);
   }
 
   &--checked {

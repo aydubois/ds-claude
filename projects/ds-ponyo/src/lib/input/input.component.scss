@@ -29,7 +29,7 @@
   &:focus {
     outline: none;
     border-color: var(--ay-color-primary, #147a79);
-    box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+    box-shadow: var(--ay-color-focus-ring);
   }
 
   &:disabled {
@@ -123,7 +123,7 @@
     border-color: var(--ay-color-danger, #c2412b);
 
     &:focus {
-      box-shadow: 0 0 0 3px rgba(194, 65, 43, 0.25);
+      box-shadow: 0 0 0 3px var(--ay-color-danger-25);
     }
   }
 

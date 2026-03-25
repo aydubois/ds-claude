@@ -31,7 +31,7 @@
 
   &:focus-visible {
     outline: none;
-    box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+    box-shadow: var(--ay-color-focus-ring);
     z-index: 1;
     position: relative;
   }

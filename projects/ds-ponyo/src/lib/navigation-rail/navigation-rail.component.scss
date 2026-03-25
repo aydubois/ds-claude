@@ -49,7 +49,7 @@
   transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
 
   &:hover {
-    background: rgba(20, 122, 121, 0.08);
+    background: var(--ay-color-primary-8);
   }
 
   &:focus-visible {
@@ -60,13 +60,13 @@
 }
 
 .ay-nav-rail-link--active {
-  background: rgba(20, 122, 121, 0.08);
+  background: var(--ay-color-primary-8);
   border-left-color: var(--ay-color-primary, #147a79);
   color: var(--ay-color-primary, #147a79);
   font-weight: 600;
 
   &:hover {
-    background: rgba(20, 122, 121, 0.14);
+    background: var(--ay-color-primary-14);
   }
 }
 
@@ -107,7 +107,7 @@
 
   &:focus-visible {
     outline: none;
-    box-shadow: inset var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+    box-shadow: inset var(--ay-color-focus-ring);
   }
 }
 

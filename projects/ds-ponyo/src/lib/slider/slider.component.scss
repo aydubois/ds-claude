@@ -40,7 +40,7 @@
   }
 
   &:focus-visible::-webkit-slider-thumb {
-    box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+    box-shadow: var(--ay-color-focus-ring);
   }
 
   // Firefox thumb
@@ -60,7 +60,7 @@
   }
 
   &:focus-visible::-moz-range-thumb {
-    box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+    box-shadow: var(--ay-color-focus-ring);
   }
 
   // Firefox track

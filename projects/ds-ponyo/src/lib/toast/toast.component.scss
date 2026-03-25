@@ -73,7 +73,7 @@
 
   &:focus-visible {
     outline: none;
-    box-shadow: var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+    box-shadow: var(--ay-color-focus-ring);
     border-radius: var(--ay-radius-md, 4px);
   }
 }
