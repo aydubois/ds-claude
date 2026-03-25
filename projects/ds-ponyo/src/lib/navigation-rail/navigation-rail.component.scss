@@ -49,12 +49,13 @@
   transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
 
   &:hover {
-    background: var(--ay-color-surface, #f4f5f7);
+    background: rgba(20, 122, 121, 0.08);
   }
 
   &:focus-visible {
-    outline: none;
-    box-shadow: inset var(--ay-color-focus-ring, 0 0 0 3px rgba(20, 122, 121, 0.4));
+    outline: 2px solid var(--ay-color-primary, #147a79);
+    outline-offset: -2px;
+    border-radius: var(--ay-radius-md, 4px);
   }
 }
 
@@ -65,7 +66,7 @@
   font-weight: 600;
 
   &:hover {
-    background: rgba(20, 122, 121, 0.12);
+    background: rgba(20, 122, 121, 0.14);
   }
 }
 
