@@ -23,9 +23,20 @@
       <div class="ay-dialog-body">
         <ng-content />
       </div>
-      <div class="ay-dialog-footer">
-        <ng-content select="[ay-dialog-actions]" />
-      </div>
+      @if (showCancel() || showConfirm()) {
+        <div class="ay-dialog-footer">
+          @if (showCancel()) {
+            <button ay-button variant="outlined" color="primary" (click)="onCancel()">
+              {{ cancelLabel() }}
+            </button>
+          }
+          @if (showConfirm()) {
+            <button ay-button variant="filled" [color]="confirmColor()" (click)="onConfirm()">
+              {{ confirmLabel() }}
+            </button>
+          }
+        </div>
+      }
     </div>
   </div>
 }

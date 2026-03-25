@@ -71,11 +71,4 @@
   padding: 0.5rem 0.75rem;
   border-top: 1px solid var(--ay-color-border, #d1d5db);
   flex-shrink: 0;
-
-  // Le contenu projeté (ng-content) n'a pas l'attribut de scoping,
-  // on force le flex+gap sur les enfants directs du footer
-  ::ng-deep > * {
-    display: flex;
-    gap: 0.5rem;
-  }
 }

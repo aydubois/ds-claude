@@ -227,13 +227,15 @@
     <h2 class="demo-section-title">Dialog</h2>
     <button ay-button variant="filled" color="primary" (click)="openDialog(demoDialog)">Ouvrir la modale</button>
 
-    <ay-dialog #demoDialog>
+    <ay-dialog
+      #demoDialog
+      confirmLabel="Supprimer"
+      cancelLabel="Annuler"
+      confirmColor="danger"
+      (confirmed)="toastService.success('Élément supprimé')"
+    >
       <span ay-dialog-title>Supprimer l'élément ?</span>
       Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.
-      <div ay-dialog-actions>
-        <button ay-button variant="outlined" color="primary" (click)="demoDialog.close()">Annuler</button>
-        <button ay-button variant="filled" color="danger" (click)="demoDialog.close(); toastService.success('Élément supprimé')">Supprimer</button>
-      </div>
     </ay-dialog>
   </section>
 

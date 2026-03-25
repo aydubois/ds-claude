@@ -8,12 +8,14 @@ import {
   afterNextRender,
   HostListener,
 } from '@angular/core'
+import { AyButtonComponent } from '../button/button.component'
 
 let nextId = 0
 
 @Component({
   selector: 'ay-dialog',
   standalone: true,
+  imports: [AyButtonComponent],
   host: {
     'class': 'ay-dialog-wrapper',
   },
@@ -24,8 +26,16 @@ export class AyDialogComponent {
   private readonly uid = nextId++
   private previouslyFocused: HTMLElement | null = null
 
+  readonly confirmLabel = input<string>('Confirmer')
+  readonly cancelLabel = input<string>('Annuler')
+  readonly confirmColor = input<'primary' | 'danger'>('primary')
+  readonly showConfirm = input<boolean>(true)
+  readonly showCancel = input<boolean>(true)
+
   readonly open = signal(false)
   readonly closed = output<void>()
+  readonly confirmed = output<void>()
+  readonly cancelled = output<void>()
 
   readonly dialogEl = viewChild<ElementRef<HTMLElement>>('dialogEl')
 
@@ -40,7 +50,6 @@ export class AyDialogComponent {
   show(): void {
     this.previouslyFocused = document.activeElement as HTMLElement
     this.open.set(true)
-    // Focus the dialog after render
     setTimeout(() => {
       const el = this.dialogEl()?.nativeElement
       if (el) {
@@ -56,6 +65,16 @@ export class AyDialogComponent {
     this.open.set(false)
     this.closed.emit()
     this.previouslyFocused?.focus()
+  }
+
+  onConfirm(): void {
+    this.confirmed.emit()
+    this.close()
+  }
+
+  onCancel(): void {
+    this.cancelled.emit()
+    this.close()
   }
 
   onBackdropClick(): void {
