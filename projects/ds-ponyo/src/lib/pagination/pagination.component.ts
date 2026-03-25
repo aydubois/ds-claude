@@ -44,30 +44,16 @@ export class AyPaginationComponent {
     const current = this.currentPage()
     const pages: number[] = []
 
-    if (total <= 7) {
+    if (total <= 5) {
       for (let i = 1; i <= total; i++) pages.push(i)
       return pages
     }
 
-    // Always show first page
-    pages.push(1)
-
-    if (current > 3) {
-      pages.push(-1); // ellipsis
-    }
-
-    const start = Math.max(2, current - 1)
-    const end = Math.min(total - 1, current + 1)
+    const start = Math.max(1, current - 2)
+    const end = Math.min(total, current + 2)
     for (let i = start; i <= end; i++) {
       pages.push(i)
     }
-
-    if (current < total - 2) {
-      pages.push(-1); // ellipsis
-    }
-
-    // Always show last page
-    pages.push(total)
 
     return pages
   })
