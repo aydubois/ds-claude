@@ -71,4 +71,9 @@
   padding: 0.5rem 0.75rem;
   border-top: 1px solid var(--ay-color-border, #d1d5db);
   flex-shrink: 0;
+
+  [ay-dialog-actions] {
+    display: flex;
+    gap: 0.5rem;
+  }
 }
