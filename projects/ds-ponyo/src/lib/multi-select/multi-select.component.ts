@@ -93,6 +93,12 @@ export class AyMultiSelectComponent implements ControlValueAccessor {
     return this.values().includes(value)
   }
 
+  onNativeChange(event: Event): void {
+    const select = event.target as HTMLSelectElement
+    const selected = Array.from(select.selectedOptions).map(o => o.value)
+    this.updateValues(selected)
+  }
+
   toggleDropdown(): void {
     if (this.disabled()) return
     this.isOpen.update(v => !v)

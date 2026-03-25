@@ -33,6 +33,17 @@
   }
   <ay-icon name="chevron-down" class="ay-multi-select-arrow" />
 </div>
+<select
+  class="ay-multi-select-native"
+  multiple
+  [attr.aria-labelledby]="labelId()"
+  [disabled]="disabled()"
+  (change)="onNativeChange($event)"
+>
+  @for (option of options(); track option.value) {
+    <option [value]="option.value" [selected]="isSelected(option.value)">{{ option.label }}</option>
+  }
+</select>
 <span class="ay-multi-select-label" [id]="labelId()">
   {{ label() }}
   @if (required()) {

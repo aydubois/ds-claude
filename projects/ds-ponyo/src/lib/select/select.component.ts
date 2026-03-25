@@ -101,6 +101,19 @@ export class AySelectComponent implements ControlValueAccessor {
     this.selectionChange.emit('')
   }
 
+  onNativeChange(event: Event): void {
+    const val = (event.target as HTMLSelectElement).value
+    const option = this.options().find(o => o.value === val)
+    if (option) {
+      this.selectOption(option)
+    } else {
+      this.value.set('')
+      this.onChange('')
+      this.onTouched()
+      this.selectionChange.emit('')
+    }
+  }
+
   selectOption(option: AySelectOption): void {
     this.value.set(option.value)
     this.isOpen.set(false)
