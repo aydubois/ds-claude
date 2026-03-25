@@ -125,8 +125,24 @@
 
 .ay-date-picker-month-label {
   font-size: var(--ay-font-size-md, 0.875rem);
+  font-family: var(--ay-font-family, system-ui, sans-serif);
   font-weight: 600;
   color: var(--ay-color-text, #111827);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--ay-radius-md, 4px);
+
+  &:hover {
+    background: var(--ay-color-primary-8);
+    color: var(--ay-color-primary, #147a79);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ay-color-primary, #147a79);
+    outline-offset: -2px;
+  }
 }
 
 .ay-date-picker-nav {
@@ -253,6 +269,86 @@
   .ay-date-picker-label {
     color: var(--ay-color-text-disabled, #9ca3af);
     background: var(--ay-color-surface, #f4f5f7);
+  }
+}
+
+// ─── Months grid ───
+.ay-date-picker-months-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.25rem;
+  padding: 0.5rem;
+}
+
+.ay-date-picker-month-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border: none;
+  border-radius: var(--ay-radius-md, 4px);
+  background: none;
+  color: var(--ay-color-text, #111827);
+  font-size: 0.8125rem;
+  font-family: var(--ay-font-family, system-ui, sans-serif);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--ay-color-primary-8);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ay-color-primary, #147a79);
+    outline-offset: -2px;
+  }
+
+  &--selected {
+    background: var(--ay-color-primary, #147a79);
+    color: #fff;
+
+    &:hover {
+      background: var(--ay-color-primary-hover, #0f5f5e);
+    }
+  }
+}
+
+// ─── Years grid ───
+.ay-date-picker-years-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.25rem;
+  padding: 0.5rem;
+}
+
+.ay-date-picker-year-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border: none;
+  border-radius: var(--ay-radius-md, 4px);
+  background: none;
+  color: var(--ay-color-text, #111827);
+  font-size: 0.8125rem;
+  font-family: var(--ay-font-family, system-ui, sans-serif);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--ay-color-primary-8);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ay-color-primary, #147a79);
+    outline-offset: -2px;
+  }
+
+  &--selected {
+    background: var(--ay-color-primary, #147a79);
+    color: #fff;
+
+    &:hover {
+      background: var(--ay-color-primary-hover, #0f5f5e);
+    }
   }
 }
 

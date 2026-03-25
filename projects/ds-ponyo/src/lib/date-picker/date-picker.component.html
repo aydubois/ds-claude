@@ -46,48 +46,87 @@
       <button
         class="ay-date-picker-nav"
         type="button"
-        aria-label="Mois précédent"
-        (click)="prevMonth()"
+        [attr.aria-label]="viewMode() === 'years' ? 'Années précédentes' : viewMode() === 'months' ? 'Année précédente' : 'Mois précédent'"
+        (click)="prevRange()"
       >
         <svg viewBox="0 0 16 16" aria-hidden="true">
           <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
-      <span class="ay-date-picker-month-label">{{ monthLabel() }}</span>
+      <button
+        class="ay-date-picker-month-label"
+        type="button"
+        (click)="toggleViewMode()"
+      >
+        {{ headerLabel() }}
+      </button>
       <button
         class="ay-date-picker-nav"
         type="button"
-        aria-label="Mois suivant"
-        (click)="nextMonth()"
+        [attr.aria-label]="viewMode() === 'years' ? 'Années suivantes' : viewMode() === 'months' ? 'Année suivante' : 'Mois suivant'"
+        (click)="nextRange()"
       >
         <svg viewBox="0 0 16 16" aria-hidden="true">
           <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
     </div>
-    <div class="ay-date-picker-weekdays">
-      @for (day of weekDays; track day) {
-        <span class="ay-date-picker-weekday">{{ day }}</span>
+
+    @switch (viewMode()) {
+      @case ('days') {
+        <div class="ay-date-picker-weekdays">
+          @for (day of weekDays; track day) {
+            <span class="ay-date-picker-weekday">{{ day }}</span>
+          }
+        </div>
+        <div class="ay-date-picker-grid" role="grid">
+          @for (day of calendarDays(); track $index; let i = $index) {
+            <button
+              type="button"
+              class="ay-date-picker-day"
+              [class.ay-date-picker-day--other]="!day.currentMonth"
+              [class.ay-date-picker-day--today]="day.today"
+              [class.ay-date-picker-day--selected]="day.selected"
+              [class.ay-date-picker-day--disabled]="day.disabled"
+              [class.ay-date-picker-day--focused]="focusedDayIndex() === i"
+              [disabled]="day.disabled"
+              [tabindex]="day.selected || (focusedDayIndex() === i) ? 0 : -1"
+              (click)="selectDay(day)"
+            >
+              {{ day.day }}
+            </button>
+          }
+        </div>
       }
-    </div>
-    <div class="ay-date-picker-grid" role="grid">
-      @for (day of calendarDays(); track $index; let i = $index) {
-        <button
-          type="button"
-          class="ay-date-picker-day"
-          [class.ay-date-picker-day--other]="!day.currentMonth"
-          [class.ay-date-picker-day--today]="day.today"
-          [class.ay-date-picker-day--selected]="day.selected"
-          [class.ay-date-picker-day--disabled]="day.disabled"
-          [class.ay-date-picker-day--focused]="focusedDayIndex() === i"
-          [disabled]="day.disabled"
-          [tabindex]="day.selected || (focusedDayIndex() === i) ? 0 : -1"
-          (click)="selectDay(day)"
-        >
-          {{ day.day }}
-        </button>
+      @case ('months') {
+        <div class="ay-date-picker-months-grid">
+          @for (name of monthNames; track name; let i = $index) {
+            <button
+              type="button"
+              class="ay-date-picker-month-cell"
+              [class.ay-date-picker-month-cell--selected]="i === viewMonth() && viewYear() === viewYear()"
+              (click)="selectMonth(i)"
+            >
+              {{ name.slice(0, 3) }}
+            </button>
+          }
+        </div>
       }
-    </div>
+      @case ('years') {
+        <div class="ay-date-picker-years-grid">
+          @for (year of yearRange(); track year) {
+            <button
+              type="button"
+              class="ay-date-picker-year-cell"
+              [class.ay-date-picker-year-cell--selected]="year === viewYear()"
+              (click)="selectYear(year)"
+            >
+              {{ year }}
+            </button>
+          }
+        </div>
+      }
+    }
   </div>
 }
 @if (error()) {

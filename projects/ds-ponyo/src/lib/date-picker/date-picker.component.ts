@@ -64,12 +64,24 @@ export class AyDatePickerComponent implements ControlValueAccessor {
   readonly viewYear = signal(new Date().getFullYear())
   readonly viewMonth = signal(new Date().getMonth())
   readonly focusedDayIndex = signal(-1)
+  readonly viewMode = signal<'days' | 'months' | 'years'>('days')
 
   readonly inputId = computed(() => `ay-date-picker-${this.uid}`)
   readonly errorId = computed(() => `ay-date-picker-error-${this.uid}`)
   readonly helperId = computed(() => `ay-date-picker-helper-${this.uid}`)
 
   readonly weekDays = WEEK_DAYS
+  readonly monthNames = MONTH_NAMES
+
+  readonly yearRange = computed(() => {
+    const center = this.viewYear()
+    const start = center - 6
+    const years: number[] = []
+    for (let i = 0; i < 12; i++) {
+      years.push(start + i)
+    }
+    return years
+  })
 
   readonly displayValue = computed(() => {
     const v = this.value()
@@ -135,6 +147,47 @@ export class AyDatePickerComponent implements ControlValueAccessor {
   private onChange: (value: string) => void = () => {}
   private onTouched: () => void = () => {}
 
+  toggleViewMode(): void {
+    const mode = this.viewMode()
+    if (mode === 'days') this.viewMode.set('months')
+    else if (mode === 'months') this.viewMode.set('years')
+    else this.viewMode.set('months')
+  }
+
+  selectMonth(month: number): void {
+    this.viewMonth.set(month)
+    this.viewMode.set('days')
+  }
+
+  selectYear(year: number): void {
+    this.viewYear.set(year)
+    this.viewMode.set('months')
+  }
+
+  prevRange(): void {
+    const mode = this.viewMode()
+    if (mode === 'years') this.viewYear.update(y => y - 12)
+    else if (mode === 'months') this.viewYear.update(y => y - 1)
+    else this.prevMonth()
+  }
+
+  nextRange(): void {
+    const mode = this.viewMode()
+    if (mode === 'years') this.viewYear.update(y => y + 12)
+    else if (mode === 'months') this.viewYear.update(y => y + 1)
+    else this.nextMonth()
+  }
+
+  readonly headerLabel = computed(() => {
+    const mode = this.viewMode()
+    if (mode === 'years') {
+      const range = this.yearRange()
+      return `${range[0]} – ${range[range.length - 1]}`
+    }
+    if (mode === 'months') return `${this.viewYear()}`
+    return this.monthLabel()
+  })
+
   toggleOpen(): void {
     if (this.disabled()) return
     if (!this.open()) {
@@ -149,6 +202,7 @@ export class AyDatePickerComponent implements ControlValueAccessor {
         this.viewMonth.set(now.getMonth())
       }
     }
+    this.viewMode.set('days')
     this.open.update(o => !o)
   }
 
