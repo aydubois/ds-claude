@@ -24,8 +24,6 @@ let nextId = 0
     'class': 'ay-radio',
     '[class.ay-radio--selected]': 'isSelected()',
     '[class.ay-radio--disabled]': 'disabled()',
-    '(click)': 'select()',
-    '(keydown.space)': 'select(); $event.preventDefault()',
   },
   templateUrl: './radio.component.html',
   styleUrl: './radio.component.scss',
@@ -34,19 +32,19 @@ export class AyRadioComponent implements ControlValueAccessor {
   private readonly uid = nextId++
 
   readonly value = input.required<string>()
+  readonly name = input<string>('')
   readonly disabled = input<boolean>(false)
 
   readonly selectedChange = output<string>()
 
   readonly selectedValue = signal<string | null>(null)
-  readonly labelId = computed(() => `ay-radio-label-${this.uid}`)
+  readonly inputId = computed(() => `ay-radio-${this.uid}`)
   readonly isSelected = computed(() => this.selectedValue() === this.value())
 
   private onChange: (value: string) => void = () => {}
   private onTouched: () => void = () => {}
 
-  select(): void {
-    if (this.disabled()) return
+  onInputChange(): void {
     this.selectedValue.set(this.value())
     this.onChange(this.value())
     this.onTouched()

@@ -25,8 +25,6 @@ let nextId = 0
     '[class.ay-checkbox--checked]': 'checked()',
     '[class.ay-checkbox--indeterminate]': 'indeterminate()',
     '[class.ay-checkbox--disabled]': 'disabled()',
-    '(click)': 'toggle()',
-    '(keydown.space)': 'toggle(); $event.preventDefault()',
   },
   templateUrl: './checkbox.component.html',
   styleUrl: './checkbox.component.scss',
@@ -40,14 +38,13 @@ export class AyCheckboxComponent implements ControlValueAccessor {
   readonly checkedChange = output<boolean>()
 
   readonly checked = signal(false)
-  readonly labelId = computed(() => `ay-checkbox-label-${this.uid}`)
+  readonly inputId = computed(() => `ay-checkbox-${this.uid}`)
 
   private onChange: (value: boolean) => void = () => {}
   private onTouched: () => void = () => {}
 
-  toggle(): void {
-    if (this.disabled()) return
-    const next = !this.checked()
+  onInputChange(event: Event): void {
+    const next = (event.target as HTMLInputElement).checked
     this.checked.set(next)
     this.onChange(next)
     this.onTouched()

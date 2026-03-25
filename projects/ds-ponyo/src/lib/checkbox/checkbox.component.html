@@ -1,11 +1,12 @@
-<span
-  class="ay-checkbox-box"
-  role="checkbox"
-  [attr.aria-checked]="indeterminate() ? 'mixed' : checked()"
-  [attr.aria-disabled]="disabled()"
-  [attr.aria-labelledby]="labelId()"
-  [tabindex]="disabled() ? -1 : 0"
-></span>
-<span class="ay-checkbox-label" [id]="labelId()">
+<input
+  type="checkbox"
+  class="ay-checkbox-input"
+  [id]="inputId()"
+  [checked]="checked()"
+  [disabled]="disabled()"
+  [indeterminate]="indeterminate()"
+  (change)="onInputChange($event)"
+/>
+<label class="ay-checkbox-label" [attr.for]="inputId()">
   <ng-content />
-</span>
+</label>

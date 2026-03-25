@@ -1,11 +1,13 @@
-<span
-  class="ay-radio-circle"
-  role="radio"
-  [attr.aria-checked]="isSelected()"
-  [attr.aria-disabled]="disabled()"
-  [attr.aria-labelledby]="labelId()"
-  [tabindex]="disabled() ? -1 : 0"
-></span>
-<span class="ay-radio-label" [id]="labelId()">
+<input
+  type="radio"
+  class="ay-radio-input"
+  [id]="inputId()"
+  [name]="name()"
+  [value]="value()"
+  [checked]="isSelected()"
+  [disabled]="disabled()"
+  (change)="onInputChange()"
+/>
+<label class="ay-radio-label" [attr.for]="inputId()">
   <ng-content />
-</span>
+</label>
