@@ -43,7 +43,17 @@
   <div class="ay-multi-select-dropdown" role="listbox" [attr.aria-multiselectable]="true">
     <div class="ay-multi-select-toolbar">
       <button
-        class="ay-multi-select-toolbar-btn"
+        class="ay-multi-select-toolbar-btn ay-multi-select-toolbar-btn--text"
+        type="button"
+        (click)="selectAll(); $event.stopPropagation()"
+      >Tout sélectionner</button>
+      <button
+        class="ay-multi-select-toolbar-btn ay-multi-select-toolbar-btn--text"
+        type="button"
+        (click)="deselectAll(); $event.stopPropagation()"
+      >Tout désélectionner</button>
+      <button
+        class="ay-multi-select-toolbar-btn ay-multi-select-toolbar-btn--icon"
         type="button"
         aria-label="Tout sélectionner"
         title="Tout sélectionner"
@@ -52,7 +62,7 @@
         <ay-icon name="check" />
       </button>
       <button
-        class="ay-multi-select-toolbar-btn"
+        class="ay-multi-select-toolbar-btn ay-multi-select-toolbar-btn--icon"
         type="button"
         aria-label="Tout désélectionner"
         title="Tout désélectionner"
