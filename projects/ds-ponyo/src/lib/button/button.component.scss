@@ -14,10 +14,6 @@
   box-sizing: border-box;
   line-height: 1;
 
-  &:focus-visible {
-    outline: none;
-  }
-
   svg,
   .ay-button-icon {
     width: 0.875em;
@@ -64,7 +60,8 @@
 }
 
 :host(.ay-button--filled.ay-button--primary:focus-visible) {
-  box-shadow: var(--ay-color-focus-ring);
+  outline: 2px solid var(--ay-color-primary, #147a79);
+  outline-offset: -2px;
 }
 
 :host(.ay-button--filled.ay-button--danger:hover:not(.ay-button--disabled)) {
@@ -78,7 +75,8 @@
 }
 
 :host(.ay-button--filled.ay-button--danger:focus-visible) {
-  box-shadow: 0 0 0 3px var(--ay-color-danger-35);
+  outline: 2px solid var(--ay-color-danger, #c2412b);
+  outline-offset: -2px;
 }
 
 // ─── Outlined ───
@@ -108,7 +106,8 @@
 }
 
 :host(.ay-button--outlined.ay-button--primary:focus-visible) {
-  box-shadow: var(--ay-color-focus-ring);
+  outline: 2px solid var(--ay-color-primary, #147a79);
+  outline-offset: -2px;
 }
 
 :host(.ay-button--outlined.ay-button--danger:hover:not(.ay-button--disabled)) {
@@ -121,7 +120,8 @@
 }
 
 :host(.ay-button--outlined.ay-button--danger:focus-visible) {
-  box-shadow: 0 0 0 3px var(--ay-color-danger-35);
+  outline: 2px solid var(--ay-color-danger, #c2412b);
+  outline-offset: -2px;
 }
 
 // ─── Text ───
@@ -147,7 +147,8 @@
 }
 
 :host(.ay-button--text.ay-button--primary:focus-visible) {
-  box-shadow: var(--ay-color-focus-ring);
+  outline: 2px solid var(--ay-color-primary, #147a79);
+  outline-offset: -2px;
 }
 
 :host(.ay-button--text.ay-button--danger:hover:not(.ay-button--disabled)) {
@@ -159,7 +160,8 @@
 }
 
 :host(.ay-button--text.ay-button--danger:focus-visible) {
-  box-shadow: 0 0 0 3px var(--ay-color-danger-35);
+  outline: 2px solid var(--ay-color-danger, #c2412b);
+  outline-offset: -2px;
 }
 
 // ─── Disabled ───

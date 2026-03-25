@@ -165,12 +165,12 @@
   }
 
   &:hover {
-    background: var(--ay-color-surface, #f4f5f7);
+    background: var(--ay-color-primary-8);
   }
 
   &:focus-visible {
-    outline: none;
-    box-shadow: var(--ay-color-focus-ring);
+    outline: 2px solid var(--ay-color-primary, #147a79);
+    outline-offset: -2px;
   }
 }
 
@@ -213,12 +213,12 @@
   transition: background-color 150ms ease, color 150ms ease;
 
   &:hover:not(:disabled) {
-    background: var(--ay-color-surface, #f4f5f7);
+    background: var(--ay-color-primary-8);
   }
 
   &:focus-visible {
-    outline: none;
-    box-shadow: var(--ay-color-focus-ring);
+    outline: 2px solid var(--ay-color-primary, #147a79);
+    outline-offset: -2px;
   }
 }
 
@@ -245,7 +245,8 @@
 }
 
 .ay-date-picker-day--focused {
-  box-shadow: var(--ay-color-focus-ring);
+  outline: 2px solid var(--ay-color-primary, #147a79);
+  outline-offset: -2px;
 }
 
 // Error state

@@ -44,12 +44,12 @@
   transition: background 150ms ease;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--ay-color-primary-8);
   }
 
   &:focus-visible {
-    outline: none;
-    box-shadow: var(--ay-color-focus-ring);
+    outline: 2px solid var(--ay-color-primary, #147a79);
+    outline-offset: -2px;
   }
 }
 
@@ -65,11 +65,12 @@
 
   &:hover {
     color: #fff;
+    background: var(--ay-color-primary-8);
   }
 
   &:focus-visible {
-    outline: none;
-    box-shadow: var(--ay-color-focus-ring);
+    outline: 2px solid var(--ay-color-primary, #147a79);
+    outline-offset: -2px;
     border-radius: var(--ay-radius-md, 4px);
   }
 }

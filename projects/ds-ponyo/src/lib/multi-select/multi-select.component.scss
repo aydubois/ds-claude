@@ -133,8 +133,8 @@
   }
 
   &:focus-visible {
-    outline: none;
-    box-shadow: var(--ay-color-focus-ring);
+    outline: 2px solid var(--ay-color-primary, #147a79);
+    outline-offset: -2px;
   }
 
   &--text {

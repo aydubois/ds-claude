@@ -35,7 +35,7 @@
 
   &:hover {
     color: var(--ay-color-text-muted, #6b7280);
-    background: var(--ay-color-surface, #f4f5f7);
+    background: var(--ay-color-primary-8);
   }
 
   &:active {
@@ -43,8 +43,8 @@
   }
 
   &:focus-visible {
-    outline: none;
-    box-shadow: inset var(--ay-color-focus-ring);
+    outline: 2px solid var(--ay-color-primary, #147a79);
+    outline-offset: -2px;
   }
 }
 
@@ -65,12 +65,12 @@
   min-height: 2.25rem;
 
   &:hover {
-    background: var(--ay-color-surface, #f4f5f7);
+    background: var(--ay-color-primary-8);
   }
 
   &:focus-visible {
-    outline: none;
-    box-shadow: inset var(--ay-color-focus-ring);
+    outline: 2px solid var(--ay-color-primary, #147a79);
+    outline-offset: -2px;
   }
 }
 

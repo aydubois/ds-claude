@@ -26,12 +26,12 @@
   }
 
   &:hover:not(:disabled) {
-    background: var(--ay-color-surface, #f4f5f7);
+    background: var(--ay-color-primary-8);
   }
 
   &:focus-visible {
-    outline: none;
-    box-shadow: var(--ay-color-focus-ring);
+    outline: 2px solid var(--ay-color-primary, #147a79);
+    outline-offset: -2px;
     z-index: 1;
     position: relative;
   }

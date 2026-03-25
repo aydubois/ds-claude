@@ -69,11 +69,12 @@
 
   &:hover {
     color: var(--ay-color-text, #111827);
+    background: var(--ay-color-primary-8);
   }
 
   &:focus-visible {
-    outline: none;
-    box-shadow: var(--ay-color-focus-ring);
+    outline: 2px solid var(--ay-color-primary, #147a79);
+    outline-offset: -2px;
     border-radius: var(--ay-radius-md, 4px);
   }
 }

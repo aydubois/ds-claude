@@ -35,12 +35,12 @@
   padding: 0;
 
   &:hover:not(:disabled):not(.ay-pagination-btn--active) {
-    background: var(--ay-color-surface, #f4f5f7);
+    background: var(--ay-color-primary-8);
   }
 
   &:focus-visible {
-    outline: none;
-    box-shadow: var(--ay-color-focus-ring);
+    outline: 2px solid var(--ay-color-primary, #147a79);
+    outline-offset: -2px;
   }
 
   &--active {
