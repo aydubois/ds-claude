@@ -31,7 +31,7 @@
   font-size: 0.8125rem;
   font-family: inherit;
   cursor: pointer;
-  transition: all 150ms ease;
+  transition: box-shadow 150ms ease;
   padding: 0;
 
   &:hover:not(:disabled):not(.ay-pagination-btn--active) {
