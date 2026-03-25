@@ -12,19 +12,19 @@
 <ul class="ay-nav-rail-list">
   @for (item of items(); track item.value) {
     <li class="ay-nav-rail-item">
-      <button
-        type="button"
-        class="ay-nav-rail-button"
-        [class.ay-nav-rail-button--active]="isActive(item)"
+      <a
+        class="ay-nav-rail-link"
+        [href]="item.href"
+        [class.ay-nav-rail-link--active]="isActive(item)"
         [attr.aria-current]="isActive(item) ? 'page' : null"
         [attr.title]="collapsed() ? item.label : null"
-        (click)="select(item)"
+        (click)="select(item, $event)"
       >
         <ay-icon [name]="item.icon" class="ay-nav-rail-icon" />
         @if (!collapsed()) {
           <span class="ay-nav-rail-label">{{ item.label }}</span>
         }
-      </button>
+      </a>
     </li>
   }
 </ul>

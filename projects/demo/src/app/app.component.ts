@@ -167,10 +167,10 @@ export class AppComponent {
 
   // ─── Navigation Rail ───
   navItems: AyNavRailItem[] = [
-    { value: 'home', label: 'Accueil', icon: 'home' },
-    { value: 'users', label: 'Utilisateurs', icon: 'users' },
-    { value: 'settings', label: 'Paramètres', icon: 'settings' },
-    { value: 'mail', label: 'Messages', icon: 'mail' },
+    { value: 'home', label: 'Accueil', icon: 'home', href: '/home' },
+    { value: 'users', label: 'Utilisateurs', icon: 'users', href: '/users' },
+    { value: 'settings', label: 'Paramètres', icon: 'settings', href: '/settings' },
+    { value: 'mail', label: 'Messages', icon: 'mail', href: '/mail' },
   ]
   navCollapsed = signal(false)
 }

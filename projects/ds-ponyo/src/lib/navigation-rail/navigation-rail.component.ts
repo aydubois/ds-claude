@@ -35,7 +35,7 @@ export class AyNavigationRailComponent {
     this.collapsedChange.emit(!this.collapsed())
   }
 
-  select(item: AyNavRailItem): void {
+  select(item: AyNavRailItem, event: MouseEvent): void {
     this.value.set(item.value)
     this.valueChange.emit(item.value)
   }
