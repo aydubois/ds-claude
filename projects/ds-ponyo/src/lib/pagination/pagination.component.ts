@@ -51,8 +51,17 @@ export class AyPaginationComponent {
 
     const start = Math.max(1, current - 2)
     const end = Math.min(total, current + 2)
+
+    if (start > 1) {
+      pages.push(-1) // ellipsis gauche
+    }
+
     for (let i = start; i <= end; i++) {
       pages.push(i)
+    }
+
+    if (end < total) {
+      pages.push(-1) // ellipsis droite
     }
 
     return pages
