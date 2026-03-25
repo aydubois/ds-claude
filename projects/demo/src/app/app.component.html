@@ -329,7 +329,10 @@
         <ay-date-picker label="Date de début" [required]="true" helper="Sélectionnez une date" />
       </div>
       <div class="demo-field">
-        <ay-date-picker label="Date de fin" error="Ce champ est requis" [required]="true" />
+        <ay-date-picker label="Jours ouvrés" [disableWeekends]="true" helper="Week-ends bloqués" />
+      </div>
+      <div class="demo-field">
+        <ay-date-picker label="Date limitée" min="2026-03-01" max="2026-03-31" helper="Mars 2026 uniquement" />
       </div>
       <div class="demo-field">
         <ay-date-picker label="Date (disabled)" [disabled]="true" />

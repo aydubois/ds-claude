@@ -51,6 +51,7 @@ export class AyDatePickerComponent implements ControlValueAccessor {
   readonly min = input<string>('')
   readonly max = input<string>('')
   readonly disabled = input<boolean>(false)
+  readonly disableWeekends = input<boolean>(false)
   readonly required = input<boolean>(false)
   readonly error = input<string>('')
   readonly helper = input<string>('')
@@ -94,6 +95,7 @@ export class AyDatePickerComponent implements ControlValueAccessor {
     const selected = this.value() ? new Date(this.value() + 'T00:00:00') : null
     const minDate = this.min() ? new Date(this.min() + 'T00:00:00') : null
     const maxDate = this.max() ? new Date(this.max() + 'T00:00:00') : null
+    const noWeekends = this.disableWeekends()
 
     const firstDay = new Date(year, month, 1)
     // Monday = 0 based offset
@@ -109,13 +111,13 @@ export class AyDatePickerComponent implements ControlValueAccessor {
     for (let i = startOffset - 1; i >= 0; i--) {
       const day = daysInPrevMonth - i
       const date = new Date(year, month - 1, day)
-      days.push(this.buildDay(date, day, false, today, selected, minDate, maxDate))
+      days.push(this.buildDay(date, day, false, today, selected, minDate, maxDate, noWeekends))
     }
 
     // Current month
     for (let d = 1; d <= daysInMonth; d++) {
       const date = new Date(year, month, d)
-      days.push(this.buildDay(date, d, true, today, selected, minDate, maxDate))
+      days.push(this.buildDay(date, d, true, today, selected, minDate, maxDate, noWeekends))
     }
 
     // Next month padding
@@ -123,7 +125,7 @@ export class AyDatePickerComponent implements ControlValueAccessor {
     if (remaining < DAYS_IN_WEEK) {
       for (let d = 1; d <= remaining; d++) {
         const date = new Date(year, month + 1, d)
-        days.push(this.buildDay(date, d, false, today, selected, minDate, maxDate))
+        days.push(this.buildDay(date, d, false, today, selected, minDate, maxDate, noWeekends))
       }
     }
 
@@ -269,6 +271,7 @@ export class AyDatePickerComponent implements ControlValueAccessor {
     selected: Date | null,
     minDate: Date | null,
     maxDate: Date | null,
+    noWeekends: boolean,
   ): AyDatePickerDay {
     const isToday = currentMonth
       && date.getDate() === today.getDate()
@@ -283,6 +286,8 @@ export class AyDatePickerComponent implements ControlValueAccessor {
     let disabled = false
     if (minDate && date < minDate) disabled = true
     if (maxDate && date > maxDate) disabled = true
+    const dayOfWeek = date.getDay()
+    if (noWeekends && (dayOfWeek === 0 || dayOfWeek === 6)) disabled = true
 
     return { date, day, currentMonth, today: isToday, selected: isSelected, disabled }
   }
