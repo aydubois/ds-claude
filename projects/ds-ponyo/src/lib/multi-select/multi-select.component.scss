@@ -5,6 +5,7 @@
 }
 
 .ay-multi-select-box {
+  position: relative;
   height: 2.5rem;
   padding: 0.4rem 2.25rem 0.25rem 0.5rem;
   border: 1px solid var(--ay-color-border, #d1d5db);
@@ -63,13 +64,12 @@
 .ay-multi-select-arrow {
   position: absolute;
   right: 0.5rem;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
+  top: 50%;
+  transform: translateY(-50%);
   color: var(--ay-color-text-muted, #6b7280);
   pointer-events: none;
   font-size: 0.875rem;
+  line-height: 0;
 }
 
 // ─── Chip ───

@@ -31,6 +31,7 @@
       <span class="ay-multi-select-placeholder">{{ placeholder() }}</span>
     }
   }
+  <ay-icon name="chevron-down" class="ay-multi-select-arrow" />
 </div>
 <span class="ay-multi-select-label" [id]="labelId()">
   {{ label() }}
@@ -38,7 +39,6 @@
     <span class="ay-multi-select-required" aria-hidden="true">*</span>
   }
 </span>
-<ay-icon name="chevron-down" class="ay-multi-select-arrow" />
 @if (isOpen()) {
   <div class="ay-multi-select-dropdown" role="listbox" [attr.aria-multiselectable]="true">
     <div class="ay-multi-select-toolbar">
