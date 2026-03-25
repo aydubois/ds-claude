@@ -9,7 +9,7 @@
         [attr.title]="collapsed() ? item.label : null"
         (click)="select(item)"
       >
-        <span class="ay-nav-rail-icon" aria-hidden="true">{{ item.icon }}</span>
+        <ay-icon [name]="item.icon" class="ay-nav-rail-icon" />
         @if (!collapsed()) {
           <span class="ay-nav-rail-label">{{ item.label }}</span>
         }
@@ -17,3 +17,14 @@
     </li>
   }
 </ul>
+@if (collapsible()) {
+  <button
+    type="button"
+    class="ay-nav-rail-toggle"
+    [attr.aria-label]="collapsed() ? 'Déplier la navigation' : 'Replier la navigation'"
+    [attr.title]="collapsed() ? 'Déplier' : 'Replier'"
+    (click)="toggleCollapse()"
+  >
+    <ay-icon [name]="collapsed() ? 'chevron-right' : 'chevron-left'" />
+  </button>
+}

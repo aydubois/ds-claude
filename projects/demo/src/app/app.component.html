@@ -352,13 +352,8 @@
   <!-- ═══ Navigation Rail ═══ -->
   <section class="demo-section">
     <h2 class="demo-section-title">Navigation Rail</h2>
-    <div class="demo-row" style="gap: 1rem; align-items: flex-start;">
-      <div style="height: 300px; border: 1px solid var(--ay-color-border); border-radius: 4px; overflow: hidden;">
-        <ay-navigation-rail [items]="navItems" [collapsed]="navCollapsed()" />
-      </div>
-      <button ay-button variant="outlined" color="primary" size="sm" (click)="navCollapsed.set(!navCollapsed())">
-        {{ navCollapsed() ? 'Déplier' : 'Replier' }}
-      </button>
+    <div style="height: 300px; width: fit-content; border: 1px solid var(--ay-color-border); border-radius: 4px; overflow: hidden;">
+      <ay-navigation-rail [items]="navItems" [collapsed]="navCollapsed()" (collapsedChange)="navCollapsed.set($event)" />
     </div>
   </section>
 

@@ -3,14 +3,15 @@ import {
   input,
   output,
   signal,
-  forwardRef,
 } from '@angular/core'
 
+import { AyIconComponent } from '../icon/icon.component'
 import { AyNavRailItem } from './navigation-rail.model'
 
 @Component({
   selector: 'ay-navigation-rail',
   standalone: true,
+  imports: [AyIconComponent],
   host: {
     'class': 'ay-navigation-rail',
     '[class.ay-navigation-rail--collapsed]': 'collapsed()',
@@ -23,9 +24,16 @@ export class AyNavigationRailComponent {
   readonly items = input.required<AyNavRailItem[]>()
   readonly collapsed = input<boolean>(false)
 
+  readonly collapsible = input<boolean>(true)
+
   readonly valueChange = output<string>()
+  readonly collapsedChange = output<boolean>()
 
   readonly value = signal<string>('')
+
+  toggleCollapse(): void {
+    this.collapsedChange.emit(!this.collapsed())
+  }
 
   select(item: AyNavRailItem): void {
     this.value.set(item.value)
