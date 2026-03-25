@@ -10,6 +10,7 @@ import {
   inject,
 } from '@angular/core'
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AyIconComponent } from '../icon/icon.component'
 import { AyMultiSelectOption } from './multi-select.model'
 
 let nextId = 0
@@ -17,6 +18,7 @@ let nextId = 0
 @Component({
   selector: 'ay-multi-select',
   standalone: true,
+  imports: [AyIconComponent],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -44,6 +46,7 @@ export class AyMultiSelectComponent implements ControlValueAccessor {
   readonly error = input<string>('')
   readonly required = input<boolean>(false)
   readonly disabled = input<boolean>(false)
+  readonly maxChips = input<number>(2)
 
   readonly selectionChange = output<string[]>()
 
@@ -57,6 +60,17 @@ export class AyMultiSelectComponent implements ControlValueAccessor {
 
   readonly selectedOptions = computed(() =>
     this.options().filter(o => this.values().includes(o.value))
+  )
+
+  readonly displayMode = computed<'chips' | 'summary' | 'empty'>(() => {
+    const count = this.selectedOptions().length
+    if (count === 0) return 'empty'
+    if (count > this.maxChips()) return 'summary'
+    return 'chips'
+  })
+
+  readonly summaryText = computed(() =>
+    `${this.selectedOptions().length} valeurs sélectionnées`
   )
 
   readonly describedBy = computed(() => {

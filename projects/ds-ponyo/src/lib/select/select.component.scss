@@ -37,8 +37,10 @@
 .ay-select-arrow {
   position: absolute;
   right: 0.5rem;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
   color: var(--ay-color-text-muted, #6b7280);
   pointer-events: none;
   font-size: 0.875rem;
@@ -47,9 +49,9 @@
 // ─── Clear button ───
 .ay-select-clear {
   position: absolute;
-  right: 0.5rem;
-  top: 50%;
-  transform: translateY(-50%);
+  right: 1.75rem;
+  top: 0;
+  bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,6 +66,10 @@
   &:hover {
     color: var(--ay-color-primary-hover, #0f5f5e);
   }
+}
+
+:host(.ay-select--clearable) .ay-select-box {
+  padding-right: 3.5rem;
 }
 
 // ─── Floating label ───
