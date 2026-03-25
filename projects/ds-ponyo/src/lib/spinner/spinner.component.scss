@@ -10,7 +10,7 @@
   border-style: solid;
   border-color: currentColor;
   border-top-color: transparent;
-  animation: ay-spinner-rotate 0.75s linear infinite;
+  animation: ay-spinner-rotate 1.2s linear infinite;
 }
 
 // Sizes
@@ -51,5 +51,14 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+// Respect prefers-reduced-motion
+@media (prefers-reduced-motion: reduce) {
+  .ay-spinner-circle {
+    animation: none;
+    border-top-color: currentColor;
+    opacity: 0.6;
   }
 }
