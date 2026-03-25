@@ -10,6 +10,7 @@ import {
   inject,
 } from '@angular/core'
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AyIconComponent } from '../icon/icon.component'
 import { AySelectOption } from './select.model'
 
 let nextId = 0
@@ -17,6 +18,7 @@ let nextId = 0
 @Component({
   selector: 'ay-select',
   standalone: true,
+  imports: [AyIconComponent],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -30,6 +32,7 @@ let nextId = 0
     '[class.ay-select--error]': '!!error()',
     '[class.ay-select--disabled]': 'disabled()',
     '[class.ay-select--filled]': '!!selectedOption()',
+    '[class.ay-select--clearable]': 'showClear()',
   },
   templateUrl: './select.component.html',
   styleUrl: './select.component.scss',
@@ -45,6 +48,7 @@ export class AySelectComponent implements ControlValueAccessor {
   readonly error = input<string>('')
   readonly required = input<boolean>(false)
   readonly disabled = input<boolean>(false)
+  readonly clearable = input<boolean>(false)
 
   readonly selectionChange = output<string>()
 
@@ -58,6 +62,10 @@ export class AySelectComponent implements ControlValueAccessor {
 
   readonly selectedOption = computed(() =>
     this.options().find(o => o.value === this.value()) ?? null
+  )
+
+  readonly showClear = computed(() =>
+    this.clearable() && !!this.value() && !this.disabled()
   )
 
   readonly describedBy = computed(() => {
@@ -83,6 +91,14 @@ export class AySelectComponent implements ControlValueAccessor {
       const idx = this.options().findIndex(o => o.value === this.value())
       this.highlightedIndex.set(idx >= 0 ? idx : 0)
     }
+  }
+
+  clearValue(event: MouseEvent): void {
+    event.stopPropagation()
+    this.value.set('')
+    this.onChange('')
+    this.onTouched()
+    this.selectionChange.emit('')
   }
 
   selectOption(option: AySelectOption): void {

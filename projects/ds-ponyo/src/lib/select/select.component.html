@@ -11,7 +11,7 @@
   (click)="toggleDropdown()"
   (keydown)="onKeydown($event)"
 >
-  {{ selectedOption()?.label || placeholder() }}
+  <span class="ay-select-value">{{ selectedOption()?.label || placeholder() }}</span>
 </div>
 <span class="ay-select-label" [id]="labelId()">
   {{ label() }}
@@ -19,7 +19,19 @@
     <span class="ay-select-required" aria-hidden="true">*</span>
   }
 </span>
-<span class="ay-select-arrow"></span>
+@if (showClear()) {
+  <button
+    class="ay-select-clear"
+    type="button"
+    tabindex="-1"
+    aria-label="Effacer la sélection"
+    (click)="clearValue($event)"
+  >
+    <ay-icon name="close" />
+  </button>
+} @else {
+  <ay-icon name="chevron-down" class="ay-select-arrow" />
+}
 @if (isOpen()) {
   <div
     class="ay-select-dropdown"
