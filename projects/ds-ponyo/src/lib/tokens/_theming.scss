@@ -58,6 +58,15 @@ $_defaults: (
     --ay-color-primary-hover: #{$primary-hover};
     --ay-color-primary-active: #{$primary-active};
     --ay-color-primary-contrast: #{_contrast-color($primary)};
+    --ay-color-primary-light: #{color.mix(white, $primary, 60%)};
+    --ay-color-primary-6: #{color.change($primary, $alpha: 0.06)};
+    --ay-color-primary-8: #{color.change($primary, $alpha: 0.08)};
+    --ay-color-primary-10: #{color.change($primary, $alpha: 0.1)};
+    --ay-color-primary-12: #{color.change($primary, $alpha: 0.12)};
+    --ay-color-primary-14: #{color.change($primary, $alpha: 0.14)};
+    --ay-color-primary-18: #{color.change($primary, $alpha: 0.18)};
+    --ay-color-primary-20: #{color.change($primary, $alpha: 0.2)};
+    --ay-color-primary-25: #{color.change($primary, $alpha: 0.25)};
 
     // Secondary
     --ay-color-secondary: #{$secondary};
@@ -70,6 +79,12 @@ $_defaults: (
     --ay-color-danger-hover: #{$danger-hover};
     --ay-color-danger-active: #{$danger-active};
     --ay-color-danger-contrast: #{_contrast-color($danger)};
+    --ay-color-danger-8: #{color.change($danger, $alpha: 0.08)};
+    --ay-color-danger-10: #{color.change($danger, $alpha: 0.1)};
+    --ay-color-danger-15: #{color.change($danger, $alpha: 0.15)};
+    --ay-color-danger-18: #{color.change($danger, $alpha: 0.18)};
+    --ay-color-danger-25: #{color.change($danger, $alpha: 0.25)};
+    --ay-color-danger-35: #{color.change($danger, $alpha: 0.35)};
 
     // Surfaces & text
     --ay-color-background: #{$background};
