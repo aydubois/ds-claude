@@ -1,9 +1,10 @@
 import {
   Component,
-  input,
-  output,
-  signal,
+  Input,
+  Output,
+  EventEmitter,
 } from '@angular/core'
+import { CommonModule } from '@angular/common'
 
 import { AyIconComponent } from '../icon/icon.component'
 import { AyNavRailItem } from './navigation-rail.model'
@@ -11,36 +12,36 @@ import { AyNavRailItem } from './navigation-rail.model'
 @Component({
   selector: 'ay-navigation-rail',
   standalone: true,
-  imports: [AyIconComponent],
+  imports: [CommonModule, AyIconComponent],
   host: {
     'class': 'ay-navigation-rail',
-    '[class.ay-navigation-rail--collapsed]': 'collapsed()',
+    '[class.ay-navigation-rail--collapsed]': 'collapsed',
     'role': 'navigation',
   },
   templateUrl: './navigation-rail.component.html',
-  styleUrl: './navigation-rail.component.scss',
+  styleUrls: ['./navigation-rail.component.scss'],
 })
 export class AyNavigationRailComponent {
-  readonly items = input.required<AyNavRailItem[]>()
-  readonly collapsed = input<boolean>(false)
+  @Input({ required: true }) items!: AyNavRailItem[]
+  @Input() collapsed: boolean = false
 
-  readonly collapsible = input<boolean>(true)
+  @Input() collapsible: boolean = true
 
-  readonly valueChange = output<string>()
-  readonly collapsedChange = output<boolean>()
+  @Output() valueChange = new EventEmitter<string>()
+  @Output() collapsedChange = new EventEmitter<boolean>()
 
-  readonly value = signal<string>('')
+  value: string = ''
 
   toggleCollapse(): void {
-    this.collapsedChange.emit(!this.collapsed())
+    this.collapsedChange.emit(!this.collapsed)
   }
 
   select(item: AyNavRailItem, event: MouseEvent): void {
-    this.value.set(item.value)
+    this.value = item.value
     this.valueChange.emit(item.value)
   }
 
   isActive(item: AyNavRailItem): boolean {
-    return this.value() === item.value
+    return this.value === item.value
   }
 }

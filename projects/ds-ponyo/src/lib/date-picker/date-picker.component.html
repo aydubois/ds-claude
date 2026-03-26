@@ -3,30 +3,28 @@
     class="ay-date-picker-input"
     type="text"
     readonly
-    [id]="inputId()"
-    [value]="displayValue()"
-    [disabled]="disabled()"
-    [required]="required()"
-    [attr.aria-describedby]="describedBy()"
-    [attr.aria-invalid]="!!error()"
+    [id]="inputId"
+    [value]="displayValue"
+    [disabled]="disabled"
+    [required]="required"
+    [attr.aria-describedby]="describedBy"
+    [attr.aria-invalid]="!!error"
     [attr.placeholder]="' '"
     (click)="toggleOpen()"
     (keydown)="onInputKeydown($event)"
     (focus)="onFocus()"
     (blur)="onBlur()"
   />
-  <label class="ay-date-picker-label" [attr.for]="inputId()">
-    {{ label() }}
-    @if (required()) {
-      <span class="ay-date-picker-required" aria-hidden="true">*</span>
-    }
+  <label class="ay-date-picker-label" [attr.for]="inputId">
+    {{ label }}
+    <span *ngIf="required" class="ay-date-picker-required" aria-hidden="true">*</span>
   </label>
   <button
     class="ay-date-picker-toggle"
     type="button"
     tabindex="-1"
     aria-label="Ouvrir le calendrier"
-    [disabled]="disabled()"
+    [disabled]="disabled"
     (click)="toggleOpen()"
   >
     <svg viewBox="0 0 16 16" aria-hidden="true">
@@ -34,7 +32,7 @@
     </svg>
   </button>
 </div>
-@if (open()) {
+<ng-container *ngIf="open">
   <div
     class="ay-date-picker-dropdown"
     role="dialog"
@@ -46,7 +44,7 @@
       <button
         class="ay-date-picker-nav"
         type="button"
-        [attr.aria-label]="viewMode() === 'years' ? 'Années précédentes' : viewMode() === 'months' ? 'Année précédente' : 'Mois précédent'"
+        [attr.aria-label]="viewMode === 'years' ? 'Années précédentes' : viewMode === 'months' ? 'Année précédente' : 'Mois précédent'"
         (click)="prevRange()"
       >
         <svg viewBox="0 0 16 16" aria-hidden="true">
@@ -58,12 +56,12 @@
         type="button"
         (click)="toggleViewMode()"
       >
-        {{ headerLabel() }}
+        {{ headerLabel }}
       </button>
       <button
         class="ay-date-picker-nav"
         type="button"
-        [attr.aria-label]="viewMode() === 'years' ? 'Années suivantes' : viewMode() === 'months' ? 'Année suivante' : 'Mois suivant'"
+        [attr.aria-label]="viewMode === 'years' ? 'Années suivantes' : viewMode === 'months' ? 'Année suivante' : 'Mois suivant'"
         (click)="nextRange()"
       >
         <svg viewBox="0 0 16 16" aria-hidden="true">
@@ -72,65 +70,61 @@
       </button>
     </div>
 
-    @switch (viewMode()) {
-      @case ('days') {
+    <ng-container [ngSwitch]="viewMode">
+      <ng-container *ngSwitchCase="'days'">
         <div class="ay-date-picker-weekdays">
-          @for (day of weekDays; track day) {
-            <span class="ay-date-picker-weekday">{{ day }}</span>
-          }
+          <span *ngFor="let day of weekDays" class="ay-date-picker-weekday">{{ day }}</span>
         </div>
         <div class="ay-date-picker-grid" role="grid">
-          @for (day of calendarDays(); track $index; let i = $index) {
-            <button
-              type="button"
-              class="ay-date-picker-day"
-              [class.ay-date-picker-day--other]="!day.currentMonth"
-              [class.ay-date-picker-day--today]="day.today"
-              [class.ay-date-picker-day--selected]="day.selected"
-              [class.ay-date-picker-day--disabled]="day.disabled"
-              [class.ay-date-picker-day--focused]="focusedDayIndex() === i"
-              [disabled]="day.disabled"
-              [tabindex]="day.selected || (focusedDayIndex() === i) ? 0 : -1"
-              (click)="selectDay(day)"
-            >
-              {{ day.day }}
-            </button>
-          }
+          <button
+            *ngFor="let day of calendarDays; let i = index"
+            type="button"
+            class="ay-date-picker-day"
+            [class.ay-date-picker-day--other]="!day.currentMonth"
+            [class.ay-date-picker-day--today]="day.today"
+            [class.ay-date-picker-day--selected]="day.selected"
+            [class.ay-date-picker-day--disabled]="day.disabled"
+            [class.ay-date-picker-day--focused]="focusedDayIndex === i"
+            [disabled]="day.disabled"
+            [tabindex]="day.selected || (focusedDayIndex === i) ? 0 : -1"
+            (click)="selectDay(day)"
+          >
+            {{ day.day }}
+          </button>
         </div>
-      }
-      @case ('months') {
+      </ng-container>
+      <ng-container *ngSwitchCase="'months'">
         <div class="ay-date-picker-months-grid">
-          @for (name of monthNames; track name; let i = $index) {
-            <button
-              type="button"
-              class="ay-date-picker-month-cell"
-              [class.ay-date-picker-month-cell--selected]="i === viewMonth() && viewYear() === viewYear()"
-              (click)="selectMonth(i)"
-            >
-              {{ name.slice(0, 3) }}
-            </button>
-          }
+          <button
+            *ngFor="let name of monthNames; let i = index"
+            type="button"
+            class="ay-date-picker-month-cell"
+            [class.ay-date-picker-month-cell--selected]="i === viewMonth && viewYear === viewYear"
+            (click)="selectMonth(i)"
+          >
+            {{ name.slice(0, 3) }}
+          </button>
         </div>
-      }
-      @case ('years') {
+      </ng-container>
+      <ng-container *ngSwitchCase="'years'">
         <div class="ay-date-picker-years-grid">
-          @for (year of yearRange(); track year) {
-            <button
-              type="button"
-              class="ay-date-picker-year-cell"
-              [class.ay-date-picker-year-cell--selected]="year === viewYear()"
-              (click)="selectYear(year)"
-            >
-              {{ year }}
-            </button>
-          }
+          <button
+            *ngFor="let year of yearRange"
+            type="button"
+            class="ay-date-picker-year-cell"
+            [class.ay-date-picker-year-cell--selected]="year === viewYear"
+            (click)="selectYear(year)"
+          >
+            {{ year }}
+          </button>
         </div>
-      }
-    }
+      </ng-container>
+    </ng-container>
   </div>
-}
-@if (error()) {
-  <span class="ay-date-picker-error" [id]="errorId()">{{ error() }}</span>
-} @else if (helper()) {
-  <span class="ay-date-picker-helper" [id]="helperId()">{{ helper() }}</span>
-}
+</ng-container>
+<ng-container *ngIf="error; else datePickerHelperTpl">
+  <span class="ay-date-picker-error" [id]="errorId">{{ error }}</span>
+</ng-container>
+<ng-template #datePickerHelperTpl>
+  <span *ngIf="helper" class="ay-date-picker-helper" [id]="helperId">{{ helper }}</span>
+</ng-template>

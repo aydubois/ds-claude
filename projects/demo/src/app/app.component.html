@@ -10,23 +10,23 @@
     <div class="demo-color-pickers">
       <label class="demo-color-picker">
         <span>Primary</span>
-        <input type="color" [ngModel]="primaryColor()" (ngModelChange)="primaryColor.set($event); onColorChange()">
-        <code>{{ primaryColor() }}</code>
+        <input type="color" [ngModel]="primaryColor" (ngModelChange)="primaryColor = $event; onColorChange()">
+        <code>{{ primaryColor }}</code>
       </label>
       <label class="demo-color-picker">
         <span>Danger</span>
-        <input type="color" [ngModel]="dangerColor()" (ngModelChange)="dangerColor.set($event); onColorChange()">
-        <code>{{ dangerColor() }}</code>
+        <input type="color" [ngModel]="dangerColor" (ngModelChange)="dangerColor = $event; onColorChange()">
+        <code>{{ dangerColor }}</code>
       </label>
       <label class="demo-color-picker">
         <span>Surface</span>
-        <input type="color" [ngModel]="surfaceColor()" (ngModelChange)="surfaceColor.set($event); onColorChange()">
-        <code>{{ surfaceColor() }}</code>
+        <input type="color" [ngModel]="surfaceColor" (ngModelChange)="surfaceColor = $event; onColorChange()">
+        <code>{{ surfaceColor }}</code>
       </label>
       <label class="demo-color-picker">
         <span>Background</span>
-        <input type="color" [ngModel]="bgColor()" (ngModelChange)="bgColor.set($event); onColorChange()">
-        <code>{{ bgColor() }}</code>
+        <input type="color" [ngModel]="bgColor" (ngModelChange)="bgColor = $event; onColorChange()">
+        <code>{{ bgColor }}</code>
       </label>
     </div>
   </section>
@@ -35,12 +35,10 @@
   <section class="demo-section">
     <h2 class="demo-section-title">Icons ({{ iconNames.length }})</h2>
     <div class="demo-icon-grid">
-      @for (name of iconNames; track name) {
-        <div class="demo-icon-item">
-          <ay-icon [name]="name" size="20" />
-          <span class="demo-icon-name">{{ name }}</span>
-        </div>
-      }
+      <div *ngFor="let name of iconNames" class="demo-icon-item">
+        <ay-icon [name]="name" size="20"></ay-icon>
+        <span class="demo-icon-name">{{ name }}</span>
+      </div>
     </div>
   </section>
 
@@ -89,36 +87,36 @@
     <h3 class="demo-label">Types</h3>
     <div class="demo-row demo-row--top">
       <div class="demo-field">
-        <ay-input label="Email" type="email" [required]="true" [clearable]="true" helper="Adresse email professionnelle" />
+        <ay-input label="Email" type="email" [required]="true" [clearable]="true" helper="Adresse email professionnelle"></ay-input>
       </div>
       <div class="demo-field">
-        <ay-input label="Mot de passe" type="password" [required]="true" [clearable]="true" />
+        <ay-input label="Mot de passe" type="password" [required]="true" [clearable]="true"></ay-input>
       </div>
       <div class="demo-field">
-        <ay-input label="Quantité" type="number" [clearable]="true" helper="Nombre entier" />
+        <ay-input label="Quantité" type="number" [clearable]="true" helper="Nombre entier"></ay-input>
       </div>
       <div class="demo-field">
-        <ay-input label="Nom" type="text" [clearable]="true" />
+        <ay-input label="Nom" type="text" [clearable]="true"></ay-input>
       </div>
     </div>
 
     <h3 class="demo-label">Avec icônes</h3>
     <div class="demo-row demo-row--top">
       <div class="demo-field">
-        <ay-input label="Rechercher" type="text" prefixIcon="search" [clearable]="true" />
+        <ay-input label="Rechercher" type="text" prefixIcon="search" [clearable]="true"></ay-input>
       </div>
       <div class="demo-field">
-        <ay-input label="Données" type="text" suffixIcon="refresh" (suffixClick)="toastService.info('Données rafraîchies')" />
+        <ay-input label="Données" type="text" suffixIcon="refresh" (suffixClick)="toastService.info('Données rafraîchies')"></ay-input>
       </div>
     </div>
 
     <h3 class="demo-label">États</h3>
     <div class="demo-row demo-row--top">
       <div class="demo-field">
-        <ay-input label="Email (erreur)" type="email" [required]="true" error="Adresse email invalide" [clearable]="true" />
+        <ay-input label="Email (erreur)" type="email" [required]="true" error="Adresse email invalide" [clearable]="true"></ay-input>
       </div>
       <div class="demo-field">
-        <ay-input label="Email (disabled)" type="email" [disabled]="true" />
+        <ay-input label="Email (disabled)" type="email" [disabled]="true"></ay-input>
       </div>
     </div>
   </section>
@@ -128,13 +126,13 @@
     <h2 class="demo-section-title">Select</h2>
     <div class="demo-row demo-row--top">
       <div class="demo-field">
-        <ay-select label="Rôle" [options]="roleOptions" [required]="true" [clearable]="true" [searchable]="true" helper="Rôle de l'utilisateur" />
+        <ay-select label="Rôle" [options]="roleOptions" [required]="true" [clearable]="true" [searchable]="true" helper="Rôle de l'utilisateur"></ay-select>
       </div>
       <div class="demo-field">
-        <ay-select label="Pays" [options]="[]" error="Ce champ est requis" [required]="true" />
+        <ay-select label="Pays" [options]="[]" error="Ce champ est requis" [required]="true"></ay-select>
       </div>
       <div class="demo-field">
-        <ay-select label="Statut" [options]="roleOptions" [disabled]="true" />
+        <ay-select label="Statut" [options]="roleOptions" [disabled]="true"></ay-select>
       </div>
     </div>
   </section>
@@ -144,10 +142,10 @@
     <h2 class="demo-section-title">Multi-select</h2>
     <div class="demo-row demo-row--top">
       <div class="demo-field">
-        <ay-multi-select label="Pays" [options]="countryOptions" [searchable]="true" helper="Sélection multiple" />
+        <ay-multi-select label="Pays" [options]="countryOptions" [searchable]="true" helper="Sélection multiple"></ay-multi-select>
       </div>
       <div class="demo-field">
-        <ay-multi-select label="Tags" [options]="countryOptions" [disabled]="true" />
+        <ay-multi-select label="Tags" [options]="countryOptions" [disabled]="true"></ay-multi-select>
       </div>
     </div>
   </section>
@@ -196,7 +194,7 @@
   <!-- ═══ Pagination ═══ -->
   <section class="demo-section">
     <h2 class="demo-section-title">Pagination</h2>
-    <ay-pagination [totalItems]="120" [pageSize]="10" />
+    <ay-pagination [totalItems]="120" [pageSize]="10"></ay-pagination>
   </section>
 
   <!-- ═══ Accordion ═══ -->
@@ -254,11 +252,11 @@
   <section class="demo-section">
     <h2 class="demo-section-title">Spinner</h2>
     <div class="demo-row">
-      <ay-spinner size="sm" />
-      <ay-spinner size="md" />
-      <ay-spinner size="lg" />
-      <ay-spinner size="md" color="danger" />
-      <ay-spinner size="md" color="muted" />
+      <ay-spinner size="sm"></ay-spinner>
+      <ay-spinner size="md"></ay-spinner>
+      <ay-spinner size="lg"></ay-spinner>
+      <ay-spinner size="md" color="danger"></ay-spinner>
+      <ay-spinner size="md" color="muted"></ay-spinner>
     </div>
   </section>
 
@@ -267,15 +265,15 @@
     <h2 class="demo-section-title">Skeleton</h2>
     <div class="demo-col" style="gap: 0.5rem; max-width: 400px;">
       <div class="demo-row" style="gap: 0.75rem; align-items: center;">
-        <ay-skeleton variant="circle" width="40px" height="40px" />
+        <ay-skeleton variant="circle" width="40px" height="40px"></ay-skeleton>
         <div class="demo-col" style="flex: 1; gap: 0.375rem;">
-          <ay-skeleton variant="text" width="60%" height="0.875rem" />
-          <ay-skeleton variant="text" width="40%" height="0.75rem" />
+          <ay-skeleton variant="text" width="60%" height="0.875rem"></ay-skeleton>
+          <ay-skeleton variant="text" width="40%" height="0.75rem"></ay-skeleton>
         </div>
       </div>
-      <ay-skeleton variant="rect" width="100%" height="120px" />
-      <ay-skeleton variant="text" />
-      <ay-skeleton variant="text" width="80%" />
+      <ay-skeleton variant="rect" width="100%" height="120px"></ay-skeleton>
+      <ay-skeleton variant="text"></ay-skeleton>
+      <ay-skeleton variant="text" width="80%"></ay-skeleton>
     </div>
   </section>
 
@@ -293,15 +291,15 @@
   <section class="demo-section">
     <h2 class="demo-section-title">Slider</h2>
     <div class="demo-col" style="gap: 1rem; max-width: 400px;">
-      <ay-slider [min]="0" [max]="100" [step]="1" />
-      <ay-slider [min]="0" [max]="10" [step]="1" [disabled]="true" />
+      <ay-slider [min]="0" [max]="100" [step]="1"></ay-slider>
+      <ay-slider [min]="0" [max]="10" [step]="1" [disabled]="true"></ay-slider>
     </div>
   </section>
 
   <!-- ═══ Segmented Menu ═══ -->
   <section class="demo-section">
     <h2 class="demo-section-title">Segmented Menu</h2>
-    <ay-segmented-menu [options]="viewOptions" />
+    <ay-segmented-menu [options]="viewOptions"></ay-segmented-menu>
   </section>
 
   <!-- ═══ Tabs ═══ -->
@@ -328,16 +326,16 @@
     <h2 class="demo-section-title">Date Picker</h2>
     <div class="demo-row demo-row--top">
       <div class="demo-field">
-        <ay-date-picker label="Date de début" [required]="true" helper="Sélectionnez une date" />
+        <ay-date-picker label="Date de début" [required]="true" helper="Sélectionnez une date"></ay-date-picker>
       </div>
       <div class="demo-field">
-        <ay-date-picker label="Jours ouvrés" [disableWeekends]="true" helper="Week-ends bloqués" />
+        <ay-date-picker label="Jours ouvrés" [disableWeekends]="true" helper="Week-ends bloqués"></ay-date-picker>
       </div>
       <div class="demo-field">
-        <ay-date-picker label="Date limitée" min="2026-03-01" max="2026-03-31" helper="Mars 2026 uniquement" />
+        <ay-date-picker label="Date limitée" min="2026-03-01" max="2026-03-31" helper="Mars 2026 uniquement"></ay-date-picker>
       </div>
       <div class="demo-field">
-        <ay-date-picker label="Date (disabled)" [disabled]="true" />
+        <ay-date-picker label="Date (disabled)" [disabled]="true"></ay-date-picker>
       </div>
     </div>
   </section>
@@ -355,10 +353,10 @@
   <section class="demo-section">
     <h2 class="demo-section-title">Navigation Rail</h2>
     <div style="height: 300px; width: fit-content; border: 1px solid var(--ay-color-border); border-radius: 4px; overflow: hidden;">
-      <ay-navigation-rail [items]="navItems" [collapsed]="navCollapsed()" (collapsedChange)="navCollapsed.set($event)" />
+      <ay-navigation-rail [items]="navItems" [collapsed]="navCollapsed" (collapsedChange)="navCollapsed = $event"></ay-navigation-rail>
     </div>
   </section>
 
-  <ay-toast-container />
-  <ay-snackbar-container />
+  <ay-toast-container></ay-toast-container>
+  <ay-snackbar-container></ay-snackbar-container>
 </div>

@@ -1,7 +1,7 @@
-@if (icon() && iconPosition() === 'left') {
-  <ay-icon [name]="icon()" class="ay-button-icon" />
-}
-<ng-content />
-@if (icon() && iconPosition() === 'right') {
-  <ay-icon [name]="icon()" class="ay-button-icon" />
-}
+<ng-container *ngIf="icon && iconPosition === 'left'">
+  <ay-icon [name]="icon" class="ay-button-icon"></ay-icon>
+</ng-container>
+<ng-content></ng-content>
+<ng-container *ngIf="icon && iconPosition === 'right'">
+  <ay-icon [name]="icon" class="ay-button-icon"></ay-icon>
+</ng-container>

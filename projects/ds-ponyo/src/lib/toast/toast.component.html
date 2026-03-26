@@ -1,23 +1,20 @@
-@for (toast of toastService.toasts(); track toast.id) {
-  <div
-    class="ay-toast ay-toast--{{ toast.type }}"
-    [attr.role]="toast.type === 'error' ? 'alert' : 'status'"
-    [attr.aria-live]="toast.type === 'error' ? 'assertive' : 'polite'"
-  >
-    <span class="ay-toast-icon">
-      @switch (toast.type) {
-        @case ('success') { &#10003; }
-        @case ('warning') { &#9888; }
-        @case ('error') { &#10007; }
-        @case ('info') { &#8505; }
-      }
-    </span>
-    <span class="ay-toast-message">{{ toast.message }}</span>
-    <button
-      class="ay-toast-close"
-      type="button"
-      aria-label="Fermer la notification"
-      (click)="toastService.dismiss(toast.id)"
-    >&times;</button>
-  </div>
-}
+<div
+  *ngFor="let toast of toastService.toasts"
+  class="ay-toast ay-toast--{{ toast.type }}"
+  [attr.role]="toast.type === 'error' ? 'alert' : 'status'"
+  [attr.aria-live]="toast.type === 'error' ? 'assertive' : 'polite'"
+>
+  <span class="ay-toast-icon" [ngSwitch]="toast.type">
+    <ng-container *ngSwitchCase="'success'">&#10003;</ng-container>
+    <ng-container *ngSwitchCase="'warning'">&#9888;</ng-container>
+    <ng-container *ngSwitchCase="'error'">&#10007;</ng-container>
+    <ng-container *ngSwitchCase="'info'">&#8505;</ng-container>
+  </span>
+  <span class="ay-toast-message">{{ toast.message }}</span>
+  <button
+    class="ay-toast-close"
+    type="button"
+    aria-label="Fermer la notification"
+    (click)="toastService.dismiss(toast.id)"
+  >&times;</button>
+</div>

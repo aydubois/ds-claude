@@ -1,11 +1,11 @@
 import {
   Component,
-  input,
-  output,
-  signal,
-  computed,
+  Input,
+  Output,
+  EventEmitter,
   forwardRef,
 } from '@angular/core'
+import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let nextId = 0
@@ -13,6 +13,7 @@ let nextId = 0
 @Component({
   selector: 'ay-checkbox',
   standalone: true,
+  imports: [CommonModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -22,37 +23,37 @@ let nextId = 0
   ],
   host: {
     'class': 'ay-checkbox',
-    '[class.ay-checkbox--checked]': 'checked()',
-    '[class.ay-checkbox--indeterminate]': 'indeterminate()',
-    '[class.ay-checkbox--disabled]': 'disabled()',
+    '[class.ay-checkbox--checked]': 'checked',
+    '[class.ay-checkbox--indeterminate]': 'indeterminate',
+    '[class.ay-checkbox--disabled]': 'disabled',
   },
   templateUrl: './checkbox.component.html',
-  styleUrl: './checkbox.component.scss',
+  styleUrls: ['./checkbox.component.scss'],
 })
 export class AyCheckboxComponent implements ControlValueAccessor {
   private readonly uid = nextId++
 
-  readonly disabled = input<boolean>(false)
-  readonly indeterminate = input<boolean>(false)
+  @Input() disabled: boolean = false
+  @Input() indeterminate: boolean = false
 
-  readonly checkedChange = output<boolean>()
+  @Output() checkedChange = new EventEmitter<boolean>()
 
-  readonly checked = signal(false)
-  readonly inputId = computed(() => `ay-checkbox-${this.uid}`)
+  checked = false
+  get inputId(): string { return `ay-checkbox-${this.uid}` }
 
   private onChange: (value: boolean) => void = () => {}
   private onTouched: () => void = () => {}
 
   onInputChange(event: Event): void {
     const next = (event.target as HTMLInputElement).checked
-    this.checked.set(next)
+    this.checked = next
     this.onChange(next)
     this.onTouched()
     this.checkedChange.emit(next)
   }
 
   writeValue(value: boolean): void {
-    this.checked.set(!!value)
+    this.checked = !!value
   }
 
   registerOnChange(fn: (value: boolean) => void): void {

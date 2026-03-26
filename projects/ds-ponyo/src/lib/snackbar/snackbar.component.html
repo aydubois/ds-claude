@@ -1,17 +1,16 @@
-@if (snackbarService.snackbar(); as snackbar) {
+<ng-container *ngIf="snackbarService.snackbar as snackbar">
   <div
     class="ay-snackbar"
     role="status"
     aria-live="polite"
   >
     <span class="ay-snackbar-message">{{ snackbar.message }}</span>
-    @if (snackbar.action) {
-      <button
-        class="ay-snackbar-action"
-        type="button"
-        (click)="snackbarService.triggerAction()"
-      >{{ snackbar.action }}</button>
-    }
+    <button
+      *ngIf="snackbar.action"
+      class="ay-snackbar-action"
+      type="button"
+      (click)="snackbarService.triggerAction()"
+    >{{ snackbar.action }}</button>
     <button
       class="ay-snackbar-close"
       type="button"
@@ -19,4 +18,4 @@
       (click)="snackbarService.dismiss()"
     >&times;</button>
   </div>
-}
+</ng-container>

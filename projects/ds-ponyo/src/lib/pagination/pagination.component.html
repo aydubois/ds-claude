@@ -1,49 +1,47 @@
 <span class="ay-pagination-info">
-  {{ rangeLabel() }}
+  {{ rangeLabel }}
 </span>
 <div class="ay-pagination-controls">
   <button
     class="ay-pagination-btn"
     type="button"
-    [disabled]="currentPage() === 1"
+    [disabled]="currentPage === 1"
     aria-label="Première page"
     (click)="goToPage(1)"
   >&#171;</button>
   <button
     class="ay-pagination-btn"
     type="button"
-    [disabled]="currentPage() === 1"
+    [disabled]="currentPage === 1"
     aria-label="Page précédente"
-    (click)="goToPage(currentPage() - 1)"
+    (click)="goToPage(currentPage - 1)"
   >&#8249;</button>
 
-  @for (p of visiblePages(); track p) {
-    @if (p === -1) {
-      <span class="ay-pagination-ellipsis">…</span>
-    } @else {
-      <button
-        class="ay-pagination-btn"
-        [class.ay-pagination-btn--active]="p === currentPage()"
-        type="button"
-        [attr.aria-label]="'Page ' + p"
-        [attr.aria-current]="p === currentPage() ? 'page' : null"
-        (click)="goToPage(p)"
-      >{{ p }}</button>
-    }
-  }
+  <ng-container *ngFor="let p of visiblePages">
+    <span *ngIf="p === -1" class="ay-pagination-ellipsis">...</span>
+    <button
+      *ngIf="p !== -1"
+      class="ay-pagination-btn"
+      [class.ay-pagination-btn--active]="p === currentPage"
+      type="button"
+      [attr.aria-label]="'Page ' + p"
+      [attr.aria-current]="p === currentPage ? 'page' : null"
+      (click)="goToPage(p)"
+    >{{ p }}</button>
+  </ng-container>
 
   <button
     class="ay-pagination-btn"
     type="button"
-    [disabled]="currentPage() === totalPages()"
+    [disabled]="currentPage === totalPages"
     aria-label="Page suivante"
-    (click)="goToPage(currentPage() + 1)"
+    (click)="goToPage(currentPage + 1)"
   >&#8250;</button>
   <button
     class="ay-pagination-btn"
     type="button"
-    [disabled]="currentPage() === totalPages()"
+    [disabled]="currentPage === totalPages"
     aria-label="Dernière page"
-    (click)="goToPage(totalPages())"
+    (click)="goToPage(totalPages)"
   >&#187;</button>
 </div>

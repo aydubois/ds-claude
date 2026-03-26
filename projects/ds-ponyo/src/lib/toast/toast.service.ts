@@ -1,17 +1,17 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AyToast, AyToastType } from './toast.model'
 
 let toastId = 0
 
 @Injectable({ providedIn: 'root' })
 export class AyToastService {
-  readonly toasts = signal<AyToast[]>([])
+  toasts: AyToast[] = []
 
   show(message: string, type: AyToastType = 'info', duration = 5000): void {
     const id = toastId++
     const autoDismiss = type !== 'error'
 
-    this.toasts.update(t => [...t, { id, message, type, autoDismiss }])
+    this.toasts = [...this.toasts, { id, message, type, autoDismiss }]
 
     if (autoDismiss && duration > 0) {
       setTimeout(() => this.dismiss(id), duration)
@@ -35,6 +35,6 @@ export class AyToastService {
   }
 
   dismiss(id: number): void {
-    this.toasts.update(t => t.filter(toast => toast.id !== id))
+    this.toasts = this.toasts.filter(toast => toast.id !== id)
   }
 }

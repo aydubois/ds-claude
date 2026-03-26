@@ -2,72 +2,65 @@
   <table class="ay-table" role="grid">
     <thead>
       <tr>
-        @if (selectable()) {
-          <th class="ay-table-th ay-table-th--check" style="width:2rem">
-            <span
-              class="ay-table-check"
-              [class.ay-table-check--checked]="allSelected()"
-              [class.ay-table-check--indeterminate]="someSelected()"
-              role="checkbox"
-              [attr.aria-checked]="allSelected() ? 'true' : someSelected() ? 'mixed' : 'false'"
-              [tabindex]="0"
-              (click)="toggleAll()"
-              (keydown.space)="toggleAll(); $event.preventDefault()"
-            ></span>
-          </th>
-        }
-        @for (col of columns(); track col.key) {
-          <th
-            class="ay-table-th"
-            [class.ay-table-th--sortable]="col.sortable"
-            [class.ay-table-th--sorted]="sortColumn() === col.key"
-            [attr.aria-sort]="getSortAria(col.key)"
-            (click)="col.sortable ? toggleSort(col.key) : null"
-            (keydown.enter)="col.sortable ? toggleSort(col.key) : null"
-            [tabindex]="col.sortable ? 0 : -1"
-          >
-            {{ col.label }}
-            @if (col.sortable) {
-              <span class="ay-table-sort-icon">
-                @if (sortColumn() === col.key && sortDirection() === 'asc') { &#9650; }
-                @else if (sortColumn() === col.key && sortDirection() === 'desc') { &#9660; }
-                @else { &#9650;&#9660; }
-              </span>
-            }
-          </th>
-        }
+        <th *ngIf="selectable" class="ay-table-th ay-table-th--check" style="width:2rem">
+          <span
+            class="ay-table-check"
+            [class.ay-table-check--checked]="allSelected"
+            [class.ay-table-check--indeterminate]="someSelected"
+            role="checkbox"
+            [attr.aria-checked]="allSelected ? 'true' : someSelected ? 'mixed' : 'false'"
+            [tabindex]="0"
+            (click)="toggleAll()"
+            (keydown.space)="toggleAll(); $event.preventDefault()"
+          ></span>
+        </th>
+        <th
+          *ngFor="let col of columns"
+          class="ay-table-th"
+          [class.ay-table-th--sortable]="col.sortable"
+          [class.ay-table-th--sorted]="sortColumn === col.key"
+          [attr.aria-sort]="getSortAria(col.key)"
+          (click)="col.sortable ? toggleSort(col.key) : null"
+          (keydown.enter)="col.sortable ? toggleSort(col.key) : null"
+          [tabindex]="col.sortable ? 0 : -1"
+        >
+          {{ col.label }}
+          <ng-container *ngIf="col.sortable">
+            <span class="ay-table-sort-icon">
+              <ng-container *ngIf="sortColumn === col.key && sortDirection === 'asc'">&#9650;</ng-container>
+              <ng-container *ngIf="sortColumn === col.key && sortDirection === 'desc'">&#9660;</ng-container>
+              <ng-container *ngIf="sortColumn !== col.key">&#9650;&#9660;</ng-container>
+            </span>
+          </ng-container>
+        </th>
       </tr>
     </thead>
     <tbody>
-      @for (row of data(); track trackByFn()(row); let i = $index) {
-        <tr
-          class="ay-table-row"
-          [class.ay-table-row--selected]="isRowSelected(row)"
-        >
-          @if (selectable()) {
-            <td class="ay-table-td ay-table-td--check">
-              <span
-                class="ay-table-check"
-                [class.ay-table-check--checked]="isRowSelected(row)"
-                role="checkbox"
-                [attr.aria-checked]="isRowSelected(row)"
-                [tabindex]="0"
-                (click)="toggleRow(row)"
-                (keydown.space)="toggleRow(row); $event.preventDefault()"
-              ></span>
-            </td>
-          }
-          @for (col of columns(); track col.key) {
-            <td class="ay-table-td">
-              @if (getCellTemplate(col.key); as tmpl) {
-                <ng-container *ngTemplateOutlet="tmpl; context: { $implicit: row, index: i }" />
-              } @else {
-                {{ row[col.key] }}
-              }
-            </td>
-          }
-        </tr>
-      }
+      <tr
+        *ngFor="let row of data; let i = index; trackBy: trackByFn"
+        class="ay-table-row"
+        [class.ay-table-row--selected]="isRowSelected(row)"
+      >
+        <td *ngIf="selectable" class="ay-table-td ay-table-td--check">
+          <span
+            class="ay-table-check"
+            [class.ay-table-check--checked]="isRowSelected(row)"
+            role="checkbox"
+            [attr.aria-checked]="isRowSelected(row)"
+            [tabindex]="0"
+            (click)="toggleRow(row)"
+            (keydown.space)="toggleRow(row); $event.preventDefault()"
+          ></span>
+        </td>
+        <td *ngFor="let col of columns" class="ay-table-td">
+          <ng-container *ngIf="getCellTemplate(col.key) as tmpl; else plainCell">
+            <ng-container *ngTemplateOutlet="tmpl; context: { $implicit: row, index: i }"></ng-container>
+          </ng-container>
+          <ng-template #plainCell>
+            {{ row[col.key] }}
+          </ng-template>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>

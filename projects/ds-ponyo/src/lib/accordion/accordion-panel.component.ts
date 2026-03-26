@@ -1,57 +1,55 @@
 import {
   Component,
-  input,
-  signal,
-  computed,
+  Input,
+  OnInit,
 } from '@angular/core'
+import { CommonModule } from '@angular/common'
 
 let nextId = 0
 
 @Component({
   selector: 'ay-accordion-panel',
   standalone: true,
+  imports: [CommonModule],
   host: {
     'class': 'ay-accordion-panel',
-    '[class.ay-accordion-panel--collapsed]': '!expanded()',
-    '[class.ay-accordion-panel--dragging]': 'dragging()',
-    '[attr.data-panel-id]': 'panelId()',
+    '[class.ay-accordion-panel--collapsed]': '!expanded',
+    '[class.ay-accordion-panel--dragging]': 'dragging',
+    '[attr.data-panel-id]': 'panelId',
   },
   templateUrl: './accordion-panel.component.html',
-  styleUrl: './accordion-panel.component.scss',
+  styleUrls: ['./accordion-panel.component.scss'],
 })
-export class AyAccordionPanelComponent {
+export class AyAccordionPanelComponent implements OnInit {
   private readonly uid = nextId++
 
-  readonly panelId = input<string>(`panel-${this.uid}`)
-  readonly startExpanded = input<boolean>(true)
+  @Input() panelId: string = `panel-${this.uid}`
+  @Input() startExpanded: boolean = true
 
-  readonly expanded = signal(true)
-  readonly dragging = signal(false)
+  expanded = true
+  dragging = false
 
-  readonly headerId = computed(() => `ay-accordion-header-${this.uid}`)
-  readonly contentId = computed(() => `ay-accordion-content-${this.uid}`)
+  get headerId(): string { return `ay-accordion-header-${this.uid}` }
+  get contentId(): string { return `ay-accordion-content-${this.uid}` }
 
-  constructor() {
-    // Defer reading startExpanded to after input binding
-    Promise.resolve().then(() => {
-      this.expanded.set(this.startExpanded())
-    })
+  ngOnInit(): void {
+    this.expanded = this.startExpanded
   }
 
   toggle(): void {
-    this.expanded.update(v => !v)
+    this.expanded = !this.expanded
   }
 
   onDragStart(event: DragEvent): void {
-    this.dragging.set(true)
-    event.dataTransfer?.setData('text/plain', this.panelId())
+    this.dragging = true
+    event.dataTransfer?.setData('text/plain', this.panelId)
     if (event.dataTransfer) {
       event.dataTransfer.effectAllowed = 'move'
     }
   }
 
   onDragEnd(): void {
-    this.dragging.set(false)
+    this.dragging = false
   }
 
   onHandleKeydown(event: KeyboardEvent): void {
@@ -61,7 +59,7 @@ export class AyAccordionPanelComponent {
       const customEvent = new CustomEvent('ay-panel-move', {
         bubbles: true,
         detail: {
-          panelId: this.panelId(),
+          panelId: this.panelId,
           direction: event.key === 'ArrowUp' ? 'up' : 'down',
         },
       });

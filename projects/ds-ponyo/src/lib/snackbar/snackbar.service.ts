@@ -1,11 +1,11 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AySnackbar, AySnackbarConfig } from './snackbar.model'
 
 let snackbarId = 0
 
 @Injectable({ providedIn: 'root' })
 export class AySnackbarService {
-  readonly snackbar = signal<AySnackbar | null>(null)
+  snackbar: AySnackbar | null = null
 
   private dismissTimer: ReturnType<typeof setTimeout> | null = null
   private actionCallback: (() => void) | null = null
@@ -21,7 +21,7 @@ export class AySnackbarService {
       duration,
     }
 
-    this.snackbar.set(entry)
+    this.snackbar = entry
     this.actionCallback = null
 
     if (duration > 0) {
@@ -44,7 +44,7 @@ export class AySnackbarService {
 
   dismiss(): void {
     this.clearTimer()
-    this.snackbar.set(null)
+    this.snackbar = null
     this.actionCallback = null
   }
 

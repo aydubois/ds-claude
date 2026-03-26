@@ -12,31 +12,32 @@
     (dragstart)="onDragStart($event)"
     (dragend)="onDragEnd()"
     (keydown)="onHandleKeydown($event)"
-  >≡</span>
+  >&#8801;</span>
   <button
     class="ay-accordion-toggle"
     type="button"
-    [attr.aria-expanded]="expanded()"
-    [attr.aria-controls]="contentId()"
-    [id]="headerId()"
+    [attr.aria-expanded]="expanded"
+    [attr.aria-controls]="contentId"
+    [id]="headerId"
     (click)="toggle()"
   >
     <span class="ay-accordion-title">
-      <ng-content select="[ay-accordion-title]" />
+      <ng-content select="[ay-accordion-title]"></ng-content>
     </span>
     <span class="ay-accordion-chevron" aria-hidden="true">
-      @if (expanded()) { &#9662; } @else { &#9656; }
+      <ng-container *ngIf="expanded; else collapsedChevron">&#9662;</ng-container>
+      <ng-template #collapsedChevron>&#9656;</ng-template>
     </span>
   </button>
 </div>
 <div
   class="ay-accordion-content"
-  [id]="contentId()"
+  [id]="contentId"
   role="region"
-  [attr.aria-labelledby]="headerId()"
-  [hidden]="!expanded()"
+  [attr.aria-labelledby]="headerId"
+  [hidden]="!expanded"
 >
   <div class="ay-accordion-body">
-    <ng-content />
+    <ng-content></ng-content>
   </div>
 </div>

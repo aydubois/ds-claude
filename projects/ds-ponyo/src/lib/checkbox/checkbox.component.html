@@ -1,12 +1,12 @@
 <input
   type="checkbox"
   class="ay-checkbox-input"
-  [id]="inputId()"
-  [checked]="checked()"
-  [disabled]="disabled()"
-  [indeterminate]="indeterminate()"
+  [id]="inputId"
+  [checked]="checked"
+  [disabled]="disabled"
+  [indeterminate]="indeterminate"
   (change)="onInputChange($event)"
 />
-<label class="ay-checkbox-label" [attr.for]="inputId()">
-  <ng-content />
+<label class="ay-checkbox-label" [attr.for]="inputId">
+  <ng-content></ng-content>
 </label>

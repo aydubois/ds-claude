@@ -1,10 +1,11 @@
 import {
   Component,
-  input,
-  output,
-  signal,
+  Input,
+  Output,
+  EventEmitter,
   forwardRef,
 } from '@angular/core'
+import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { AySegmentOption } from './segmented-menu.model'
@@ -12,6 +13,7 @@ import { AySegmentOption } from './segmented-menu.model'
 @Component({
   selector: 'ay-segmented-menu',
   standalone: true,
+  imports: [CommonModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -21,32 +23,32 @@ import { AySegmentOption } from './segmented-menu.model'
   ],
   host: {
     'class': 'ay-segmented-menu',
-    '[class.ay-segmented-menu--disabled]': 'disabled()',
+    '[class.ay-segmented-menu--disabled]': 'disabled',
     'role': 'radiogroup',
   },
   templateUrl: './segmented-menu.component.html',
-  styleUrl: './segmented-menu.component.scss',
+  styleUrls: ['./segmented-menu.component.scss'],
 })
 export class AySegmentedMenuComponent implements ControlValueAccessor {
-  readonly options = input.required<AySegmentOption[]>()
-  readonly disabled = input<boolean>(false)
+  @Input({ required: true }) options!: AySegmentOption[]
+  @Input() disabled: boolean = false
 
-  readonly valueChange = output<string>()
+  @Output() valueChange = new EventEmitter<string>()
 
-  readonly value = signal<string>('')
+  value: string = ''
 
   private onChange: (value: string) => void = () => {}
   private onTouched: () => void = () => {}
 
   select(option: AySegmentOption): void {
-    if (this.disabled() || option.disabled) return
-    this.value.set(option.value)
+    if (this.disabled || option.disabled) return
+    this.value = option.value
     this.onChange(option.value)
     this.valueChange.emit(option.value)
   }
 
   onKeydown(event: KeyboardEvent, index: number): void {
-    const opts = this.options()
+    const opts = this.options
     let nextIndex = -1
 
     if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
@@ -78,7 +80,7 @@ export class AySegmentedMenuComponent implements ControlValueAccessor {
 
   // ControlValueAccessor
   writeValue(value: string): void {
-    this.value.set(value ?? '')
+    this.value = value ?? ''
   }
 
   registerOnChange(fn: (value: string) => void): void {

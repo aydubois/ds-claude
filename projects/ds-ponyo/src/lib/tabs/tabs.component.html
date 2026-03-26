@@ -1,21 +1,20 @@
 <div class="ay-tabs-header" role="tablist">
-  @for (tab of tabs(); track tab.uid; let i = $index) {
-    <button
-      class="ay-tabs-tab"
-      role="tab"
-      type="button"
-      [id]="'ay-tab-' + tab.uid"
-      [attr.aria-selected]="i === activeIndex()"
-      [attr.aria-controls]="'ay-tabpanel-' + tab.uid"
-      [attr.tabindex]="i === activeIndex() ? 0 : -1"
-      [class.ay-tabs-tab--active]="i === activeIndex()"
-      [class.ay-tabs-tab--disabled]="tab.disabled()"
-      [disabled]="tab.disabled()"
-      (click)="selectTab(i)"
-      (keydown)="onKeydown($event, i)"
-    >{{ tab.label() }}</button>
-  }
+  <button
+    *ngFor="let tab of tabs; let i = index"
+    class="ay-tabs-tab"
+    role="tab"
+    type="button"
+    [id]="'ay-tab-' + tab.uid"
+    [attr.aria-selected]="i === activeIndex"
+    [attr.aria-controls]="'ay-tabpanel-' + tab.uid"
+    [attr.tabindex]="i === activeIndex ? 0 : -1"
+    [class.ay-tabs-tab--active]="i === activeIndex"
+    [class.ay-tabs-tab--disabled]="tab.disabled"
+    [disabled]="tab.disabled"
+    (click)="selectTab(i)"
+    (keydown)="onKeydown($event, i)"
+  >{{ tab.label }}</button>
 </div>
 <div class="ay-tabs-content">
-  <ng-content />
+  <ng-content></ng-content>
 </div>

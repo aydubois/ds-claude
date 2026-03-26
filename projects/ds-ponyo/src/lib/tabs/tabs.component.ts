@@ -1,53 +1,51 @@
 import {
   Component,
-  output,
-  signal,
-  contentChildren,
-  afterNextRender,
-  effect,
+  Output,
+  EventEmitter,
+  ContentChildren,
+  QueryList,
+  AfterContentInit,
 } from '@angular/core'
+import { CommonModule } from '@angular/common'
 import { AyTabComponent } from './tab.component'
 
 @Component({
   selector: 'ay-tabs',
   standalone: true,
+  imports: [CommonModule],
   host: {
     'class': 'ay-tabs',
   },
   templateUrl: './tabs.component.html',
-  styleUrl: './tabs.component.scss',
+  styleUrls: ['./tabs.component.scss'],
 })
-export class AyTabsComponent {
-  readonly tabChange = output<number>()
+export class AyTabsComponent implements AfterContentInit {
+  @Output() tabChange = new EventEmitter<number>()
 
-  readonly tabs = contentChildren(AyTabComponent)
-  readonly activeIndex = signal(0)
+  @ContentChildren(AyTabComponent) tabs!: QueryList<AyTabComponent>
+  activeIndex = 0
 
-  constructor() {
-    afterNextRender(() => {
-      this.activateTab(this.activeIndex())
-    })
-
-    effect(() => {
-      const tabList = this.tabs()
-      if (tabList.length > 0) {
-        this.activateTab(this.activeIndex())
+  ngAfterContentInit(): void {
+    this.activateTab(this.activeIndex)
+    this.tabs.changes.subscribe(() => {
+      if (this.tabs.length > 0) {
+        this.activateTab(this.activeIndex)
       }
     })
   }
 
   selectTab(index: number): void {
-    const tabList = this.tabs()
+    const tabList = this.tabs.toArray()
     if (index < 0 || index >= tabList.length) return
-    if (tabList[index].disabled()) return
+    if (tabList[index].disabled) return
 
-    this.activeIndex.set(index)
+    this.activeIndex = index
     this.activateTab(index)
     this.tabChange.emit(index)
   }
 
   onKeydown(event: KeyboardEvent, currentIndex: number): void {
-    const tabList = this.tabs()
+    const tabList = this.tabs.toArray()
     let newIndex = currentIndex
 
     if (event.key === 'ArrowRight') {
@@ -77,16 +75,16 @@ export class AyTabsComponent {
   }
 
   private activateTab(index: number): void {
-    const tabList = this.tabs()
-    tabList.forEach((tab, i) => tab.active.set(i === index))
+    const tabList = this.tabs.toArray()
+    tabList.forEach((tab, i) => tab.active = i === index)
   }
 
   private findNextEnabledTab(from: number, direction: 1 | -1): number {
-    const tabList = this.tabs()
+    const tabList = this.tabs.toArray()
     let index = from + direction
 
     while (index >= 0 && index < tabList.length) {
-      if (!tabList[index].disabled()) return index
+      if (!tabList[index].disabled) return index
       index += direction
     }
 

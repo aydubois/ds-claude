@@ -133,9 +133,9 @@ $_defaults: (
 
 /// Détermine automatiquement si le texte doit être blanc ou noir selon le fond
 @function _contrast-color($bg) {
-  $r: color.channel($bg, "red", $space: rgb);
-  $g: color.channel($bg, "green", $space: rgb);
-  $b: color.channel($bg, "blue", $space: rgb);
+  $r: color.red($bg);
+  $g: color.green($bg);
+  $b: color.blue($bg);
   // Luminance relative simplifiée
   $luminance: math.div($r * 0.299 + $g * 0.587 + $b * 0.114, 255);
   @return if($luminance > 0.5, #111827, #ffffff);

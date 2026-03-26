@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   AyButtonComponent,
@@ -35,6 +36,7 @@ import type { AySelectOption, AyMultiSelectOption, AyColumnDef, AySegmentOption,
   selector: 'app-root',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
     AyButtonComponent,
     AyInputComponent,
@@ -62,20 +64,20 @@ import type { AySelectOption, AyMultiSelectOption, AyColumnDef, AySegmentOption,
     AyNavigationRailComponent,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   // ─── Theming ───
-  primaryColor = signal('#147a79')
+  primaryColor = '#147a79'
   iconNames = Object.keys(AY_ICONS).sort()
-  dangerColor = signal('#c2412b')
-  surfaceColor = signal('#f4f5f7')
-  bgColor = signal('#ffffff')
+  dangerColor = '#c2412b'
+  surfaceColor = '#f4f5f7'
+  bgColor = '#ffffff'
 
   onColorChange(): void {
     const root = document.documentElement
-    const p = this.primaryColor()
-    const d = this.dangerColor()
+    const p = this.primaryColor
+    const d = this.dangerColor
 
     root.style.setProperty('--ay-color-primary', p)
     root.style.setProperty('--ay-color-primary-hover', this.darken(p, 0.18))
@@ -87,8 +89,8 @@ export class AppComponent {
     root.style.setProperty('--ay-color-danger-hover', this.darken(d, 0.18))
     root.style.setProperty('--ay-color-danger-active', this.darken(d, 0.32))
 
-    root.style.setProperty('--ay-color-surface', this.surfaceColor())
-    root.style.setProperty('--ay-color-background', this.bgColor())
+    root.style.setProperty('--ay-color-surface', this.surfaceColor)
+    root.style.setProperty('--ay-color-background', this.bgColor)
   }
 
   private darken(hex: string, amount: number): string {
@@ -140,7 +142,7 @@ export class AppComponent {
     { name: 'Emma Bernard', email: 'emma@example.com', role: 'Admin', status: 'Actif' },
   ]
 
-  trackByName = (row: Record<string, unknown>) => row['name']
+  trackByName = (index: number, row: Record<string, unknown>) => row['name']
 
   // ─── Dialog ───
   openDialog(dialogRef: AyDialogComponent): void {
@@ -172,5 +174,5 @@ export class AppComponent {
     { value: 'settings', label: 'Paramètres', icon: 'settings', href: '/settings' },
     { value: 'mail', label: 'Messages', icon: 'mail', href: '/mail' },
   ]
-  navCollapsed = signal(false)
+  navCollapsed = false
 }

@@ -1,8 +1,8 @@
 import {
   Component,
-  input,
-  output,
-  signal,
+  Input,
+  Output,
+  EventEmitter,
   ElementRef,
   inject,
   HostListener,
@@ -15,16 +15,16 @@ import {
     'class': 'ay-accordion',
   },
   templateUrl: './accordion.component.html',
-  styleUrl: './accordion.component.scss',
+  styleUrls: ['./accordion.component.scss'],
 })
 export class AyAccordionComponent {
   private readonly elRef = inject(ElementRef<HTMLElement>)
 
-  readonly gap = input<string>('0.5rem')
+  @Input() gap: string = '0.5rem'
 
-  readonly orderChange = output<string[]>()
+  @Output() orderChange = new EventEmitter<string[]>()
 
-  readonly dragOverIndex = signal<number | null>(null)
+  dragOverIndex: number | null = null
 
   @HostListener('ay-panel-move', ['$event'])
   onPanelMove(event: CustomEvent<{ panelId: string; direction: 'up' | 'down' }>): void {
@@ -44,7 +44,7 @@ export class AyAccordionComponent {
     if (target) {
       const panels = this.getPanelElements()
       const idx = panels.indexOf(target)
-      this.dragOverIndex.set(idx)
+      this.dragOverIndex = idx
 
       // Remove all drop indicators
       panels.forEach(p => p.classList.remove('ay-accordion-panel--drop-above', 'ay-accordion-panel--drop-below'))
@@ -99,7 +99,7 @@ export class AyAccordionComponent {
       container.insertBefore(draggedEl, target.nextSibling)
     }
 
-    this.dragOverIndex.set(null)
+    this.dragOverIndex = null
     this.emitOrder()
   }
 

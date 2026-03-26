@@ -1,87 +1,80 @@
 <div
   class="ay-select-box"
-  [tabindex]="disabled() ? -1 : 0"
+  [tabindex]="disabled ? -1 : 0"
   role="combobox"
-  [attr.aria-expanded]="isOpen()"
+  [attr.aria-expanded]="isOpen"
   [attr.aria-haspopup]="'listbox'"
-  [attr.aria-labelledby]="labelId()"
-  [attr.aria-describedby]="describedBy()"
-  [attr.aria-invalid]="!!error()"
-  [attr.aria-disabled]="disabled()"
+  [attr.aria-labelledby]="labelId"
+  [attr.aria-describedby]="describedBy"
+  [attr.aria-invalid]="!!error"
+  [attr.aria-disabled]="disabled"
   (click)="toggleDropdown()"
   (keydown)="onKeydown($event)"
 >
-  <span class="ay-select-value">{{ selectedOption()?.label || placeholder() }}</span>
-  @if (showClear()) {
-    <button
-      class="ay-select-clear"
-      type="button"
-      tabindex="-1"
-      aria-label="Effacer la sélection"
-      (click)="clearValue($event)"
-    >
-      <ay-icon name="close" />
-    </button>
-  }
-  <ay-icon name="chevron-down" class="ay-select-arrow" />
+  <span class="ay-select-value">{{ selectedOption?.label || placeholder }}</span>
+  <button
+    *ngIf="showClear"
+    class="ay-select-clear"
+    type="button"
+    tabindex="-1"
+    aria-label="Effacer la sélection"
+    (click)="clearValue($event)"
+  >
+    <ay-icon name="close"></ay-icon>
+  </button>
+  <ay-icon name="chevron-down" class="ay-select-arrow"></ay-icon>
 </div>
 <select
   class="ay-select-native"
-  [attr.aria-labelledby]="labelId()"
-  [disabled]="disabled()"
-  [required]="required()"
+  [attr.aria-labelledby]="labelId"
+  [disabled]="disabled"
+  [required]="required"
   (change)="onNativeChange($event)"
 >
-  <option value="" [selected]="!value()">{{ placeholder() }}</option>
-  @for (option of options(); track option.value) {
-    <option [value]="option.value" [selected]="option.value === value()">{{ option.label }}</option>
-  }
+  <option value="" [selected]="!value">{{ placeholder }}</option>
+  <option *ngFor="let option of options" [value]="option.value" [selected]="option.value === value">{{ option.label }}</option>
 </select>
-<span class="ay-select-label" [id]="labelId()">
-  {{ label() }}
-  @if (required()) {
-    <span class="ay-select-required" aria-hidden="true">*</span>
-  }
+<span class="ay-select-label" [id]="labelId">
+  {{ label }}
+  <span *ngIf="required" class="ay-select-required" aria-hidden="true">*</span>
 </span>
-@if (isOpen()) {
+<ng-container *ngIf="isOpen">
   <div
     class="ay-select-dropdown"
     role="listbox"
-    [attr.aria-labelledby]="labelId()"
+    [attr.aria-labelledby]="labelId"
   >
-    @if (searchable()) {
-      <div class="ay-select-search">
-        <input
-          class="ay-select-search-input"
-          type="text"
-          placeholder="Rechercher..."
-          [value]="searchQuery()"
-          (input)="onSearchInput($event)"
-          (keydown)="onKeydown($event)"
-          (click)="$event.stopPropagation()"
-        />
-      </div>
-    }
-    @for (option of filteredOptions(); track option.value; let i = $index) {
-      <div
-        class="ay-select-option"
-        [class.ay-select-option--selected]="option.value === value()"
-        [class.ay-select-option--highlighted]="i === highlightedIndex()"
-        role="option"
-        [attr.aria-selected]="option.value === value()"
-        (click)="selectOption(option); $event.stopPropagation()"
-        (mouseenter)="highlightedIndex.set(i)"
-      >
-        <span class="ay-select-option-check">
-          @if (option.value === value()) { &#10003; }
-        </span>
-        {{ option.label }}
-      </div>
-    }
+    <div *ngIf="searchable" class="ay-select-search">
+      <input
+        class="ay-select-search-input"
+        type="text"
+        placeholder="Rechercher..."
+        [value]="searchQuery"
+        (input)="onSearchInput($event)"
+        (keydown)="onKeydown($event)"
+        (click)="$event.stopPropagation()"
+      />
+    </div>
+    <div
+      *ngFor="let option of filteredOptions; let i = index"
+      class="ay-select-option"
+      [class.ay-select-option--selected]="option.value === value"
+      [class.ay-select-option--highlighted]="i === highlightedIndex"
+      role="option"
+      [attr.aria-selected]="option.value === value"
+      (click)="selectOption(option); $event.stopPropagation()"
+      (mouseenter)="highlightedIndex = i"
+    >
+      <span class="ay-select-option-check">
+        <ng-container *ngIf="option.value === value">&#10003;</ng-container>
+      </span>
+      {{ option.label }}
+    </div>
   </div>
-}
-@if (error()) {
-  <span class="ay-select-error" [id]="errorId()">{{ error() }}</span>
-} @else if (helper()) {
-  <span class="ay-select-helper" [id]="helperId()">{{ helper() }}</span>
-}
+</ng-container>
+<ng-container *ngIf="error; else selectHelperTpl">
+  <span class="ay-select-error" [id]="errorId">{{ error }}</span>
+</ng-container>
+<ng-template #selectHelperTpl>
+  <span *ngIf="helper" class="ay-select-helper" [id]="helperId">{{ helper }}</span>
+</ng-template>

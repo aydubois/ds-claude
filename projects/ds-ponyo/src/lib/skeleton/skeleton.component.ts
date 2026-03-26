@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core'
+import { Component, Input } from '@angular/core'
 
 export type AySkeletonVariant = 'text' | 'circle' | 'rect'
 
@@ -7,18 +7,18 @@ export type AySkeletonVariant = 'text' | 'circle' | 'rect'
   standalone: true,
   host: {
     'class': 'ay-skeleton',
-    '[class.ay-skeleton--text]': 'variant() === "text"',
-    '[class.ay-skeleton--circle]': 'variant() === "circle"',
-    '[class.ay-skeleton--rect]': 'variant() === "rect"',
-    '[style.width]': 'width()',
-    '[style.height]': 'height()',
+    '[class.ay-skeleton--text]': 'variant === "text"',
+    '[class.ay-skeleton--circle]': 'variant === "circle"',
+    '[class.ay-skeleton--rect]': 'variant === "rect"',
+    '[style.width]': 'width',
+    '[style.height]': 'height',
     'aria-hidden': 'true',
   },
   templateUrl: './skeleton.component.html',
-  styleUrl: './skeleton.component.scss',
+  styleUrls: ['./skeleton.component.scss'],
 })
 export class AySkeletonComponent {
-  readonly variant = input<AySkeletonVariant>('text')
-  readonly width = input<string>('100%')
-  readonly height = input<string>('1rem')
+  @Input() variant: AySkeletonVariant = 'text'
+  @Input() width: string = '100%'
+  @Input() height: string = '1rem'
 }

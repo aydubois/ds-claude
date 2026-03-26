@@ -1,29 +1,25 @@
 <div class="ay-input-wrapper">
-  @if (prefixIcon()) {
-    <ay-icon [name]="prefixIcon()" class="ay-input-prefix" />
-  }
+  <ay-icon *ngIf="prefixIcon" [name]="prefixIcon" class="ay-input-prefix"></ay-icon>
   <input
     #inputEl
     class="ay-input"
-    [id]="inputId()"
-    [type]="type()"
-    [value]="value()"
-    [disabled]="disabled()"
-    [required]="required()"
-    [attr.aria-describedby]="describedBy()"
-    [attr.aria-invalid]="!!error()"
+    [id]="inputId"
+    [type]="type"
+    [value]="value"
+    [disabled]="disabled"
+    [required]="required"
+    [attr.aria-describedby]="describedBy"
+    [attr.aria-invalid]="!!error"
     [attr.placeholder]="' '"
     (input)="onInput($event)"
     (focus)="onFocus()"
     (blur)="onBlur()"
   />
-  <label class="ay-input-label" [attr.for]="inputId()">
-    {{ label() }}
-    @if (required()) {
-      <span class="ay-input-required" aria-hidden="true">*</span>
-    }
+  <label class="ay-input-label" [attr.for]="inputId">
+    {{ label }}
+    <span *ngIf="required" class="ay-input-required" aria-hidden="true">*</span>
   </label>
-  @if (showClear()) {
+  <ng-container *ngIf="showClear; else suffixTpl">
     <button
       class="ay-input-action ay-input-clear"
       type="button"
@@ -31,22 +27,25 @@
       aria-label="Effacer"
       (mousedown)="onClear($event)"
     >
-      <ay-icon name="close" />
+      <ay-icon name="close"></ay-icon>
     </button>
-  } @else if (suffixIcon()) {
+  </ng-container>
+  <ng-template #suffixTpl>
     <button
+      *ngIf="suffixIcon"
       class="ay-input-action ay-input-suffix"
       type="button"
       tabindex="-1"
-      [attr.aria-label]="suffixIcon()"
+      [attr.aria-label]="suffixIcon"
       (mousedown)="onSuffixClick($event)"
     >
-      <ay-icon [name]="suffixIcon()" />
+      <ay-icon [name]="suffixIcon"></ay-icon>
     </button>
-  }
+  </ng-template>
 </div>
-@if (error()) {
-  <span class="ay-input-error" [id]="errorId()">{{ error() }}</span>
-} @else if (helper()) {
-  <span class="ay-input-helper" [id]="helperId()">{{ helper() }}</span>
-}
+<ng-container *ngIf="error; else helperTpl">
+  <span class="ay-input-error" [id]="errorId">{{ error }}</span>
+</ng-container>
+<ng-template #helperTpl>
+  <span *ngIf="helper" class="ay-input-helper" [id]="helperId">{{ helper }}</span>
+</ng-template>

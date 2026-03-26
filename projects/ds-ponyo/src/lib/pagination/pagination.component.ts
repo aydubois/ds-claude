@@ -1,47 +1,48 @@
 import {
   Component,
-  input,
-  output,
-  signal,
-  computed,
+  Input,
+  Output,
+  EventEmitter,
 } from '@angular/core'
+import { CommonModule } from '@angular/common';
 import { AyPageEvent } from './pagination.model'
 
 @Component({
   selector: 'ay-pagination',
   standalone: true,
+  imports: [CommonModule],
   host: {
     'class': 'ay-pagination',
     'role': 'navigation',
-    '[attr.aria-label]': 'ariaLabel()',
+    '[attr.aria-label]': 'ariaLabel',
   },
   templateUrl: './pagination.component.html',
-  styleUrl: './pagination.component.scss',
+  styleUrls: ['./pagination.component.scss'],
 })
 export class AyPaginationComponent {
-  readonly totalItems = input.required<number>()
-  readonly pageSize = input<number>(10)
-  readonly ariaLabel = input<string>('Pagination')
+  @Input({ required: true }) totalItems!: number
+  @Input() pageSize: number = 10
+  @Input() ariaLabel: string = 'Pagination'
 
-  readonly pageChange = output<AyPageEvent>()
+  @Output() pageChange = new EventEmitter<AyPageEvent>()
 
-  readonly currentPage = signal(1)
+  currentPage = 1
 
-  readonly totalPages = computed(() =>
-    Math.max(1, Math.ceil(this.totalItems() / this.pageSize()))
-  )
+  get totalPages(): number {
+    return Math.max(1, Math.ceil(this.totalItems / this.pageSize))
+  }
 
-  readonly rangeLabel = computed(() => {
-    const total = this.totalItems()
+  get rangeLabel(): string {
+    const total = this.totalItems
     if (total === 0) return '0 résultat'
-    const start = (this.currentPage() - 1) * this.pageSize() + 1
-    const end = Math.min(this.currentPage() * this.pageSize(), total)
+    const start = (this.currentPage - 1) * this.pageSize + 1
+    const end = Math.min(this.currentPage * this.pageSize, total)
     return `${start}–${end} sur ${total}`
-  })
+  }
 
-  readonly visiblePages = computed(() => {
-    const total = this.totalPages()
-    const current = this.currentPage()
+  get visiblePages(): number[] {
+    const total = this.totalPages
+    const current = this.currentPage
     const pages: number[] = []
 
     if (total <= 5) {
@@ -65,15 +66,15 @@ export class AyPaginationComponent {
     }
 
     return pages
-  })
+  }
 
   goToPage(page: number): void {
-    if (page < 1 || page > this.totalPages() || page === this.currentPage()) return
-    this.currentPage.set(page)
+    if (page < 1 || page > this.totalPages || page === this.currentPage) return
+    this.currentPage = page
     this.pageChange.emit({
       page,
-      pageSize: this.pageSize(),
-      totalItems: this.totalItems(),
+      pageSize: this.pageSize,
+      totalItems: this.totalItems,
     })
   }
 }

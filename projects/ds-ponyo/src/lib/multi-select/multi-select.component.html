@@ -1,45 +1,41 @@
 <div
   class="ay-multi-select-box"
-  [tabindex]="disabled() ? -1 : 0"
+  [tabindex]="disabled ? -1 : 0"
   role="combobox"
-  [attr.aria-expanded]="isOpen()"
+  [attr.aria-expanded]="isOpen"
   [attr.aria-haspopup]="'listbox'"
-  [attr.aria-labelledby]="labelId()"
-  [attr.aria-describedby]="describedBy()"
-  [attr.aria-invalid]="!!error()"
+  [attr.aria-labelledby]="labelId"
+  [attr.aria-describedby]="describedBy"
+  [attr.aria-invalid]="!!error"
   (click)="toggleDropdown()"
   (keydown)="onKeydown($event)"
 >
-  @switch (displayMode()) {
-    @case ('chips') {
-      @for (opt of selectedOptions(); track opt.value) {
-        <span class="ay-chip">
-          {{ opt.label }}
-          <span
-            class="ay-chip-remove"
-            role="button"
-            [attr.aria-label]="'Retirer ' + opt.label"
-            (click)="removeValue(opt.value); $event.stopPropagation()"
-          >&times;</span>
-        </span>
-      }
-    }
-    @case ('summary') {
-      <span class="ay-multi-select-summary">{{ summaryText() }}</span>
-    }
-    @case ('empty') {
-      <span class="ay-multi-select-placeholder">{{ placeholder() }}</span>
-    }
-  }
-  <ay-icon name="chevron-down" class="ay-multi-select-arrow" />
+  <ng-container [ngSwitch]="displayMode">
+    <ng-container *ngSwitchCase="'chips'">
+      <span *ngFor="let opt of selectedOptions" class="ay-chip">
+        {{ opt.label }}
+        <span
+          class="ay-chip-remove"
+          role="button"
+          [attr.aria-label]="'Retirer ' + opt.label"
+          (click)="removeValue(opt.value); $event.stopPropagation()"
+        >&times;</span>
+      </span>
+    </ng-container>
+    <ng-container *ngSwitchCase="'summary'">
+      <span class="ay-multi-select-summary">{{ summaryText }}</span>
+    </ng-container>
+    <ng-container *ngSwitchCase="'empty'">
+      <span class="ay-multi-select-placeholder">{{ placeholder }}</span>
+    </ng-container>
+  </ng-container>
+  <ay-icon name="chevron-down" class="ay-multi-select-arrow"></ay-icon>
 </div>
-<span class="ay-multi-select-label" [id]="labelId()">
-  {{ label() }}
-  @if (required()) {
-    <span class="ay-multi-select-required" aria-hidden="true">*</span>
-  }
+<span class="ay-multi-select-label" [id]="labelId">
+  {{ label }}
+  <span *ngIf="required" class="ay-multi-select-required" aria-hidden="true">*</span>
 </span>
-@if (isOpen()) {
+<ng-container *ngIf="isOpen">
   <div class="ay-multi-select-dropdown" role="listbox" [attr.aria-multiselectable]="true">
     <div class="ay-multi-select-toolbar">
       <button
@@ -59,7 +55,7 @@
         title="Tout sélectionner"
         (click)="selectAll(); $event.stopPropagation()"
       >
-        <ay-icon name="check" />
+        <ay-icon name="check"></ay-icon>
       </button>
       <button
         class="ay-multi-select-toolbar-btn ay-multi-select-toolbar-btn--icon"
@@ -68,42 +64,40 @@
         title="Tout désélectionner"
         (click)="deselectAll(); $event.stopPropagation()"
       >
-        <ay-icon name="close" />
+        <ay-icon name="close"></ay-icon>
       </button>
     </div>
-    @if (searchable()) {
-      <div class="ay-multi-select-search">
-        <input
-          class="ay-multi-select-search-input"
-          type="text"
-          placeholder="Rechercher..."
-          [value]="searchQuery()"
-          (input)="onSearchInput($event)"
-          (keydown)="onKeydown($event)"
-          (click)="$event.stopPropagation()"
-        />
-      </div>
-    }
-    @for (option of filteredOptions(); track option.value; let i = $index) {
-      <div
-        class="ay-multi-select-option"
-        [class.ay-multi-select-option--highlighted]="i === highlightedIndex()"
-        role="option"
-        [attr.aria-selected]="isSelected(option.value)"
-        (click)="toggleOption(option.value); $event.stopPropagation()"
-        (mouseenter)="highlightedIndex.set(i)"
-      >
-        <span
-          class="ay-multi-select-check"
-          [class.ay-multi-select-check--checked]="isSelected(option.value)"
-        ></span>
-        {{ option.label }}
-      </div>
-    }
+    <div *ngIf="searchable" class="ay-multi-select-search">
+      <input
+        class="ay-multi-select-search-input"
+        type="text"
+        placeholder="Rechercher..."
+        [value]="searchQuery"
+        (input)="onSearchInput($event)"
+        (keydown)="onKeydown($event)"
+        (click)="$event.stopPropagation()"
+      />
+    </div>
+    <div
+      *ngFor="let option of filteredOptions; let i = index"
+      class="ay-multi-select-option"
+      [class.ay-multi-select-option--highlighted]="i === highlightedIndex"
+      role="option"
+      [attr.aria-selected]="isSelected(option.value)"
+      (click)="toggleOption(option.value); $event.stopPropagation()"
+      (mouseenter)="highlightedIndex = i"
+    >
+      <span
+        class="ay-multi-select-check"
+        [class.ay-multi-select-check--checked]="isSelected(option.value)"
+      ></span>
+      {{ option.label }}
+    </div>
   </div>
-}
-@if (error()) {
-  <span class="ay-multi-select-error" [id]="errorId()">{{ error() }}</span>
-} @else if (helper()) {
-  <span class="ay-multi-select-helper" [id]="helperId()">{{ helper() }}</span>
-}
+</ng-container>
+<ng-container *ngIf="error; else multiSelectHelperTpl">
+  <span class="ay-multi-select-error" [id]="errorId">{{ error }}</span>
+</ng-container>
+<ng-template #multiSelectHelperTpl>
+  <span *ngIf="helper" class="ay-multi-select-helper" [id]="helperId">{{ helper }}</span>
+</ng-template>

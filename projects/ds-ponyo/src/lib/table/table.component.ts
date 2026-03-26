@@ -1,14 +1,14 @@
 import {
   Component,
-  input,
-  output,
-  signal,
-  computed,
-  contentChildren,
+  Input,
+  Output,
+  EventEmitter,
+  ContentChildren,
+  QueryList,
   TemplateRef,
   Directive,
 } from '@angular/core'
-import { NgTemplateOutlet } from '@angular/common';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { AyColumnDef, AySortDirection, AySortEvent } from './table.model'
 
 @Directive({
@@ -16,99 +16,99 @@ import { AyColumnDef, AySortDirection, AySortEvent } from './table.model'
   standalone: true,
 })
 export class AyCellDefDirective {
-  readonly column = input.required<string>({ alias: 'ayCellDef' })
+  @Input({ required: true, alias: 'ayCellDef' }) column!: string
   constructor(public templateRef: TemplateRef<unknown>) {}
 }
 
 @Component({
   selector: 'ay-table',
   standalone: true,
-  imports: [NgTemplateOutlet],
+  imports: [CommonModule, NgTemplateOutlet],
   host: {
     'class': 'ay-table-wrapper',
   },
   templateUrl: './table.component.html',
-  styleUrl: './table.component.scss',
+  styleUrls: ['./table.component.scss'],
 })
 export class AyTableComponent {
-  readonly columns = input.required<AyColumnDef[]>()
-  readonly data = input.required<Record<string, unknown>[]>()
-  readonly selectable = input<boolean>(false)
-  readonly trackByFn = input<(row: Record<string, unknown>) => unknown>(() => (row: Record<string, unknown>) => row)
+  @Input({ required: true }) columns!: AyColumnDef[]
+  @Input({ required: true }) data!: Record<string, unknown>[]
+  @Input() selectable: boolean = false
+  @Input() trackByFn: (index: number, row: Record<string, unknown>) => unknown = (index: number, row: Record<string, unknown>) => row
 
-  readonly sortChange = output<AySortEvent>()
-  readonly selectionChange = output<Record<string, unknown>[]>()
+  @Output() sortChange = new EventEmitter<AySortEvent>()
+  @Output() selectionChange = new EventEmitter<Record<string, unknown>[]>()
 
-  readonly sortColumn = signal<string | null>(null)
-  readonly sortDirection = signal<AySortDirection>(null)
-  readonly selectedRows = signal<Set<unknown>>(new Set())
+  sortColumn: string | null = null
+  sortDirection: AySortDirection = null
+  selectedRows: Set<unknown> = new Set()
 
-  readonly cellDefs = contentChildren(AyCellDefDirective)
+  @ContentChildren(AyCellDefDirective) cellDefs!: QueryList<AyCellDefDirective>
 
-  readonly allSelected = computed(() => {
-    const d = this.data()
-    return d.length > 0 && this.selectedRows().size === d.length
-  })
+  get allSelected(): boolean {
+    const d = this.data
+    return d.length > 0 && this.selectedRows.size === d.length
+  }
 
-  readonly someSelected = computed(() => {
-    const s = this.selectedRows().size
-    return s > 0 && s < this.data().length
-  })
+  get someSelected(): boolean {
+    const s = this.selectedRows.size
+    return s > 0 && s < this.data.length
+  }
 
   getCellTemplate(columnKey: string): TemplateRef<unknown> | null {
-    const def = this.cellDefs().find(d => d.column() === columnKey)
+    const def = this.cellDefs.toArray().find(d => d.column === columnKey)
     return def?.templateRef ?? null
   }
 
   getSortAria(columnKey: string): string | null {
-    if (this.sortColumn() !== columnKey) return null
-    return this.sortDirection() === 'asc' ? 'ascending' : 'descending'
+    if (this.sortColumn !== columnKey) return null
+    return this.sortDirection === 'asc' ? 'ascending' : 'descending'
   }
 
   toggleSort(columnKey: string): void {
-    if (this.sortColumn() === columnKey) {
+    if (this.sortColumn === columnKey) {
       const next: AySortDirection =
-        this.sortDirection() === 'asc' ? 'desc' :
-        this.sortDirection() === 'desc' ? null : 'asc'
-      this.sortDirection.set(next)
-      if (next === null) this.sortColumn.set(null)
+        this.sortDirection === 'asc' ? 'desc' :
+        this.sortDirection === 'desc' ? null : 'asc'
+      this.sortDirection = next
+      if (next === null) this.sortColumn = null
     } else {
-      this.sortColumn.set(columnKey)
-      this.sortDirection.set('asc')
+      this.sortColumn = columnKey
+      this.sortDirection = 'asc'
     }
     this.sortChange.emit({
-      column: this.sortColumn() ?? '',
-      direction: this.sortDirection(),
+      column: this.sortColumn ?? '',
+      direction: this.sortDirection,
     })
   }
 
   isRowSelected(row: Record<string, unknown>): boolean {
-    return this.selectedRows().has(this.trackByFn()(row))
+    return this.selectedRows.has(this.trackByFn(0, row))
   }
 
   toggleRow(row: Record<string, unknown>): void {
-    const key = this.trackByFn()(row)
-    const next = new Set(this.selectedRows())
+    const key = this.trackByFn(0, row)
+    const next = new Set(this.selectedRows)
     if (next.has(key)) {
       next.delete(key)
     } else {
       next.add(key)
     }
-    this.selectedRows.set(next)
+    this.selectedRows = next
     this.emitSelection()
   }
 
   toggleAll(): void {
-    if (this.allSelected()) {
-      this.selectedRows.set(new Set())
+    if (this.allSelected) {
+      this.selectedRows = new Set()
     } else {
-      this.selectedRows.set(new Set(this.data().map(r => this.trackByFn()(r))))
+      this.selectedRows = new Set(this.data.map(r => this.trackByFn(0, r)))
     }
     this.emitSelection()
   }
 
   private emitSelection(): void {
-    const selected = this.data().filter(r => this.selectedRows().has(this.trackByFn()(r)))
+    const selected = this.data.filter(r => this.selectedRows.has(this.trackByFn(0, r)))
     this.selectionChange.emit(selected)
   }
 }

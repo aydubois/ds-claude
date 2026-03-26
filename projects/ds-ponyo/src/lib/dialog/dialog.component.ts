@@ -1,13 +1,13 @@
 import {
   Component,
-  input,
-  output,
-  signal,
+  Input,
+  Output,
+  EventEmitter,
   ElementRef,
-  viewChild,
-  afterNextRender,
+  ViewChild,
   HostListener,
 } from '@angular/core'
+import { CommonModule } from '@angular/common';
 import { AyButtonComponent } from '../button/button.component'
 
 let nextId = 0
@@ -15,43 +15,37 @@ let nextId = 0
 @Component({
   selector: 'ay-dialog',
   standalone: true,
-  imports: [AyButtonComponent],
+  imports: [CommonModule, AyButtonComponent],
   host: {
     'class': 'ay-dialog-wrapper',
   },
   templateUrl: './dialog.component.html',
-  styleUrl: './dialog.component.scss',
+  styleUrls: ['./dialog.component.scss'],
 })
 export class AyDialogComponent {
   private readonly uid = nextId++
   private previouslyFocused: HTMLElement | null = null
 
-  readonly confirmLabel = input<string>('Confirmer')
-  readonly cancelLabel = input<string>('Annuler')
-  readonly confirmColor = input<'primary' | 'danger'>('primary')
-  readonly showConfirm = input<boolean>(true)
-  readonly showCancel = input<boolean>(true)
+  @Input() confirmLabel: string = 'Confirmer'
+  @Input() cancelLabel: string = 'Annuler'
+  @Input() confirmColor: 'primary' | 'danger' = 'primary'
+  @Input() showConfirm: boolean = true
+  @Input() showCancel: boolean = true
 
-  readonly open = signal(false)
-  readonly closed = output<void>()
-  readonly confirmed = output<void>()
-  readonly cancelled = output<void>()
+  open = false
+  @Output() closed = new EventEmitter<void>()
+  @Output() confirmed = new EventEmitter<void>()
+  @Output() cancelled = new EventEmitter<void>()
 
-  readonly dialogEl = viewChild<ElementRef<HTMLElement>>('dialogEl')
+  @ViewChild('dialogEl') dialogEl?: ElementRef<HTMLElement>
 
   readonly titleId = () => `ay-dialog-title-${this.uid}`
 
-  constructor() {
-    afterNextRender(() => {
-      // Focus trap setup handled in show()
-    })
-  }
-
   show(): void {
     this.previouslyFocused = document.activeElement as HTMLElement
-    this.open.set(true)
+    this.open = true
     setTimeout(() => {
-      const el = this.dialogEl()?.nativeElement
+      const el = this.dialogEl?.nativeElement
       if (el) {
         const firstFocusable = el.querySelector<HTMLElement>(
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -62,7 +56,7 @@ export class AyDialogComponent {
   }
 
   close(): void {
-    this.open.set(false)
+    this.open = false
     this.closed.emit()
     this.previouslyFocused?.focus()
   }
@@ -83,9 +77,9 @@ export class AyDialogComponent {
 
   @HostListener('keydown', ['$event'])
   onKeydown(event: KeyboardEvent): void {
-    if (!this.open() || event.key !== 'Tab') return
+    if (!this.open || event.key !== 'Tab') return
 
-    const el = this.dialogEl()?.nativeElement
+    const el = this.dialogEl?.nativeElement
     if (!el) return
 
     const focusables = el.querySelectorAll<HTMLElement>(

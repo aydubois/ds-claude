@@ -1,17 +1,17 @@
-@if (open()) {
+<ng-container *ngIf="open">
   <div class="ay-dialog-backdrop" (click)="onBackdropClick()">
     <div
       #dialogEl
       class="ay-dialog"
       role="dialog"
       [attr.aria-modal]="true"
-      [attr.aria-labelledby]="titleId()"
+      [attr.aria-labelledby]="titleId"
       (click)="$event.stopPropagation()"
       (keydown.escape)="close()"
     >
       <div class="ay-dialog-header">
-        <span [id]="titleId()">
-          <ng-content select="[ay-dialog-title]" />
+        <span [id]="titleId">
+          <ng-content select="[ay-dialog-title]"></ng-content>
         </span>
         <button
           class="ay-dialog-close"
@@ -21,22 +21,16 @@
         >&times;</button>
       </div>
       <div class="ay-dialog-body">
-        <ng-content />
+        <ng-content></ng-content>
       </div>
-      @if (showCancel() || showConfirm()) {
-        <div class="ay-dialog-footer">
-          @if (showCancel()) {
-            <button ay-button variant="outlined" color="primary" (click)="onCancel()">
-              {{ cancelLabel() }}
-            </button>
-          }
-          @if (showConfirm()) {
-            <button ay-button variant="filled" [color]="confirmColor()" (click)="onConfirm()">
-              {{ confirmLabel() }}
-            </button>
-          }
-        </div>
-      }
+      <div *ngIf="showCancel || showConfirm" class="ay-dialog-footer">
+        <button *ngIf="showCancel" ay-button variant="outlined" color="primary" (click)="onCancel()">
+          {{ cancelLabel }}
+        </button>
+        <button *ngIf="showConfirm" ay-button variant="filled" [color]="confirmColor" (click)="onConfirm()">
+          {{ confirmLabel }}
+        </button>
+      </div>
     </div>
   </div>
-}
+</ng-container>

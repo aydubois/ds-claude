@@ -1,11 +1,11 @@
 import {
   Component,
-  input,
-  output,
-  signal,
-  computed,
+  Input,
+  Output,
+  EventEmitter,
   forwardRef,
 } from '@angular/core'
+import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let nextId = 0
@@ -22,37 +22,37 @@ let nextId = 0
   ],
   host: {
     'class': 'ay-radio',
-    '[class.ay-radio--selected]': 'isSelected()',
-    '[class.ay-radio--disabled]': 'disabled()',
+    '[class.ay-radio--selected]': 'isSelected',
+    '[class.ay-radio--disabled]': 'disabled',
   },
   templateUrl: './radio.component.html',
-  styleUrl: './radio.component.scss',
+  styleUrls: ['./radio.component.scss'],
 })
 export class AyRadioComponent implements ControlValueAccessor {
   private readonly uid = nextId++
 
-  readonly value = input.required<string>()
-  readonly name = input<string>('')
-  readonly disabled = input<boolean>(false)
+  @Input({ required: true }) value!: string
+  @Input() name: string = ''
+  @Input() disabled: boolean = false
 
-  readonly selectedChange = output<string>()
+  @Output() selectedChange = new EventEmitter<string>()
 
-  readonly selectedValue = signal<string | null>(null)
-  readonly inputId = computed(() => `ay-radio-${this.uid}`)
-  readonly isSelected = computed(() => this.selectedValue() === this.value())
+  selectedValue: string | null = null
+  get inputId(): string { return `ay-radio-${this.uid}` }
+  get isSelected(): boolean { return this.selectedValue === this.value }
 
   private onChange: (value: string) => void = () => {}
   private onTouched: () => void = () => {}
 
   onInputChange(): void {
-    this.selectedValue.set(this.value())
-    this.onChange(this.value())
+    this.selectedValue = this.value
+    this.onChange(this.value)
     this.onTouched()
-    this.selectedChange.emit(this.value())
+    this.selectedChange.emit(this.value)
   }
 
   writeValue(value: string): void {
-    this.selectedValue.set(value)
+    this.selectedValue = value
   }
 
   registerOnChange(fn: (value: string) => void): void {
