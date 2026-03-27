@@ -42,6 +42,32 @@
     </div>
   </section>
 
+  <!-- ═══ Card ═══ -->
+  <section class="demo-section">
+    <h2 class="demo-section-title">Card</h2>
+    <div class="demo-row demo-row--top" style="gap: 1rem;">
+      <ay-card variant="outlined" style="width: 250px;">
+        <div ay-card-header>Outlined</div>
+        Contenu de la carte avec une bordure.
+        <div ay-card-footer>
+          <button ay-button variant="text" color="primary" size="sm">Action</button>
+        </div>
+      </ay-card>
+      <ay-card variant="elevated" style="width: 250px;">
+        <div ay-card-header>Elevated</div>
+        Contenu de la carte avec une ombre.
+      </ay-card>
+      <ay-card variant="flat" style="width: 250px;">
+        <div ay-card-header>Flat</div>
+        Contenu de la carte avec fond surface.
+      </ay-card>
+      <ay-card variant="outlined" [clickable]="true" style="width: 250px;">
+        <div ay-card-header>Clickable</div>
+        Survolez ou cliquez cette carte.
+      </ay-card>
+    </div>
+  </section>
+
   <!-- ═══ Buttons ═══ -->
   <section class="demo-section">
     <h2 class="demo-section-title">Button</h2>

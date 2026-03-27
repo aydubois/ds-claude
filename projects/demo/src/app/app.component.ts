@@ -29,6 +29,7 @@ import {
   AySegmentedMenuComponent,
   AyDatePickerComponent,
   AyNavigationRailComponent,
+  AyCardComponent,
 } from 'ds-ponyo';
 import type { AySelectOption, AyMultiSelectOption, AyColumnDef, AySegmentOption, AyNavRailItem } from 'ds-ponyo';
 
@@ -62,6 +63,7 @@ import type { AySelectOption, AyMultiSelectOption, AyColumnDef, AySegmentOption,
     AySegmentedMenuComponent,
     AyDatePickerComponent,
     AyNavigationRailComponent,
+    AyCardComponent,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

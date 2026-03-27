@@ -48,6 +48,9 @@ export { AyAccordionPanelComponent } from './lib/accordion/accordion-panel.compo
 export { AyIconComponent } from './lib/icon/icon.component';
 export { AY_ICONS } from './lib/icon/icons';
 
+// Card
+export { AyCardComponent } from './lib/card/card.component';
+
 // Spinner
 export { AySpinnerComponent } from './lib/spinner/spinner.component';
 
